@@ -39,6 +39,40 @@ fix: 修正資料庫連線錯誤
 docs: 更新 API 文件
 ```
 
+## Pull Request
+
+### PR Title Format (Angular Style)
+
+**使用英文，格式為：**
+
+```
+type(scope): brief description
+```
+
+**允許的 type：**
+- `feat`: 新功能 (New feature)
+- `fix`: 修復 bug (Bug fix)
+- `docs`: 文件更新 (Documentation)
+- `style`: 程式碼風格 (Code style)
+- `refactor`: 重構 (Refactoring)
+- `test`: 測試 (Tests)
+- `chore`: 維護性工作 (Maintenance)
+
+**範例：**
+```
+feat(auth): add JWT authentication
+fix(api): resolve memory leak in user service
+docs(readme): update installation guide
+refactor(core): simplify error handling logic
+```
+
+### PR 內容原則
+
+- **簡潔為主**：只寫重點，避免冗長說明
+- **中英並列**：重要資訊使用中英文對照
+- **條列式**：使用 bullet points，每點簡短明確
+- **必要資訊**：What（做了什麼）、Why（為什麼）、Testing（如何測試）
+
 ## File Structure
 
 <!-- TODO: Document the project's directory structure and organization -->

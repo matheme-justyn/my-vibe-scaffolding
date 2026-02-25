@@ -1,73 +1,57 @@
-## 變更說明
-<!-- 請簡潔地描述這個 PR 的變更內容 -->
+<!-- 
+PR Title Format (English only):
+  type(scope): brief description
+  
+  Examples:
+  - feat(auth): add JWT authentication
+  - fix(api): resolve memory leak in user service
+  - docs(readme): update installation guide
+  - refactor(core): simplify error handling logic
+-->
 
-### 變更類型
-<!-- 請勾選適用的項目 -->
-- [ ] 新功能 (feat)
-- [ ] Bug 修復 (fix)
-- [ ] 文件更新 (docs)
-- [ ] 重構 (refactor)
-- [ ] 測試 (test)
-- [ ] 其他維護性工作 (chore)
+## Type | 類型
+<!-- Check one -->
+- [ ] feat - New feature | 新功能
+- [ ] fix - Bug fix | 修復問題
+- [ ] docs - Documentation | 文件更新
+- [ ] style - Code style (formatting, semicolons, etc) | 程式碼風格
+- [ ] refactor - Code refactoring | 重構
+- [ ] test - Tests | 測試
+- [ ] chore - Maintenance | 維護性工作
 
-## 相關 Issue
-<!-- 如果這個 PR 解決了某個 issue，請在此列出 -->
-Closes #(issue number)
+## What | 做了什麼
+<!-- Brief description in English and Chinese -->
 
-## 變更細節
-<!-- 詳細說明你做了哪些變更 -->
-- 變更一：...
-- 變更二：...
-- 變更三：...
+**EN:**
+- 
 
-## 測試方式
-<!-- 描述如何測試這些變更 -->
-### 測試步驟
-1. 步驟一：...
-2. 步驟二：...
-3. 步驟三：...
+**ZH:**
+- 
 
-### 測試環境
-- 作業系統：...
-- 瀏覽器/執行環境：...
-- 相關版本：...
+## Why | 為什麼
+<!-- Reason for this change -->
 
-## 截圖或錄影
-<!-- 如果適用，請提供截圖或錄影來展示變更 -->
+**EN:**
 
-## Checklist
-<!-- 請確認以下項目 -->
-- [ ] 我的程式碼遵循專案的編碼規範（參考 AGENTS.md）
-- [ ] 我已經執行過測試，所有測試都通過
-- [ ] 我已經新增了必要的測試來覆蓋我的變更
-- [ ] 我已經更新了相關文件（如果需要）
-- [ ] 我的變更不會產生新的警告或錯誤
-- [ ] 所有函數都有適當的 docstring 和型別標注
-- [ ] Commit message 使用繁體中文並遵循格式規範
 
-## Breaking Changes
-<!-- 這個 PR 是否包含 breaking changes？ -->
-- [ ] 是，這個 PR 包含 breaking changes
-- [ ] 否，這是向後相容的變更
+**ZH:**
 
-### Breaking Changes 說明
-<!-- 如果有 breaking changes，請詳細說明 -->
 
-## 效能影響
-<!-- 這個變更是否會影響效能？ -->
-- [ ] 無影響
-- [ ] 效能提升
-- [ ] 效能下降（請說明原因和權衡）
+## Related Issue | 相關 Issue
+<!-- If applicable -->
+Closes #
 
-## 部署注意事項
-<!-- 部署這個 PR 時需要注意什麼？ -->
-- [ ] 需要更新環境變數
-- [ ] 需要執行資料庫遷移
-- [ ] 需要更新依賴套件
-- [ ] 無特殊注意事項
+## Testing | 測試
+<!-- How to verify this change -->
 
-### 部署指示
-<!-- 如果有特殊部署需求，請詳細說明 -->
+**EN:**
 
-## 額外資訊
-<!-- 任何其他重要資訊 -->
+
+**ZH:**
+
+
+## Checklist | 檢查清單
+- [ ] Tests pass | 測試通過
+- [ ] Code follows style guide (see AGENTS.md) | 遵循編碼規範
+- [ ] Documentation updated | 文件已更新
+- [ ] No breaking changes (or documented) | 無 breaking changes（或已記錄）

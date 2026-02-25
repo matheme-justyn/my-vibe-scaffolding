@@ -1,10 +1,52 @@
+<div align="center">
+
+<img src="./assets/images/20260225_vibe-scaffolding-logo.png" alt="Vibe Scaffolding Logo" width="400"/>
+
 # My Vibe Coding Template
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](./VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 
-這是我的個人 vibe coding 專案模板，主要使用 [OpenCode](https://github.com/OpenCodeProject/opencode) 作為 AI 協作工具。
+
+</div>
+
+---
+
+## 🏛️ 理念與靈感 | Concept & Inspiration
+
+<div align="center">
+<img src="./assets/images/20260225_vibe-scaffolding-illustration-american.png" alt="American Style Illustration" width="300"/>
+<img src="./assets/images/20260225_vibe-scaffolding-illustration-japanese.png" alt="Japanese Style Illustration" width="300"/>
+</div>
+
+### Vygotsky 的鷹架理論 | Vygotsky's Scaffolding Theory
+
+心理學家 Lev Vygotsky 提出的 **鷹架理論**：透過暫時性的支持結構，幫助學習者從當前能力提升到潛在發展區（ZPD）。一旦學習者成長，鷹架就逐步拆除。
+
+**Scaffolding theory** by psychologist Lev Vygotsky: temporary support structures help learners progress from current capability to their Zone of Proximal Development (ZPD). Once learners grow, the scaffolding is gradually removed.
+
+### Vibe Coding = 程式開發的鷹架
+
+**Vibe Coding 就是這種概念的實踐：**
+
+- 🪧 **AI 作為鷹架** — 快速建立專案骨架、遵循最佳實踐
+- 🛠️ **模板作為結構** — 精心設計的檔案結構、編碼規範、工作流程
+- 📈 **逐步成長** — 客製化模板、調整規範、形成自己的風格
+- 🔄 **可拆除性** — 不再需要時可自由拆除或修改
+
+**Vibe Coding embodies this concept:**
+
+- 🪧 **AI as Scaffolding** — Build foundations quickly, follow best practices
+- 🛠️ **Template as Structure** — Pre-designed files, conventions, workflows
+- 📈 **Progressive Growth** — Customize, adjust, develop your own style
+- 🔄 **Removability** — Remove or modify when no longer needed
+
+這是一個 **成長式的學習與開發框架**，在 AI 輔助下逐步提升開發技能。
+
+A **growth-oriented learning and development framework** that progressively improves your development skills with AI assistance.
+
+---
 
 ## 🚀 使用方式
 

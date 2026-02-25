@@ -4,7 +4,7 @@
 
 # My Vibe Coding Template
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](./VERSION)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](./VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 

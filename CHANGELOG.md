@@ -7,55 +7,83 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-02-25
+
+### Added
+- **LICENSE**: MIT License for open source distribution
+- **CONTRIBUTING.md**: Contribution guidelines (no PRs accepted, issues welcome)
+- **SECURITY.md**: Security policy and vulnerability reporting guidelines
+- **ADR Examples**: Three comprehensive Architecture Decision Record templates:
+  - `docs/adr/0002-example-tech-stack-selection.md` - Technology stack selection example
+  - `docs/adr/0003-example-api-design-principles.md` - API design principles example
+  - `docs/adr/0004-example-testing-strategy.md` - Testing strategy example
+- **Visual Branding**: Logo and illustration assets
+  - `assets/images/20260225_vibe-scaffolding-logo.png` - Primary logo
+  - `assets/images/20260225_vibe-scaffolding-illustration-american.png` - American style illustration
+  - `assets/images/20260225_vibe-scaffolding-illustration-japanese.png` - Japanese style illustration
+
+### Changed
+- **CHANGELOG.md**: Converted to English for international accessibility
+- **README.md**: Added Vygotsky's scaffolding theory explanation and visual branding
+- **PR Template**: Simplified to Angular style with bilingual (EN/ZH) format
+
+### Documentation
+- Enhanced README with concept explanation inspired by Vygotsky's scaffolding theory
+- Added comprehensive ADR examples covering different decision types
+- Clarified contribution policy (clone/fork encouraged, PRs not accepted)
+
+
 ## [1.0.0] - 2026-02-25
 
 ### Added
-- 初始版本發布
-- 建立專案模板骨架，包含以下檔案：
-  - `AGENTS.md` - OpenCode AI agent 指令文件
-  - `README.md` - 專案說明文件
-  - `.gitignore` - Git 忽略規則
-  - `.editorconfig` - 編輯器統一設定
-  - `.env.example` - 環境變數範例
-  - `opencode.json` - OpenCode 專案設定
-- GitHub Templates：
-  - `.github/ISSUE_TEMPLATE/bug_report.md` - Bug 回報模板
-  - `.github/ISSUE_TEMPLATE/feature_request.md` - 功能請求模板
-  - `.github/pull_request_template.md` - Pull Request 模板
-  - `.github/workflows/ci-placeholder.yml` - CI workflow 佔位檔案
-- 文件：
-  - `docs/adr/0001-record-architecture-decisions.md` - ADR 首個範例
-- 版本管理：
-  - `VERSION` - 版本號檔案
-  - `CHANGELOG.md` - 版本變更記錄
-  - `TEMPLATE_SYNC.md` - 模板同步指南
+- Initial release of vibe coding template
+- Core configuration files:
+  - `AGENTS.md` - OpenCode AI agent instructions
+  - `README.md` - Project documentation
+  - `.gitignore` - Git ignore rules
+  - `.editorconfig` - Editor configuration
+  - `.env.example` - Environment variables example
+  - `opencode.json` - OpenCode project configuration
+- GitHub Templates:
+  - `.github/ISSUE_TEMPLATE/bug_report.md` - Bug report template
+  - `.github/ISSUE_TEMPLATE/feature_request.md` - Feature request template
+  - `.github/pull_request_template.md` - Pull request template (Angular style)
+  - `.github/workflows/ci-placeholder.yml` - CI workflow placeholder
+- Documentation:
+  - `docs/adr/0001-record-architecture-decisions.md` - First ADR example
+- Version management:
+  - `VERSION` - Version number file
+  - `CHANGELOG.md` - Version changelog
+  - `TEMPLATE_SYNC.md` - Template synchronization guide
+  - `scripts/bump-version.sh` - Version management script
 
-### 編碼規範
-- 永遠先寫測試（TDD）
-- 所有函數要有 docstring 和型別標注
-- 避免過度工程化
-- Commit message 使用繁體中文
+### Coding Conventions
+- Test-driven development (TDD) approach
+- All functions require docstrings and type annotations
+- Avoid over-engineering
+- Commit messages in Traditional Chinese
 
-### 版本管理
-- 採用語意化版本（Semantic Versioning 2.0.0）
-- 使用 Git tags 標記版本
-- 提供模板同步機制，讓舊專案可以引入新版本的變更
+### Version Management
+- Semantic Versioning 2.0.0
+- Git tags for version marking
+- Template sync mechanism for updating existing projects
 
 ---
 
-## 版本號規則
+## Version Rules
 
-遵循 [語意化版本 2.0.0](https://semver.org/lang/zh-TW/)：
+Following [Semantic Versioning 2.0.0](https://semver.org/):
 
-- **MAJOR 版本**（X.0.0）：不相容的 API 變更、重大架構調整
-- **MINOR 版本**（0.X.0）：向下相容的新增功能
-- **PATCH 版本**（0.0.X）：向下相容的問題修正、文件更新
+- **MAJOR version** (X.0.0): Incompatible API changes, major architectural adjustments
+- **MINOR version** (0.X.0): Backward-compatible new features
+- **PATCH version** (0.0.X): Backward-compatible bug fixes, documentation updates
 
-### 範例
+### Examples
 
-- `1.0.0` → `1.0.1`：修正文件錯字、更新 .gitignore
-- `1.0.0` → `1.1.0`：新增 Docker 支援、新增測試框架設定
-- `1.0.0` → `2.0.0`：改變專案結構、移除某些檔案
+- `1.0.0` → `1.0.1`: Fix documentation typos, update .gitignore
+- `1.0.0` → `1.1.0`: Add Docker support, add testing framework configuration
+- `1.0.0` → `2.0.0`: Change project structure, remove certain files
 
-[Unreleased]: https://github.com/matheme-justyn/my-vibe-scaffolding/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/matheme-justyn/my-vibe-scaffolding/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/matheme-justyn/my-vibe-scaffolding/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/matheme-justyn/my-vibe-scaffolding/releases/tag/v1.0.0

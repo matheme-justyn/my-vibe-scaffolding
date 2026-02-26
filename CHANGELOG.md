@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.3] - 2026-02-26
+
+### Changed
+- **README Quick Install**: Fixed bilingual format - code blocks appear only once (not duplicated for each language)
+  - Chinese description + English description + Code block (once)
+  - Comments in code blocks are bilingual where appropriate
+
+
 ## [1.5.2] - 2026-02-26
 
 ### Changed

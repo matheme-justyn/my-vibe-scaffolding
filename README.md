@@ -78,24 +78,6 @@ _Choose open, composable, community-driven tools over closed commercial solution
 
 在 OpenCode/Cursor/Claude 對話中貼上：
 
-```
-my-vibe-scaffolding (scaffolding template)
-Install and configure my-vibe-scaffolding by following the instructions here:
-https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.opencode/INSTALL.md
-```
-
-### 方式 2：手動安裝
-
-```bash
-# 1. GitHub 點擊 "Use this template" → Clone 專案
-# 2. 初始化專案
-./.template/scripts/init-project.sh
-```
-
-詳細說明：[INSTALL.md](./.opencode/INSTALL.md)
-
-## Quick Install
-
 ### Option 1: AI Assistant Install (Recommended)
 
 Paste this in OpenCode/Cursor/Claude chat:
@@ -106,14 +88,19 @@ Install and configure my-vibe-scaffolding by following the instructions here:
 https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.opencode/INSTALL.md
 ```
 
+### 方式 2：手動安裝
+
 ### Option 2: Manual Install
 
 ```bash
+# 1. GitHub 點擊 "Use this template" → Clone 專案
 # 1. Click "Use this template" on GitHub → Clone project
+# 2. 初始化專案
 # 2. Initialize project
 ./.template/scripts/init-project.sh
 ```
 
+詳細說明：[INSTALL.md](./.opencode/INSTALL.md)  
 For details: [INSTALL.md](./.opencode/INSTALL.md)
 
 ---

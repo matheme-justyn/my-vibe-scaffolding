@@ -78,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Documentation:
   - `.template/docs/adr/0001-record-architecture-decisions.md` - First ADR example
 - Version management:
-  - `VERSION` - Version number file
+  - `.template/VERSION` - Scaffolding version number file
   - `CHANGELOG.md` - Version changelog
   - `.template/docs/TEMPLATE_SYNC.md` - Template synchronization guide
   - `.template/scripts/bump-version.sh` - Version management script

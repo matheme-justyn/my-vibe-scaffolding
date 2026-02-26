@@ -4,7 +4,7 @@
 
 # My Vibe Coding Template
 
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](./VERSION)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](./.template/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 
@@ -64,7 +64,7 @@ A **growth-oriented learning and development framework** that progressively impr
 - **`.gitignore`** - 通用的 Git 忽略規則，包含常見的 OS、編輯器和語言 artifacts
 - **`.editorconfig`** - 統一的編輯器設定（縮排、編碼、換行符等）
 - **`.env.example`** - 環境變數範例檔案，提供設定結構但不含真實值
-- **`VERSION`** - 當前模板版本號（語意化版本）
+- **`.template/VERSION`** - 當前鷹架版本號（語意化版本）
 - **`CHANGELOG.md`** - 版本變更歷史記錄
 - **`.template/docs/TEMPLATE_SYNC.md`** - 模板更新同步指南
 
@@ -203,7 +203,7 @@ For detailed language configuration instructions and best practices, refer to th
 
 此模板採用 [語意化版本 2.0.0](https://semver.org/lang/zh-TW/) 進行版本管理。
 
-- **查看當前版本**：`cat VERSION`
+- **查看當前版本**：`cat .template/VERSION`
 - **查看版本歷史**：參閱 [CHANGELOG.md](./CHANGELOG.md)
 - **同步模板更新**：參閱 [.template/docs/TEMPLATE_SYNC.md](./.template/docs/TEMPLATE_SYNC.md)
 

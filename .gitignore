@@ -135,3 +135,10 @@ Cargo.lock
 doc/
 # OpenCode
 .opencode/sessions/
+
+# OpenCode 專案級資料庫（不要 commit）
+.opencode-data/
+
+
+# 工作日誌（不 commit）
+.worklog/

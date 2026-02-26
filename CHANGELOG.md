@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **README Simplification**: Drastically simplified README to focus on core message
+  - What is this scaffolding
+  - Core features (bullet points)
+  - Vibe Coding tech stack choices
+  - Quick installation (one-line AI command)
+  - Removed detailed sections (moved to INSTALL.md and .template/docs/)
+
+
 ## [1.5.0] - 2026-02-26
 
 ### Added

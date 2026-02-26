@@ -7,6 +7,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-02-26
+
+### Added
+- **Intelligent Conflict Analysis** (`.template/scripts/analyze-conflicts.sh`)
+  - Pre-merge analysis of file differences between project and scaffolding
+  - Automatic categorization into 5 categories:
+    - Category 1: Must rewrite (following scaffolding guides)
+    - Category 2: Direct import/overwrite (e.g., AGENTS.md replaces CLAUDE.md)
+    - Category 3: Can convert to new format (merge/convert)
+    - Category 4: Project is better, keep yours
+    - Category 5: New files from scaffolding
+  - Generates detailed markdown report with file-by-file recommendations
+  - Execution suggestions with bash commands
+  - Backup strategy before integration
+
+### Changed
+- **INSTALL.md Option 2**: Complete rewrite with conflict analysis workflow
+  - Added AI-assisted integration section
+  - Added manual integration with analysis report
+  - Clear categorization of conflict resolution strategies
+  - Emphasis: CLAUDE.md → AGENTS.md is replacement, not choice
+
+### Improved
+- Integration workflow now intelligence-driven, not guesswork
+- Users can make informed decisions based on categorized analysis
+- Reduced manual conflict resolution effort
+
+
 ## [1.5.4] - 2026-02-26
 
 ### Changed

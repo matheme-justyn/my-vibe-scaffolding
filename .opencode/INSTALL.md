@@ -36,13 +36,42 @@ Choose the appropriate method based on your needs:
 
 ⚠️ **Warning**: This will add/overwrite files. Commit your work first!
 
+#### Recommended: AI-Assisted Integration
+
+**Let AI analyze conflicts and guide you through the integration:**
+
+Paste this in OpenCode/Cursor/Claude chat:
+
+```
+I'm integrating my-vibe-scaffolding into an existing project.
+Please follow these steps:
+
+1. Run: ./.template/scripts/analyze-conflicts.sh
+2. Read the generated conflict report (.scaffolding-analysis/conflict-report.md)
+3. Help me resolve conflicts based on the report categories:
+   - Category 1 (🔄 Must Rewrite): Rewrite following scaffolding guides
+   - Category 2 (⬇️ Direct Import): Use scaffolding version (e.g., AGENTS.md replaces CLAUDE.md)
+   - Category 3 (🔧 Convert): Merge/convert to scaffolding format
+   - Category 4 (✅ Keep Yours): Keep project's version
+   - Category 5 (➕ New Files): Import scaffolding's new files
+```
+
+#### Manual Integration
+
 1. **Add as Remote**:
    ```bash
    git remote add scaffolding https://github.com/matheme-justyn/my-vibe-scaffolding.git
    git fetch scaffolding
    ```
 
-2. **Merge Scaffolding** (interactive):
+2. **Run Conflict Analysis** (Recommended):
+   ```bash
+   ./.template/scripts/analyze-conflicts.sh
+   ```
+   
+   This generates a detailed report categorizing all conflicts.
+
+3. **Merge Scaffolding** (interactive):
    ```bash
    # Create a branch for the merge
    git checkout -b integrate-scaffolding
@@ -51,13 +80,26 @@ Choose the appropriate method based on your needs:
    git merge scaffolding/main --allow-unrelated-histories
    ```
 
-3. **Resolve Conflicts**:
-   - Keep your existing `README.md`, `LICENSE`, `CONTRIBUTING.md` (your project's)
-   - Keep scaffolding's `.template/` directory (new infrastructure)
-   - Keep scaffolding's `AGENTS.md` if you don't have one, or merge
-   - Keep scaffolding's `config.toml.example` as reference
+4. **Resolve Conflicts** (based on analysis report):
 
-4. **Configure for Your Project**:
+   **Category 1: Must Rewrite 🔄**
+   - `CONTRIBUTING.md` → Rewrite following `.template/docs/PROJECT_CONTRIBUTING_GUIDE.md`
+   - `SECURITY.md` → Rewrite following `.template/docs/PROJECT_SECURITY_GUIDE.md`
+
+   **Category 2: Direct Import ⬇️**
+   - `CLAUDE.md` → **Delete**, use `AGENTS.md` instead
+   - `.cursor/` → **Optional**: Delete or keep as reference
+   - `.template/` → Import all scaffolding infrastructure
+
+   **Category 3: Convert 🔧**
+   - `.gitignore` → Merge both versions
+   - `VERSION` → Keep project version, scaffolding version goes to `.template-version`
+
+   **Category 4: Keep Yours ✅**
+   - `README.md` → Keep project's (optional: improve with `.template/docs/README_GUIDE.md`)
+   - `LICENSE` → Keep project's
+
+5. **Configure for Your Project**:
    ```bash
    # Set mode to project (not scaffolding)
    cp config.toml.example config.toml
@@ -67,7 +109,7 @@ Choose the appropriate method based on your needs:
    ./.template/scripts/install-hooks.sh
    ```
 
-5. **Commit and Continue**:
+6. **Commit and Continue**:
    ```bash
    git add -A
    git commit -m "chore: integrate my-vibe-scaffolding template"

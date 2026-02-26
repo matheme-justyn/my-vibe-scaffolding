@@ -25,6 +25,10 @@ Desktop.ini
 .env.local
 .env.*.local
 
+# Project Configuration
+# Personal preferences - each user can set their own
+config.toml
+
 # Python
 __pycache__/
 *.py[cod]

@@ -80,6 +80,64 @@ A **growth-oriented learning and development framework** that progressively impr
 
 - **`docs/adr/0001-record-architecture-decisions.md`** - 架構決策記錄（ADR）的首個範例，說明為何使用 ADR
 
+## 🌏 語言支援 | Language Support
+
+### 💻 程式語言支援 | Programming Language Support
+
+**位置 | Location:** `languages/` directory
+
+此模板包含多種**程式語言**的開發環境配置模組，每個模組包含該語言的工具鏈、linter、formatter 和最佳實踐。
+
+This template includes development environment configuration modules for multiple **programming languages**, each containing the language's toolchain, linters, formatters, and best practices.
+
+**支援的程式語言 | Supported Programming Languages:**
+- **Go** - golangci-lint, Makefile, go.mod
+- **Python** - pyproject.toml, .python-version
+- **TypeScript** - tsconfig.json, ESLint, package.json
+- **Rust** - Cargo.toml, rust-toolchain.toml
+
+詳細使用方式請參考「🌐 語言支援」章節。
+
+For detailed usage, see the "🌐 語言支援" section below.
+
+### 🌐 自然語言支援 (i18n) | Natural Language Support (i18n)
+
+**位置 | Location:** `i18n/` directory
+**標準 | Standard:** **BCP 47 (RFC 5646)** - IETF Language Tags
+
+此模板支援多種**自然語言** (human languages) 的文件和模板自訂，使用 BCP 47 語言標籤進行精確的語言識別。
+
+This template supports multiple **natural languages** (human languages) for documentation and templates, using BCP 47 language tags for precise language identification.
+
+**BCP 47 語言標籤示例 | BCP 47 Language Tag Examples:**
+- `zh-TW` - 台灣繁體中文 (Traditional Chinese, Taiwan)
+- `zh-HK` - 香港繁體中文 (Traditional Chinese, Hong Kong)
+- `zh-CN` - 簡體中文 (Simplified Chinese, China)
+- `en-US` - 美式英語 (English, United States)
+- `en-GB` - 英式英語 (English, United Kingdom)
+- `ja-JP` - 日文 (Japanese, Japan)
+
+**使用場景 | Use Cases:**
+每個使用此模板的人可以設定自己偏好的自然語言，將 AGENTS.md、README、GitHub 模板等切換成該語言，而程式碼保持英文，確保團隊協作無障礙。
+
+Each user can set their preferred natural language to switch AGENTS.md, README, GitHub templates, etc. to that language, while code remains in English to ensure seamless team collaboration.
+
+**可用語系 | Available Locales:**
+- ✅ `en-US` - English (US) - Base language
+- ✅ `zh-TW` - Traditional Chinese (Taiwan)
+- 🔜 `zh-HK` - Traditional Chinese (Hong Kong) - Planned
+- 🔜 `zh-CN` - Simplified Chinese (China) - Planned
+- 🔜 `ja-JP` - Japanese (Japan) - Planned
+
+詳細設定請參考 [`i18n/README.md`](./i18n/README.md)。
+
+For detailed setup, see [`i18n/README.md`](./i18n/README.md).
+
+**參考標準 | Reference Standard:**
+- [BCP 47 / RFC 5646 - Tags for Identifying Languages](https://www.rfc-editor.org/rfc/rfc5646.html)
+- [IANA Language Subtag Registry](https://www.iana.org/assignments/language-subtag-registry)
+- [W3C Language Tags in HTML and XML](https://www.w3.org/International/articles/language-tags/)
+
 ## 🌐 語言支援 | Language Support
 
 ### 開箱即用支援 | Out-of-the-box Support

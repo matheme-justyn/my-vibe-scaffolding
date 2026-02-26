@@ -1,0 +1,73 @@
+# Vibe Scaffolding Configuration
+# Copy this file to config.toml and customize for your workspace
+
+# ==============================================================================
+# Internationalization (i18n) - Natural Language Support
+# ==============================================================================
+# Uses BCP 47 language tags (RFC 5646)
+# See: https://www.rfc-editor.org/rfc/rfc5646.html
+#
+# Available locales:
+#   - en-US: English (United States) - Default, always available in Git
+#   - zh-TW: Traditional Chinese (Taiwan) - Available in Git
+#   - zh-HK: Traditional Chinese (Hong Kong) - Future
+#   - zh-CN: Simplified Chinese (China) - Future
+#   - ja-JP: Japanese (Japan) - Future
+#   - en-GB: English (United Kingdom) - Future
+
+[i18n]
+# Your preferred natural language for documentation and templates
+# This determines which i18n/locales/{lang}/ directory to use for:
+#   - AGENTS.md coding conventions and commit message format
+#   - README.md section descriptions
+#   - GitHub issue/PR templates
+#   - ADR (Architecture Decision Record) templates
+primary_locale = "zh-TW"
+
+# Fallback language if translation is missing
+# Should always be "en-US" (the base language committed to Git)
+fallback_locale = "en-US"
+
+# Which locales to commit to Git repository
+# Recommended: Only commit en-US (base) and your team's primary language
+# Other locales can be generated locally or added later
+commit_locales = ["en-US", "zh-TW"]
+
+# Translation workflow settings (if you're doing translation work)
+[i18n.translation]
+# Enable translation mode (shows missing keys, validates completeness)
+enabled = false
+
+# Source language for translation work
+source_lang = "zh-TW"
+
+# Target languages you're working on
+target_langs = ["en-US", "ja-JP"]
+
+# Validation: ensure all keys exist in all enabled locales
+strict_validation = false
+
+# ==============================================================================
+# Programming Languages Configuration (Future)
+# ==============================================================================
+# Preferences for programming language modules in languages/ directory
+# Currently manual - copy configs from languages/{lang}/ as needed
+
+[languages]
+# Your primary programming languages for this project
+# This is informational only - helps document the project's tech stack
+primary = []  # e.g., ["go", "python", "typescript"]
+
+# Whether to include language-specific .gitignore patterns by default
+# Currently manual - use: cat languages/{lang}/.gitignore >> .gitignore
+auto_merge_gitignore = false
+
+# ==============================================================================
+# Project Metadata (Future)
+# ==============================================================================
+# Project information that could be used by tools or documentation generators
+
+[project]
+# name = "my-project"
+# description = "Project description"
+# version = "0.1.0"

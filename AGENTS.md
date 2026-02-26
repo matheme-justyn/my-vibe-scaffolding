@@ -144,3 +144,55 @@ This allows each team member to use their preferred language locally while maint
 For detailed information, see [`i18n/README.md`](./i18n/README.md).
 
 **Reference:** [RFC 5646 - Language Tags](https://www.rfc-editor.org/rfc/rfc5646.html)
+
+
+## Documentation Standards
+
+**CRITICAL: All AI agents MUST follow these rules when creating or modifying documentation.**
+
+### Core Principles
+
+1. **Read First**: Before creating ANY new document, check [`docs/DOCUMENTATION_GUIDELINES.md`](./docs/DOCUMENTATION_GUIDELINES.md)
+2. **Root Level Simplicity**: Keep root directory minimal (only core files)
+3. **No Intermediate Files**: No `GET_STARTED.md`, `TASK_*.md`, etc.
+4. **Template vs Project**: Distinguish framework docs from project-specific docs
+
+### Required Reading
+
+- **[`docs/DOCUMENTATION_GUIDELINES.md`](./docs/DOCUMENTATION_GUIDELINES.md)** - File organization standards (MUST READ)
+- **[`docs/README_GUIDE.md`](./docs/README_GUIDE.md)** - How to write project README when using this template
+- **[`TEMPLATE_SYNC.md`](./TEMPLATE_SYNC.md)** - How to sync template updates
+
+### When Creating Documents
+
+**Ask yourself:**
+1. Is this core functionality? → `docs/` or `docs/adr/`
+2. Is this temporary? → Use `.worklog/` (gitignored) or don't create
+3. Is this tool-specific? → Belongs in tool's own docs, not project root
+4. Is this already documented? → Update existing file instead
+
+### File Placement Rules
+
+| File Type | Location | Example |
+|-----------|----------|---------|
+| Architecture decisions | `docs/adr/NNNN-*.md` | `0005-single-instance-opencode.md` |
+| Core documentation | `docs/*.md` | `DOCUMENTATION_GUIDELINES.md` |
+| Work logs (personal) | `.worklog/YYYY-MM-DD.md` | Gitignored, daily files |
+| Tool usage guides | Tool's own README | `scripts/wl` → usage in `--help` |
+
+**❌ NEVER create:**
+- Root-level intermediate files (GET_STARTED, TASK_COMPLETION, etc.)
+- Problem-specific guides (OPENCODE_STABILITY, etc.)
+- Tool tutorials as separate docs
+
+### Version Management
+
+**For template maintainers:**
+- Update version: `./scripts/bump-version.sh`
+- Current version: `cat VERSION`
+- Always update `CHANGELOG.md` when bumping version
+
+**For template users:**
+- After "Use this template": run `./scripts/init-project.sh`
+- This creates `.template-version` to track which template version you're using
+- See [`docs/README_GUIDE.md`](./docs/README_GUIDE.md) for project README guidance

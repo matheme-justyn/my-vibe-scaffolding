@@ -142,3 +142,7 @@ doc/
 
 # 工作日誌（不 commit）
 .worklog/
+
+
+# 模板版本追蹤（從模板建立專案時記錄）
+.template-version

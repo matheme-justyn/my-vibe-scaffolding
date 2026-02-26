@@ -8,13 +8,13 @@ echo "=============="
 echo ""
 
 # 檢查是否在專案根目錄
-if [ ! -f "VERSION" ]; then
+if [ ! -f ".template/VERSION" ]; then
     echo "❌ 錯誤：請在專案根目錄執行此腳本"
     exit 1
 fi
 
 # 讀取模板版本
-TEMPLATE_VERSION=$(cat VERSION)
+TEMPLATE_VERSION=$(cat .template/VERSION)
 
 # 收集專案資訊
 read -p "專案名稱: " PROJECT_NAME
@@ -43,8 +43,8 @@ echo "✅ 已建立 .template-version"
 
 # 2. 備份原始 README
 if [ -f "README.md" ]; then
-    mv README.md docs/TEMPLATE_README.md.backup
-    echo "✅ 已備份模板 README → docs/TEMPLATE_README.md.backup"
+    mv README.md .template/.template/docs/TEMPLATE_README.md.backup
+    echo "✅ 已備份模板 README → .template/docs/TEMPLATE_README.md.backup"
 fi
 
 # 3. 建立新的 README
@@ -121,7 +121,7 @@ MIT License - 詳見 [LICENSE](./LICENSE)
 
 **基於**: [my-vibe-scaffolding](https://github.com/matheme-justyn/my-vibe-scaffolding) v${TEMPLATE_VERSION}
 
-更多關於 README 撰寫的指引，請參考 [docs/README_GUIDE.md](./docs/README_GUIDE.md)
+更多關於 README 撰寫的指引，請參考 [.template/docs/README_GUIDE.md](./.template/docs/README_GUIDE.md)
 EOF
 
 echo "✅ 已建立新的 README.md"
@@ -133,7 +133,7 @@ echo "✅ 已設定專案版本為 0.1.0"
 # 5. 清理範例 ADR（可選）
 read -p "要刪除範例 ADR 嗎？(建議保留 0001) (y/N): " del_adr
 if [[ $del_adr =~ ^[Yy]$ ]]; then
-    rm -f docs/adr/0002-example-*.md docs/adr/0003-example-*.md docs/adr/0004-example-*.md
+    rm -f .template/docs/adr/0002-example-*.md docs/adr/0003-example-*.md docs/adr/0004-example-*.md
     echo "✅ 已刪除範例 ADR（保留 0001）"
 fi
 
@@ -150,7 +150,7 @@ echo "   5. 初始化專案程式碼"
 echo "   6. git commit -m \"chore: initialize project from template v${TEMPLATE_VERSION}\""
 echo ""
 echo "📚 參考文件："
-echo "   - docs/README_GUIDE.md - README 撰寫指引"
-echo "   - docs/DOCUMENTATION_GUIDELINES.md - 文件組織規範"
+echo "   - .template/docs/README_GUIDE.md - README 撰寫指引"
+echo "   - .template/docs/DOCUMENTATION_GUIDELINES.md - 文件組織規範"
 echo "   - TEMPLATE_SYNC.md - 模板同步指南"
 echo ""

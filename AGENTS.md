@@ -152,15 +152,15 @@ For detailed information, see [`i18n/README.md`](./i18n/README.md).
 
 ### Core Principles
 
-1. **Read First**: Before creating ANY new document, check [`docs/DOCUMENTATION_GUIDELINES.md`](./docs/DOCUMENTATION_GUIDELINES.md)
+1. **Read First**: Before creating ANY new document, check [`.template/docs/DOCUMENTATION_GUIDELINES.md`](./.template/docs/DOCUMENTATION_GUIDELINES.md)
 2. **Root Level Simplicity**: Keep root directory minimal (only core files)
 3. **No Intermediate Files**: No `GET_STARTED.md`, `TASK_*.md`, etc.
 4. **Template vs Project**: Distinguish framework docs from project-specific docs
 
 ### Required Reading
 
-- **[`docs/DOCUMENTATION_GUIDELINES.md`](./docs/DOCUMENTATION_GUIDELINES.md)** - File organization standards (MUST READ)
-- **[`docs/README_GUIDE.md`](./docs/README_GUIDE.md)** - How to write project README when using this template
+- **[`.template/docs/DOCUMENTATION_GUIDELINES.md`](./.template/docs/DOCUMENTATION_GUIDELINES.md)** - File organization standards (MUST READ)
+- **[`.template/docs/README_GUIDE.md`](./.template/docs/README_GUIDE.md)** - How to write project README when using this template
 - **[`TEMPLATE_SYNC.md`](./TEMPLATE_SYNC.md)** - How to sync template updates
 
 ### When Creating Documents
@@ -188,11 +188,11 @@ For detailed information, see [`i18n/README.md`](./i18n/README.md).
 ### Version Management
 
 **For template maintainers:**
-- Update version: `./scripts/bump-version.sh`
-- Current version: `cat VERSION`
+- Update version: `./.template/scripts/bump-version.sh`
+- Current version: `cat .template/VERSION`
 - Always update `CHANGELOG.md` when bumping version
 
 **For template users:**
-- After "Use this template": run `./scripts/init-project.sh`
+- After "Use this template": run `./.template/scripts/init-project.sh`
 - This creates `.template-version` to track which template version you're using
-- See [`docs/README_GUIDE.md`](./docs/README_GUIDE.md) for project README guidance
+- See [`.template/docs/README_GUIDE.md`](./.template/docs/README_GUIDE.md) for project README guidance

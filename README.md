@@ -244,14 +244,14 @@ For detailed language configuration instructions and best practices, refer to th
 1. **點擊 GitHub 的 "Use this template" 按鈕**
 2. **執行初始化腳本**：
    ```bash
-   ./scripts/init-project.sh
+   ./.template/scripts/init-project.sh
    ```
-3. **參考 [docs/README_GUIDE.md](./docs/README_GUIDE.md) 完成 README**
+3. **參考 [.template/docs/README_GUIDE.md](./.template/docs/README_GUIDE.md) 完成 README**
 
 ### 重要提醒
 
 - ✅ 初始化腳本會自動記錄模板版本（`.template-version`）
-- ✅ 原始 README 會備份到 `docs/TEMPLATE_README.md.backup`
+- ✅ 原始 README 會備份到 `.template/docs/TEMPLATE_README.md.backup`
 - ✅ 專案版本從 `0.1.0` 開始
 - ⚠️ 記得更新 `AGENTS.md` 中的專案特定規範
 

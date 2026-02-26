@@ -7,6 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-02-26
+
+### Added
+- **Version Management Enforcement**:
+  - Pre-push git hook automatically checks if VERSION has been updated
+  - Push to main branch is blocked if version hasn't changed since last tag
+  - install-hooks.sh script to install version check hook
+  - Clear error messages with instructions when version check fails
+
+### Changed
+- **AGENTS.md Updates**:
+  - Added strict semantic versioning rules (MAJOR.MINOR.PATCH)
+  - Defined clear criteria for breaking changes
+  - Added "When in doubt: Choose MINOR over MAJOR" guideline
+  - Updated version management workflow with hook enforcement
+- **init-project.sh Enhancement**:
+  - Added interactive Git hooks installation step
+  - Prompts user to install version check hook for their project
+
+### Documentation
+- **Semantic Versioning Clarification**:
+  - Explicit PATCH examples (bug fixes, docs, comments)
+  - Explicit MINOR examples (new features, backward compatible)
+  - Explicit MAJOR criteria (ONLY user-impacting breaking changes)
+  - Common misconceptions listed (NOT breaking changes)
+- **Version Management Protocol**:
+  - Mandatory version bump before every push to main
+  - Why: Direct main workflow means every commit is "released"
+  - Enforcement: Pre-push hook verification
+
+### Infrastructure
+- **.template/hooks/pre-push**: Git hook for version enforcement
+- **.template/scripts/install-hooks.sh**: Hook installation script
+- Removed empty root directories: `docs/` and `scripts/` (scaffolding mode)
+
+
 ## [1.3.0] - 2026-02-26
 
 ### Added

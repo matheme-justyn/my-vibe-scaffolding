@@ -281,7 +281,20 @@ if [[ $del_adr =~ ^[Yy]$ ]]; then
     echo "✅ 已刪除範例 ADR（保留 0001）"
 fi
 
-# 9. 提示下一步
+# 9. 安裝 Git hooks（版本檢查）
+echo ""
+echo "🪝 Git Hooks 設定"
+read -p "安裝版本檢查 hook（防止忘記 bump version）? (Y/n): " install_hooks
+
+if [[ ! $install_hooks =~ ^[Nn]$ ]]; then
+    ./.template/scripts/install-hooks.sh
+    echo "✅ 已安裝 Git hooks"
+else
+    echo "⏭️  跳過 Git hooks 安裝"
+    echo "   💡 稍後可執行：./.template/scripts/install-hooks.sh"
+fi
+
+# 10. 提示下一步
 echo ""
 echo "🎉 初始化完成！"
 echo ""

@@ -295,10 +295,98 @@ If a translation key is missing:
 
 ### Version Management
 
+**CRITICAL: Every push to main MUST have a version bump.**
+
+**Why:** Direct main branch workflow (no dev branch) means every commit is potentially "released". Without version bumps, v1.2.0 before your change and v1.2.0 after your change are different, causing confusion.
+
+**Enforcement:**
+- Pre-push git hook automatically checks if VERSION has been updated
+- Push will be blocked if version hasn't changed since last tag
+- Install hooks: `./.template/scripts/install-hooks.sh`
+
+**Workflow:**
+1. Make your changes
+2. **Before committing**, bump version:
+   ```bash
+   ./.template/scripts/bump-version.sh patch  # Bug fixes
+   ./.template/scripts/bump-version.sh minor  # New features
+   ./.template/scripts/bump-version.sh major  # Breaking changes
+   ```
+3. The script will:
+   - Update `.template/VERSION` and `VERSION`
+   - Update `CHANGELOG.md` and `README.md` badges
+   - Create commit with version bump
+   - Create git tag
+4. Push (hook will verify version changed):
+   ```bash
+   git push && git push --tags
+   ```
+
 **For template maintainers:**
-- Update version: `./.template/scripts/bump-version.sh`
-- Current version: `cat .template/VERSION`
+- Version file: `.template/VERSION`
 - Always update `CHANGELOG.md` when bumping version
+- Create meaningful release notes
+
+**Semantic Versioning Rules (MAJOR.MINOR.PATCH):**
+
+Given a version number MAJOR.MINOR.PATCH (e.g., 1.3.0):
+
+**PATCH (1.3.0 → 1.3.1)** - Bug fixes, documentation updates:
+- ✅ Fix typos in documentation
+- ✅ Fix broken links
+- ✅ Correct code comments
+- ✅ Fix linter warnings
+- ✅ Security patches that don't change API
+- ✅ Performance improvements (no API change)
+
+**MINOR (1.3.0 → 1.4.0)** - New features (backward compatible):
+- ✅ Add new optional parameters to functions
+- ✅ Add new files/scripts
+- ✅ Add new configuration options (with defaults)
+- ✅ Deprecate features (but still functional)
+- ✅ Add new documentation sections
+- ✅ Enhance existing features without breaking old usage
+
+**MAJOR (1.3.0 → 2.0.0)** - Breaking changes (STRICT CRITERIA):
+
+**Only these scenarios qualify as breaking:**
+
+1. **Remove or rename files that users depend on**
+   - ❌ DELETE: `scripts/my-tool.sh` (if users run it)
+   - ❌ RENAME: `AGENTS.md` → `AI_AGENTS.md`
+   - ✅ OK: Add new files (not breaking)
+   - ✅ OK: Rename internal `.template/` files (users don't directly use)
+
+2. **Change required configuration format**
+   - ❌ CHANGE: `config.toml` structure requires migration
+   - ❌ REMOVE: Required config key without default
+   - ✅ OK: Add optional config with sensible default
+   - ✅ OK: Deprecate config (still works with warning)
+
+3. **Change command signatures that break existing usage**
+   - ❌ CHANGE: `bump-version.sh <type>` → `bump-version.sh --type <type>`
+   - ❌ REMOVE: Required parameter
+   - ✅ OK: Add optional parameter
+   - ✅ OK: Add new command
+
+4. **Change output format that tools depend on**
+   - ❌ CHANGE: Script output from JSON to YAML
+   - ❌ REMOVE: Expected output field
+   - ✅ OK: Add new output fields
+   - ✅ OK: Improve error messages
+
+**Common misconceptions (NOT breaking):**
+- ❌ Moving files within `.template/` (internal structure)
+- ❌ Refactoring code (if API unchanged)
+- ❌ Improving documentation
+- ❌ Adding new features alongside old ones
+- ❌ Changing internal implementation
+- ❌ Reorganizing directory structure (if paths still work)
+
+**When in doubt: Choose MINOR over MAJOR.**
+
+Breaking changes require users to modify their code/config. If they don't need to change anything, it's NOT breaking.
+
 
 **For template users:**
 - After "Use this template": run `./.template/scripts/init-project.sh`

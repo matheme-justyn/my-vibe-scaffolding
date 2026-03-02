@@ -171,7 +171,42 @@ grep "^\.env$" .gitignore
 # Should output: .env
 ```
 
-### 3. Test MCP Setup
+### 3. Start OpenCode with Environment Variables
+
+**OpenCode does NOT support environment variables in `opencode.json` directly.**
+
+You must use the startup script to load environment variables from `.env`:
+
+```bash
+./.template/scripts/start-opencode.sh
+```
+
+Or with custom port:
+
+```bash
+./.template/scripts/start-opencode.sh 61179
+```
+
+The script will:
+- Load environment variables from `.env` (if exists)
+- Verify `GITHUB_PERSONAL_ACCESS_TOKEN` is set
+- Start OpenCode with MCP servers enabled
+
+**Alternative: Set environment variables manually**
+
+```bash
+# macOS/Linux
+export GITHUB_PERSONAL_ACCESS_TOKEN=github_pat_11AAAA...
+opencode --port 42991
+
+# Windows (PowerShell)
+$env:GITHUB_PERSONAL_ACCESS_TOKEN = 'github_pat_11AAAA...'
+opencode --port 42991
+```
+
+---
+
+### 4. Test MCP Setup
 
 ```bash
 ./.template/scripts/test-mcp-setup.sh
@@ -183,7 +218,7 @@ This verifies:
 - ✅ GitHub token configured
 - ✅ `.env` properly gitignored
 
-### 4. Restart Your AI Tool
+### 5. Restart Your AI Tool
 
 **VSCode (OpenCode extension):**
 - `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows)

@@ -1,3 +1,70 @@
+
+## System Environment
+
+**CRITICAL: Read system information from `config.toml` before executing commands.**
+
+The `[system]` section contains auto-detected operating system information:
+
+```toml
+[system]
+os_type = "macOS"  # or "Linux", "Windows"
+os_version = "26.3"
+shell = "/bin/zsh"
+
+[system.commands]
+timeout_command = "none"  # macOS doesn't have timeout by default
+sed_inplace = "sed -i ''"  # macOS requires empty string argument
+has_brew = true
+has_apt = false
+# ... other command availability flags
+```
+
+### Command Selection Examples
+
+**Before using commands with OS-specific differences:**
+
+1. **timeout command** (Linux has it, macOS doesn't):
+   ```bash
+   # ❌ WRONG: Assume timeout exists
+   timeout 5 command
+   
+   # ✅ CORRECT: Check config.toml first
+   # If timeout_command = "none" → use alternative (sleep + kill)
+   # If timeout_command = "gtimeout" → use gtimeout
+   # If timeout_command = "timeout" → use timeout
+   ```
+
+2. **sed in-place editing** (macOS vs Linux syntax difference):
+   ```bash
+   # ❌ WRONG: Use Linux syntax on macOS
+   sed -i 's/foo/bar/' file.txt  # Fails on macOS
+   
+   # ✅ CORRECT: Use config.toml value
+   # Read sed_inplace from config.toml:
+   #   macOS: sed -i ''
+   #   Linux: sed -i
+   ```
+
+3. **Package managers**:
+   ```bash
+   # Check has_brew, has_apt, has_yum, has_choco
+   # Install based on available package manager
+   ```
+
+### Updating System Information
+
+System information is automatically detected and updated by:
+
+```bash
+./.template/scripts/detect-os.sh
+```
+
+This script is run during project initialization. Re-run it if:
+- Operating system changes (e.g., WSL → native Linux)
+- New development tools are installed
+- AI agent encounters "command not found" errors
+
+
 # AGENTS.md
 
 This document serves as the primary instruction set for AI agents (like OpenCode) working on this project.

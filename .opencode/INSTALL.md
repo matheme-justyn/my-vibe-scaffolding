@@ -98,7 +98,23 @@ Choose the appropriate method based on your needs:
    ./.template/scripts/install-hooks.sh
    ```
 
-4. **Done!** Start building your project.
+4. **Start OpenCode with Environment Variables**:
+   ```bash
+   ./.template/scripts/start-opencode.sh
+   ```
+   
+   This script:
+   - Loads environment variables from `.env` (including GitHub token)
+   - Starts OpenCode with MCP servers enabled
+   - Custom port: `./.template/scripts/start-opencode.sh 61179`
+
+   **Why use this script?**
+   - OpenCode doesn't support environment variables directly in `opencode.json`
+   - Keeps GitHub token secure (not committed to git)
+   - Works consistently across macOS/Linux/Windows
+
+
+5. **Done!** Start building your project.
 
 ---
 

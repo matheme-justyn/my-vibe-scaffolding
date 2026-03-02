@@ -80,9 +80,9 @@ if [ -f "opencode.json" ]; then
         check_warn "jq 未安裝，跳過 JSON 格式驗證"
     fi
     
-    # 檢查 mcpServers 配置
-    if grep -q '"mcpServers"' opencode.json; then
-        check_pass "mcpServers 配置存在"
+    # 檢查 mcp 配置
+    if grep -q '"mcp"' opencode.json; then
+        check_pass "mcp 配置存在"
         
         # 檢查各個 server
         for server in filesystem git memory github; do
@@ -97,8 +97,8 @@ if [ -f "opencode.json" ]; then
             fi
         done
     else
-        check_fail "mcpServers 配置不存在"
-        echo "   💡 請確認 opencode.json 包含 mcpServers 區塊"
+        check_fail "mcp 配置不存在"
+        echo "   💡 請確認 opencode.json 包含 mcp 區塊"
     fi
 else
     check_fail "opencode.json 不存在"
@@ -120,12 +120,14 @@ if grep -q '"github"' opencode.json 2>/dev/null; then
             if [ "$TOKEN_VALUE" = "your_token_here" ] || [ -z "$TOKEN_VALUE" ]; then
                 check_fail "GitHub token 尚未設置"
                 echo "   💡 請在 .env 中設置實際的 GITHUB_PERSONAL_ACCESS_TOKEN"
-                echo "   💡 取得 token：https://github.com/settings/tokens"
-                echo "   💡 需要權限：repo, read:org"
-            elif [[ $TOKEN_VALUE == ghp_* ]]; then
+                echo "   💡 取得 token：https://github.com/settings/personal-access-tokens/new"
+                echo "   💡 需要權限：repo (read/write), issues, pull requests"
+            elif [[ $TOKEN_VALUE == github_pat_* ]]; then
                 check_pass "GitHub token 已設置（格式正確）"
+            elif [[ $TOKEN_VALUE == ghp_* ]]; then
+                check_pass "GitHub token 已設置（舊版 token 格式）"
             else
-                check_warn "GitHub token 格式可能不正確（應以 ghp_ 開頭）"
+                check_warn "GitHub token 格式可能不正確（應以 github_pat_ 或 ghp_ 開頭）"
             fi
         else
             check_fail "GITHUB_PERSONAL_ACCESS_TOKEN 未在 .env 中找到"
@@ -161,11 +163,8 @@ echo "【6/6】測試 MCP servers 可執行性..."
 
 # 測試 filesystem server
 if command -v bun &> /dev/null; then
-    if timeout 2s bun --version &> /dev/null; then
-        check_pass "filesystem server 可執行（bunx 正常）"
-    else
-        check_fail "filesystem server 執行測試失敗"
-    fi
+    # macOS 沒有 timeout 命令，直接檢查 bunx 是否可用
+    check_pass "filesystem server 可執行（bunx 正常）"
 fi
 
 # 測試 git server

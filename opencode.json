@@ -28,10 +28,7 @@
     },
     "github": {
       "type": "local",
-      "command": ["bunx", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
-      }
+      "command": ["bunx", "@modelcontextprotocol/server-github"]
     }
   }
 }

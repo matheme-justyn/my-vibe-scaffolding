@@ -55,7 +55,7 @@ This repository is a **template** for project scaffolding. Security consideratio
 
 Security-related updates will be:
 - Released as **patch versions** (e.g., 1.0.1)
-- Documented in [CHANGELOG.md](./CHANGELOG.md)
+- Documented in [CHANGELOG.md](./.template/CHANGELOG.md)
 - Tagged with `security` label in releases
 
 ## 📚 Resources

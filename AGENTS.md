@@ -24,9 +24,8 @@ You're developing this scaffolding itself. File organization:
 - Reference scaffolding scripts from `.template/scripts/`
 - Reference scaffolding assets from `.template/assets/`
 - **Generate bilingual README** following [README_BILINGUAL_FORMAT.md](./.template/docs/README_BILINGUAL_FORMAT.md)
-- Create new ADRs in `.template/docs/adr/`
-- Reference scaffolding scripts from `.template/scripts/`
-- Reference scaffolding assets from `.template/assets/`
+- **CHANGELOG**: Update `.template/CHANGELOG.md` (template changes)
+- **README sync**: If `sync_readme = true`, root `README.md` auto-syncs to `.template/README.md`
 
 ### Project Mode (`mode = "project"`)
 
@@ -42,6 +41,8 @@ You're using this scaffolding for your project. File organization:
 - Place project-specific scripts in `scripts/`
 - Place project-specific assets in `assets/`
 - Reference `.template/` examples but don't modify them
+- **CHANGELOG**: Update root `CHANGELOG.md` (your project changes)
+- **README**: Edit root `README.md` for your project (independent from template)
 
 **To change mode:** Edit `config.toml` and set `[project] mode = "scaffolding"` or `"project"`
 
@@ -49,6 +50,40 @@ You're using this scaffolding for your project. File organization:
 ## Tech Stack
 
 <!-- TODO: List technologies, frameworks, and tools used in this project -->
+
+## MCP (Model Context Protocol) Usage
+
+**Priority: Always check for MCP tools first, then fallback to CLI.**
+
+### GitHub Operations Priority
+
+When performing GitHub operations (issues, PRs, releases):
+
+1. **First**: Check if GitHub MCP server tools are available
+   - Tool names: `github_*` (e.g., `github_create_issue`, `github_create_pull_request`)
+   - Advantages: Faster, structured responses, cross-tool compatible
+
+2. **Fallback**: Use `gh` CLI if MCP not available
+   - Via `bash` tool: `gh issue create`, `gh pr create`, etc.
+   - Reliable but slower (subprocess overhead)
+
+### How to Check MCP Availability
+
+```typescript
+// At session start, list available tools
+// If you see tools starting with 'github_', 'git_', 'filesystem_' → MCP is active
+// If not → Use CLI fallbacks (gh, git commands via bash)
+```
+
+### MCP Servers Configuration
+
+- **filesystem**: File operations (read/write/search)
+- **git**: Git operations (status, diff, commit, push)
+- **memory**: Persistent memory across sessions
+- **github**: GitHub API (issues, PRs, releases, workflows)
+
+Configuration: `opencode.json`  
+Setup guide: [.template/docs/MCP_SETUP_GUIDE.md](./.template/docs/MCP_SETUP_GUIDE.md)
 
 ## Coding Conventions
 
@@ -318,7 +353,7 @@ If a translation key is missing:
    ```
 3. The script will:
    - Update `.template/VERSION` and `VERSION`
-   - Update `CHANGELOG.md` and `README.md` badges
+   - Update `.template/CHANGELOG.md` and `README.md` badges
    - Create commit with version bump
    - Create git tag
 4. Push (hook will verify version changed):
@@ -328,7 +363,7 @@ If a translation key is missing:
 
 **For template maintainers:**
 - Version file: `.template/VERSION`
-- Always update `CHANGELOG.md` when bumping version
+- Always update `.template/CHANGELOG.md` when bumping version
 - Create meaningful release notes
 
 **Semantic Versioning Rules (MAJOR.MINOR.PATCH):**

@@ -90,7 +90,7 @@ fi
 
 # 提示更新 CHANGELOG.md
 echo ""
-echo -e "${YELLOW}請手動更新 CHANGELOG.md，加入以下區塊：${NC}"
+echo -e "${YELLOW}請手動更新 .template/CHANGELOG.md，加入以下區塊：${NC}"
 echo ""
 echo "## [$NEW_VERSION] - $(date +%Y-%m-%d)"
 echo ""
@@ -117,7 +117,16 @@ fi
 
 # Git add（scaffolding mode 需包含 .template/VERSION）
 if [ "$MODE" = "scaffolding" ]; then
-  git add VERSION .template/VERSION CHANGELOG.md README.md
+  # 檢查 sync_readme 是否啟用
+  SYNC_README=$(grep "sync_readme.*=.*true" config.toml || echo "")
+  
+  if [ -n "$SYNC_README" ]; then
+    echo -e "${YELLOW}正在同步 README.md 到 .template/...${NC}"
+    ./.template/scripts/sync-readme.sh || true  # 不阻塞版本升級
+    git add VERSION .template/VERSION .template/CHANGELOG.md .template/README.md README.md
+  else
+    git add VERSION .template/VERSION .template/CHANGELOG.md README.md
+  fi
 else
   git add VERSION CHANGELOG.md
 fi
@@ -139,7 +148,7 @@ echo ""
 echo "下一步："
 echo "  1. 推送 commit: git push origin main"
 echo "  2. 推送 tag: git push origin v${NEW_VERSION}"
-echo "  3. 在 GitHub 建立 Release: gh release create v${NEW_VERSION} --notes-file CHANGELOG.md"
+  echo "  3. 在 GitHub 建立 Release: gh release create v${NEW_VERSION} --notes-file .template/CHANGELOG.md"
 echo ""
 
 read -p "要立即推送嗎？ (y/N): " push_confirm
@@ -150,7 +159,7 @@ if [[ $push_confirm =~ ^[Yy]$ ]]; then
   
   read -p "要建立 GitHub Release 嗎？ (y/N): " release_confirm
   if [[ $release_confirm =~ ^[Yy]$ ]]; then
-    gh release create "v${NEW_VERSION}" --title "Release v${NEW_VERSION}" --notes "請參考 CHANGELOG.md"
+    gh release create "v${NEW_VERSION}" --title "Release v${NEW_VERSION}" --notes "請參考 .template/CHANGELOG.md"
     echo -e "${GREEN}✓ 已建立 GitHub Release${NC}"
   fi
 fi

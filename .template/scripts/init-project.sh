@@ -294,6 +294,103 @@ else
     echo "   💡 稍後可執行：./.template/scripts/install-hooks.sh"
 fi
 
+# 10. MCP (Model Context Protocol) 配置
+echo ""
+echo "🔌 MCP Servers 配置"
+echo "ℹ️  MCP 提供 AI 助手直接訪問文件、Git 和 GitHub 的能力"
+echo ""
+
+read -p "啟用 GitHub MCP server？(需要 GitHub token) (y/N): " enable_github_mcp
+
+if [[ $enable_github_mcp =~ ^[Yy]$ ]]; then
+    echo ""
+    echo "🔑 GitHub Personal Access Token 設定"
+    echo "ℹ️  Token 需要權限：repo, read:org"
+    echo "ℹ️  獲取 token：https://github.com/settings/tokens"
+    echo ""
+    
+    read -p "GitHub Personal Access Token: " github_token
+    
+    # 寫入 .env
+    if [ ! -f ".env" ]; then
+        cp .env.example .env
+        echo "✅ 已建立 .env"
+    fi
+    
+    # 檢查是否已存在 GITHUB_PERSONAL_ACCESS_TOKEN
+    if grep -q "GITHUB_PERSONAL_ACCESS_TOKEN=" .env; then
+        # 更新現有值
+        sed -i.bak "s|GITHUB_PERSONAL_ACCESS_TOKEN=.*|GITHUB_PERSONAL_ACCESS_TOKEN=$github_token|" .env
+        rm .env.bak 2>/dev/null || true
+    else
+        # 新增
+        echo "" >> .env
+        echo "# MCP Configuration" >> .env
+        echo "GITHUB_PERSONAL_ACCESS_TOKEN=$github_token" >> .env
+    fi
+    
+    echo "✅ 已設定 GitHub token 到 .env"
+    echo "⚠️  請確認 .env 已加入 .gitignore！"
+else
+    echo ""
+    echo "⏭️  跳過 GitHub MCP 啟用"
+    echo "   💡 GitHub MCP 將從 opencode.json 移除"
+    
+    # 從 opencode.json 移除 github 配置
+    if [ -f "opencode.json" ] && grep -q '"github"' opencode.json; then
+        # 使用 jq 如果有，否則用 sed
+        if command -v jq &> /dev/null; then
+            jq 'del(.mcpServers.github)' opencode.json > opencode.json.tmp && mv opencode.json.tmp opencode.json
+            echo "✅ 已移除 GitHub MCP 配置"
+        else
+            # 手動移除（簡單處理）
+            echo "⚠️  請手動從opencode.json 移除 github 配置"
+        fi
+    fi
+fi
+
+# 10.1 測試 MCP 配置
+echo ""
+echo "🧪 驗證 MCP 配置..."
+if [ -f ".template/scripts/test-mcp-setup.sh" ]; then
+    if ./.template/scripts/test-mcp-setup.sh; then
+        echo ""
+        echo "✅ MCP 配置驗證通過！"
+    else
+        echo ""
+        echo "⚠️  MCP 配置有問題，請查看上方錯誤訊息"
+        echo "💡 稍後可手動執行：./.template/scripts/test-mcp-setup.sh"
+    fi
+else
+    echo "⚠️  找不到 MCP 測試腳本"
+fi
+
+# 11. 提示下一步
+echo ""
+echo "🎉 初始化完成！"
+echo ""
+echo "📋 下一步："
+echo "   1. 編輯 README.md 補充專案資訊"
+echo "   2. 更新 AGENTS.md 中的編碼規範"
+echo "   3. 複製 .env.example → .env 並設定"
+echo "   4. 删除或調整不需要的檔案"
+echo "   5. 初始化專案程式碼"
+echo "   6. git commit -m \"chore: initialize project from template v${TEMPLATE_VERSION}\""
+echo ""
+echo "📚 參考文件："
+echo "   - .template/docs/README_GUIDE.md - README 撰寫指引"
+echo "   - .template/docs/DOCUMENTATION_GUIDELINES.md - 文件組織規範"
+echo "   - TEMPLATE_SYNC.md - 模板同步指南"
+echo ""
+
+# 11. 提示下一步
+
+# 11. 提示下一步
+echo ""
+echo "🎉 初始化完成！"
+
+# 11. 提示下一步
+
 # 10. 提示下一步
 echo ""
 echo "🎉 初始化完成！"

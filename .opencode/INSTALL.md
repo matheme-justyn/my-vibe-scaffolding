@@ -2,6 +2,78 @@
 
 This scaffolding provides a comprehensive project template with AI agent support, i18n, version management, and best practices.
 
+## Prerequisites
+
+### Required
+
+- **Git** - Version control
+- **Node.js** (v18+) or **Bun** - For running scripts
+
+### MCP Servers (Optional but Recommended)
+
+MCP (Model Context Protocol) enables AI assistants to directly access your filesystem, git repository, and GitHub. These tools enhance OpenCode/Cursor/Claude capabilities.
+
+**Required tools for MCP:**
+
+1. **Bun** (https://bun.sh)
+   ```bash
+   # macOS/Linux
+   curl -fsSL https://bun.sh/install | bash
+   
+   # Windows
+   powershell -c "irm bun.sh/install.ps1 | iex"
+   ```
+
+2. **uv** (https://docs.astral.sh/uv/)
+   ```bash
+   # macOS/Linux
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   
+   # Windows
+   powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+   ```
+
+**MCP Servers included:**
+
+- **filesystem** - Direct file read/write access for AI
+- **git** - Git operations (status, diff, commit, etc.)
+- **memory** - AI memory persistence across sessions
+- **github** (optional) - GitHub API integration (requires Personal Access Token)
+
+**Configuration:**
+- MCP servers are configured in `opencode.json`
+- GitHub token (if enabled) is stored in `.env`
+- During `init-project.sh`, you'll be asked whether to enable GitHub MCP
+- MCP configuration is **automatically tested** after setup
+
+**Test MCP Setup Manually:**
+```bash
+./.template/scripts/test-mcp-setup.sh
+```
+
+This script will verify:
+- Bun and uv are installed correctly
+- opencode.json has valid MCP configuration
+- GitHub token is set (if using GitHub MCP)
+- .env is properly gitignored
+
+---
+
+## Installation Options
+
+Choose the appropriate method based on your needs:
+- During `init-project.sh`, you'll be asked whether to enable GitHub MCP
+
+---
+
+## Installation Options
+
+Choose the appropriate method based on your needs:
+
+## Installation Options
+
+This scaffolding provides a comprehensive project template with AI agent support, i18n, version management, and best practices.
+
 ## Installation Options
 
 Choose the appropriate method based on your needs:

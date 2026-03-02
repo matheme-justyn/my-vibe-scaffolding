@@ -26,6 +26,16 @@ do
                 echo -e "${RED}❌ Version sync check failed${NC}"
                 exit 1
             fi
+            
+            # 檢查 README.md 同步（如果 sync_readme 啟用）
+            if grep -q '^sync_readme = true' config.toml; then
+                echo -e "${YELLOW}⚠️  Checking README.md sync...${NC}"
+                
+                if ! ./.template/scripts/sync-readme.sh --check-only; then
+                    echo -e "${RED}❌ README.md sync check failed${NC}"
+                    exit 1
+                fi
+            fi
         fi
         
         

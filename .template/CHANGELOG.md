@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2026-03-02
+
+### Changed
+- **README Structure**: 重構 README 為分離語言檔案
+  - `README.md`: 英文版（主要版本）
+  - `README.zh-TW.md`: 繁體中文版（額外版本）
+  - 移除雙語混排格式，提升可讀性
+  - 移除「尚未製作」的使用範例章節
+  - 移除貢獻 PR 相關內容
+  - 精簡內容從 250 行降至 183 行
+
 ## [1.8.4] - 2026-03-02
 
 ### Added

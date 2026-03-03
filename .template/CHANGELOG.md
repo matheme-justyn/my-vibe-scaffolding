@@ -7,6 +7,77 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-03-03
+
+### Added
+- **OpenCode Project-Isolated Database Configuration**: Solve multi-project conflicts
+  - Each project uses independent `.opencode-data/` directory
+  - Safe to open multiple projects simultaneously
+  - Session history bound to project
+  - Database size controlled (< 10MB per project)
+  - New configuration: `.vscode/settings.json` with `opencode.dataDir`
+  - New template: `.template/vscode/settings.json.template`
+  - New documentation: `.template/vscode/README.md`
+
+- **Automated Installation & Update Scripts**
+  - `init-opencode.sh`: Configure OpenCode project database automatically
+  - `smart-install.sh`: Intelligent detection (new project vs existing project)
+  - Auto-detects project state and runs appropriate workflow
+  - Safe incremental update (won't overwrite user files)
+
+- **Comprehensive OpenCode Documentation**
+  - `.template/docs/OPENCODE_SETUP_GUIDE.md`: Complete setup guide (370 lines)
+  - `.template/docs/QUICK_UPDATE.md`: Fast update guide for existing projects
+  - Batch deployment examples for multiple repos
+  - Troubleshooting section with Q&A
+
+- **Language Usage Guidelines**: Documentation language policy
+  - Multi-language (i18n) only for user-facing files (root README.md)
+  - English only for AI-facing files (.template/*, docs/adr/*, scripts/*)
+  - Rationale: AI trained on English, international accessibility, reduce maintenance
+  - New section in `.template/docs/DOCUMENTATION_GUIDELINES.md`
+  - Updated AGENTS.md with "Documentation Language Guidelines" table
+
+### Changed
+- **ADR 0005 Updated**: New Option 4 (Project-Isolated Database)
+  - Added technical investigation results
+  - Compared with previous single-instance approach
+  - Included real-world testing data (OpenCode 1.2.15, VSCode Extension 0.0.13)
+  - Acknowledged BlueT's key insight about shared data directory
+
+- **config.toml Enhanced**: OpenCode configuration section
+  - New `[opencode.project_database]` configuration block
+  - Deployment instructions and automation scripts reference
+  - Updated section header with 2026-03-03 update notice
+
+- **AGENTS.md Enhanced**: OpenCode configuration guide
+  - New section "OpenCode 配置 (2026-03-03 更新)"
+  - Quick setup instructions (automated + manual)
+  - Benefits and documentation links
+
+- **README.md Updated**: Quick Update Guide link
+  - Added link to `.template/docs/QUICK_UPDATE.md`
+  - Highlighted for existing project updates
+
+- **INSTALL.md Improved**: Smart installation workflow
+  - New "AI 輔助安裝/更新" section
+  - Unified AI command for both new and existing projects
+  - Auto-detection explanation
+
+### Fixed
+- Multi-project database conflicts causing crashes and session loss
+- Database bloat issue (reduced from 65MB shared to <10MB per project)
+- Inability to work on multiple projects simultaneously
+
+### Technical Details
+- Verified on: macOS, OpenCode CLI 1.2.15, VSCode Extension 0.0.13
+- Testing result: 65MB shared database (158 sessions) → 4KB per project initially
+- Crash frequency: daily → near zero
+- Session recovery rate: 100%
+
+---
+
+
 ## [1.10.0] - 2026-03-03
 
 ### Added

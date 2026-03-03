@@ -116,6 +116,67 @@ docs/HOW_TO_USE_DOCKER.md          # → 工具使用，不是專案核心
 
 **如果都是「否」→ 不要建立。**
 
+## 語言使用規範 (Language Usage Guidelines)
+
+### 多語系 (i18n) 使用範圍
+
+**原則：多語系僅用於使用者面向文件，AI 面向文件使用英文。**
+
+| 檔案 | 語言 | 理由 |
+|------|------|------|
+| **根目錄 `README.md`** | 🌐 多語系 | 使用者面向，需要多語言支援 |
+| `.template/` 下所有文件 | 🇬🇧 英文 | AI 面向，英文最直接 |
+| `AGENTS.md` | 🌐 多語系 | AI 讀取，但使用者也會查閱 |
+| `docs/adr/*.md` | 🇬🇧 英文 | 技術決策記錄，給 AI 和開發者 |
+| `scripts/` 腳本 | 🇬🇧 英文 | 工具文件 |
+
+### 具體指引
+
+#### ✅ 使用多語系的檔案
+
+1. **根目錄 `README.md`**
+   - 用途：專案介紹、使用說明
+   - 策略：
+     - 若 `config.toml` 設 `strategy = "separate"` → 分離檔案 (`README.md`, `README.zh-TW.md`)
+     - 若 `strategy = "bilingual"` → 雙語並列 (中英同檔)
+   - 資料來源：`i18n/locales/{lang}/readme.toml`
+
+2. **`AGENTS.md`**
+   - 用途：AI Agent 編碼規範、commit format
+   - 策略：同 README.md（但通常使用單一語言即可）
+   - 資料來源：`i18n/locales/{lang}/agents.toml`
+
+#### 🇬🇧 使用英文的檔案
+
+**所有 `.template/` 目錄下的文件：**
+
+- ✅ `.template/docs/DOCUMENTATION_GUIDELINES.md` → 英文
+- ✅ `.template/docs/OPENCODE_SETUP_GUIDE.md` → 英文
+- ✅ `.template/docs/adr/*.md` → 英文
+- ✅ `.template/vscode/README.md` → 英文
+- ✅ `.template/scripts/*.sh` 內的註解 → 英文
+
+**理由：**
+1. AI 本身就是英文訓練，英文最直接
+2. 技術文件的國際通用性
+3. 減少翻譯維護成本
+
+### 實作檢查清單
+
+**創建新文件時：**
+
+- [ ] 是根目錄 `README.md` 嗎？ → 是 → 使用多語系
+- [ ] 是 `.template/` 目錄下嗎？ → 是 → 使用英文
+- [ ] 是 `docs/adr/` 目錄下嗎？ → 是 → 使用英文
+- [ ] 是工具文件嗎？ → 是 → 使用英文
+
+**特例：**
+- 專案根目錄的 `CHANGELOG.md` → 使用專案主要語言（可以是中文）
+- 專案 `docs/` 下的檔案 → 由專案自行決定
+
+---
+
+
 ---
 
 **最後更新**: 2026-02-26

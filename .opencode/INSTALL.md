@@ -61,6 +61,51 @@ This script will verify:
 
 ## Installation Options
 
+**🚨 重要：先確認你的情況**
+
+### 新專案 vs 已有專案？
+
+**新專案：**
+- 剛從 GitHub "Use this template" 建立
+- 沒有 `.template-version` 檔案
+- → 使用「完整安裝」
+
+**已有專案：**
+- 之前已使用此 scaffolding
+- 有 `.template-version` 檔案
+- → 使用「增量更新」
+
+---
+
+### 🤖 AI 輔助安裝/更新（推薦）
+
+**讓 AI 自動判斷並執行適當流程！**
+
+在 OpenCode/Cursor/Claude 對話中貼上：
+
+```
+my-vibe-scaffolding (scaffolding template)
+Install or update my-vibe-scaffolding by following the instructions here:
+https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.opencode/INSTALL.md
+
+Execute: ./.template/scripts/smart-install.sh
+
+This script will:
+1. Detect if this is a new project or existing project
+2. Run appropriate installation (full) or update (incremental)
+3. Configure OpenCode project-isolated database
+4. Update necessary files safely
+```
+
+**優點：**
+- ✅ 自動偵測專案狀態
+- ✅ 新專案 → 完整初始化
+- ✅ 已有專案 → 只更新 `.template/` + OpenCode 配置
+- ✅ 不會覆蓋使用者的 README/LICENSE/自訂檔案
+
+---
+
+
 Choose the appropriate method based on your needs:
 - During `init-project.sh`, you'll be asked whether to enable GitHub MCP
 
@@ -78,7 +123,7 @@ This scaffolding provides a comprehensive project template with AI agent support
 
 Choose the appropriate method based on your needs:
 
-### Option 1: New Project (Recommended)
+### Option 1: 🆕 新專案完整安裝
 
 **Use this when starting a brand new project.**
 

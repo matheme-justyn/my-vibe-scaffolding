@@ -2,9 +2,11 @@
 
 日期: 2026-02-26
 
+**更新**: 2026-03-03 - 發現更好的解決方案（選項 4）
+
 ## 狀態
 
-已接受
+已接受（2026-03-03 更新為選項 4）
 
 ## 背景
 
@@ -76,56 +78,106 @@
 - 配合外部記錄系統（`scripts/wl`, Linear, GitHub Issues）
 - 智慧清理維持資料庫健康
 
+### 選項 4：專案獨立資料庫 ✅✅ (最佳方案，2026-03-03 更新)
+
+**做法**：每個專案使用獨立的 OpenCode 資料庫
+
+**實作方式**：
+```json
+// .vscode/settings.json
+{
+  "opencode.dataDir": "${workspaceFolder}/.opencode-data"
+}
+```
+
+**優點**：
+- ✅ **可同時開多個專案** — 最大優勢！
+- ✅ 每個專案資料庫隔離 → 不會互相干擾
+- ✅ 資料庫損壞只影響單一專案
+- ✅ 無需手動切換專案
+- ✅ Session 歷史與專案綁定（更合理）
+- ✅ 資料庫大小可控（單專案 < 10MB vs 共用 > 50MB）
+
+**缺點**：
+- ⚠️ 需要為每個專案設定 `.vscode/settings.json`（可自動化）
+- ⚠️ 跨專案無法共享 session 歷史（但這通常是合理的）
 ## 決策
 
-**採用單實例工作流程，配合以下措施**：
+**2026-03-03 更新：改採選項 4（專案獨立資料庫）**
 
-1. **工作流程**
-   - 一次只開一個專案的 VSCode
-   - 使用 `./scripts/wl` 做本地工作日誌（每日一檔，不 commit）
-   - 頻繁 commit（30-60 分鐘一次）
+經過實際驗證發現 VSCode OpenCode Extension v0.0.13 支援 `opencode.dataDir` 配置，
+這提供了比單實例工作流程更好的解決方案。
 
-2. **穩定性工具**
-   - `config.toml` - 統一配置（智慧清理閾值、記憶體限制）
-   - `./scripts/smart-cleanup.sh` - 根據實際狀況自動清理 sessions
-   - VSCode Extension Host 記憶體增加至 8GB
+### 實作方式
 
-3. **外部記錄系統**
-   - 本地：`.worklog/YYYY-MM-DD.md` (gitignored)
-   - 遠端：Linear/GitHub Issues（團隊協作）
+1. **專案配置**（每個專案根目錄）
+   ```bash
+   # 建立 .vscode/settings.json
+   mkdir -p .vscode
+   cat > .vscode/settings.json << 'EOF'
+   {
+     "opencode.dataDir": "${workspaceFolder}/.opencode-data",
+     "opencode.logLevel": "info"
+   }
+   EOF
+   
+   # 加入 .gitignore
+   echo ".opencode-data/" >> .gitignore
+   ```
 
-## 後果
+2. **自動化部署**（新增工具腳本）
+   - `.template/scripts/init-opencode.sh` - 自動設定腳本
+   - `.template/docs/OPENCODE_SETUP_GUIDE.md` - 部署指南
+
+3. **原有穩定性工具仍然保留**（作為輔助）
+   - `config.toml` - 智慧清理配置
+   - `./scripts/wl` - 外部工作日誌
+   - VSCode Extension Host 記憶體配置
+## 後果（2026-03-03 更新）
 
 ### 正面
 
-- ✅ 穩定性大幅提升（崩潰頻率：每天 → < 每週一次）
-- ✅ Session 恢復率 100%
-- ✅ 工作記錄不依賴 OpenCode（外部化）
-- ✅ 可維護、可預測
+- ✅ **可同時開多個專案** — 解決了選項 3 的最大限制！
+- ✅ 穩定性提升（每個專案資料庫隔離）
+- ✅ Session 恢復率 100%（每個專案獨立）
+- ✅ 資料庫大小可控（單專案通常 < 10MB）
+- ✅ 無需手動切換專案
+- ✅ Session 歷史與專案綁定（更合理的組織方式）
 
 ### 負面
 
-- ❌ 無法同時開多個專案的 OpenCode
-- ❌ 需要手動切換專案（關閉 → 開啟）
-- ❌ 依賴外部記錄工具
+- ⚠️ 需要為每個專案設定（但可透過腳本自動化）
+- ⚠️ 跨專案無法共享 session 歷史（但這通常是合理的）
 
-### 風險緩解
+### 實證資料
 
-- **多專案需求**：透過外部記錄系統串聯不同專案的工作
-- **切換成本**：通常專案工作是連續的，切換頻率不高
-- **記錄遺失**：`.worklog/` 本地備份 + git commit 記錄
+**測試環境**（2026-03-03）：
+- OpenCode CLI: v1.2.15
+- VSCode Extension: sst-dev.opencode-0.0.13
 
-## 未來改善可能性
+**測試結果**：
+- 共用資料庫：`~/.local/share/opencode/opencode.db` (65MB, 158 sessions)
+- 專案獨立資料庫：`.opencode-data/opencode.db` (4KB → 數 MB)
+- 多專案同時開啟：✅ 無衝突、無崩潰
+## 歷史與教訓
 
-如果 OpenCode 官方實作以下任一功能，可重新評估多實例支援：
+### 為什麼一開始沒發現選項 4？
 
-1. VSCode Extension 配置：`opencode.dataDirectory`
-2. CLI 參數：`opencode --data-dir /path/to/db`
-3. SQLite 自動檔案鎖定機制
+1. **文檔不足**：`opencode.dataDir` 配置未出現在官方文檔
+2. **版本差異**：v1.2.10（ADR 撰寫時）vs v1.2.15（發現時）可能支援度不同
+3. **思維定式**：專注於「如何避免多實例」而非「如何讓多實例安全」
 
+### 關鍵突破
+
+感謝 @BlueT 的關鍵提問：
+> "多個 project 是不是共用同一個 data directory？"
+
+這個問題直指根本原因，促使我們重新檢視配置選項。
 ## 相關資源
 
-- OpenCode GitHub Issues: #4251, #4278
-- 驗證版本：OpenCode 1.2.10, VSCode Extension sst-dev.opencode-0.0.13
+- OpenCode GitHub Issues: #4251, #4278, #14970
+- 驗證版本：OpenCode 1.2.15, VSCode Extension sst-dev.opencode-0.0.13
+- 配置文件：`.vscode/settings.json`
+- 部署指南：`.template/docs/OPENCODE_SETUP_GUIDE.md`
+- 自動化腳本：`.template/scripts/init-opencode.sh`
 - 智慧清理配置：`config.toml` `[opencode.cleanup]`
-- 工作日誌工具：`scripts/wl`

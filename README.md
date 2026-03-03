@@ -4,7 +4,7 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-1.10.0-blue.svg)](./.template/VERSION)
+[![Version](https://img.shields.io/badge/version-1.11.0-blue.svg)](./.template/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 [![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 
@@ -166,6 +166,7 @@ For details: [INSTALL.md](./.opencode/INSTALL.md)
 - [Template Changelog](./.template/CHANGELOG.md) - Template version changes
 - [Project Changelog](./CHANGELOG.md) - Your project changes
 - [Template Sync](./.template/docs/TEMPLATE_SYNC.md) - Update to new versions
+- **[Quick Update Guide](./.template/docs/QUICK_UPDATE.md)** - Fast update for existing projects (OpenCode multi-project support)
 - [Project Guides](./.template/docs/) - LICENSE, CONTRIBUTING, SECURITY writing guides
 
 ---

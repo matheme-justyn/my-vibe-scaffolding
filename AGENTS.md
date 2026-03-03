@@ -113,6 +113,58 @@ You're using this scaffolding for your project. File organization:
 
 **To change mode:** Edit `config.toml` and set `[project] mode = "scaffolding"` or `"project"`
 
+## OpenCode 配置 (2026-03-03 更新)
+
+**推薦配置：專案獨立資料庫**
+
+### 問題：多專案共用資料庫導致衝突
+
+預設情況下，所有 VSCode OpenCode 實例共用 `~/.local/share/opencode/opencode.db`，導致：
+- 🔥 多專案同時開啟 → 崩潰、資料損壞
+- 💔 Session 歷史丟失
+- 🐌 資料庫膨脹 (> 50MB)
+
+### 解決方案：每個專案使用獨立資料庫
+
+**1. 自動化設定（推薦）**
+
+```bash
+# 在專案根目錄執行
+./.template/scripts/init-opencode.sh
+```
+
+**2. 手動設定**
+
+建立 `.vscode/settings.json`：
+```json
+{
+  "opencode.dataDir": "${workspaceFolder}/.opencode-data",
+  "opencode.logLevel": "info"
+}
+```
+
+更新 `.gitignore`：
+```bash
+echo ".opencode-data/" >> .gitignore
+```
+
+**3. 重啟 VSCode**（必須）
+
+### 效果
+
+- ✅ 可安全同時開啟多個專案
+- ✅ Session 與專案綁定
+- ✅ 資料庫大小可控 (< 10MB/專案)
+- ✅ 崩潰率接近零
+
+### 詳細文件
+
+- [ADR 0005 - 技術調查](./.template/docs/adr/0005-single-instance-opencode-workflow.md)
+- [設定指南](./.template/docs/OPENCODE_SETUP_GUIDE.md)
+- [批次部署腳本](./.template/scripts/init-opencode.sh)
+
+---
+
 
 ## Tech Stack
 
@@ -338,6 +390,25 @@ test_first = "**永遠先寫測試**：所有新功能和 bug 修復都必須先
 - Code comments → Use primary_locale language
 - Commit messages → Follow locale-specific format in `agents.toml`
 - Technical documentation → Use primary_locale language
+
+**Documentation Language Guidelines:**
+
+| File/Directory | Language | Reason |
+|----------------|----------|--------|
+| Root `README.md` | 🌐 Multi-language (i18n) | User-facing, needs language support |
+| `.template/*` files | 🇬🇧 English only | AI-facing, English is most direct |
+| `AGENTS.md` | 🌐 Multi-language | AI reads, but users also reference |
+| `docs/adr/*.md` | 🇬🇧 English only | Technical decisions, for AI and developers |
+| `scripts/*` | 🇬🇧 English only | Tool documentation |
+
+**Why English for `.template/` files:**
+1. AI models are primarily trained on English
+2. International accessibility for technical content
+3. Reduces translation maintenance cost
+
+**Exceptions:**
+- Project root `CHANGELOG.md` → Use project's primary language
+- Project `docs/` files → Project decides
 
 ### 4. Fallback Strategy
 

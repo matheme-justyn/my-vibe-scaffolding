@@ -47,6 +47,34 @@ target_langs = ["en-US", "ja-JP"]
 # Validation: ensure all keys exist in all enabled locales
 strict_validation = false
 
+# README language strategy
+# Controls how README files are generated and organized
+[i18n.readme]
+# Strategy options:
+#   - "separate": Separate files (README.md in primary_locale, README.{lang}.md for others)
+#                 Example: README.md (zh-TW), README.en-US.md, README.ja-JP.md
+#                 Recommended for: Professional projects, 3+ languages, cleaner structure
+#
+#   - "bilingual": Single README.md with both languages side-by-side
+#                  Format: 中文 | English in same file (headers, paragraphs, tables)
+#                  Recommended for: Small projects, 2 languages max
+#
+#   - "primary_only": Single README.md in primary_locale only, no translations
+#                     Recommended for: Internal projects, single team language
+strategy = "separate"
+
+# When strategy = "separate":
+# - README.md contains content in primary_locale
+# - Additional files: README.en-US.md, README.zh-TW.md, etc. for each commit_locales
+# - Language switcher added at top of each README
+#
+# When strategy = "bilingual":
+# - Single README.md with bilingual content (follows .template/docs/README_BILINGUAL_FORMAT.md)
+# - Primary language appears first, then English (or other language)
+#
+# When strategy = "primary_only":
+# - Only README.md in primary_locale, no additional language files
+
 # ==============================================================================
 # Programming Languages Configuration (Future)
 # ==============================================================================

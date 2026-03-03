@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-03-03
+
+### Added
+- **README Language Strategy System**: 新增三種 README 生成策略
+  - `separate`: 分離語言檔案（推薦）- README.md + README.{lang}.md
+  - `bilingual`: 單檔案雙語格式 - 中文 | English 並列
+  - `primary_only`: 僅主語言單一檔案
+  - 在 `config.toml` 新增 `[i18n.readme]` 配置區塊
+  - AI 可根據 strategy 設定自動選擇生成方式
+
+### Changed
+- **README_BILINGUAL_FORMAT.md**: 重構為 "README Language Strategies & Formatting Rules"
+  - 新增策略選擇指南和適用場景表格
+  - 新增 AI Agent 實作範例（pseudocode）
+  - 保留 bilingual 格式規則（向後兼容）
+  - 新增 separate 策略驗證範例
+
+- **AGENTS.md**: AI Agent Communication Protocol 新增 "6. README Generation Protocol"
+  - 強制 AI 讀取 config.toml 檢查 strategy
+  - 根據 strategy 生成對應格式的詳細步驟
+  - 語言切換器生成規則
+  - 驗證檢查清單
+
 ## [1.9.0] - 2026-03-02
 
 ### Changed

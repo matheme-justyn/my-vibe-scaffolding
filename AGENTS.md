@@ -357,6 +357,57 @@ If a translation key is missing:
 - [ ] Set communication language to match `primary_locale`
 - [ ] Verify fallback locale is available
 
+### 6. README Generation Protocol
+
+**CRITICAL: Check `config.toml` README strategy BEFORE generating any README files.**
+
+1. **Read README strategy from config:**
+   ```toml
+   [i18n.readme]
+   strategy = "separate"  # or "bilingual" or "primary_only"
+   ```
+
+2. **Generate README based on strategy:**
+
+   **If `strategy = "separate"` (Recommended):**
+   - Create `README.md` in `primary_locale`
+   - Create `README.{lang}.md` for each language in `commit_locales` (except primary)
+   - Add language switcher at top of each file (e.g., `English | [繁體中文](./README.zh-TW.md)`)
+   - Each file is **single-language** (standard Markdown)
+   - Load content from `i18n/locales/{lang}/readme.toml`
+
+   **Example output:**
+   ```
+   README.md          -> Chinese (if primary_locale = zh-TW)
+   README.en-US.md    -> English
+   README.ja-JP.md    -> Japanese (if ja-JP in commit_locales)
+   ```
+
+   **If `strategy = "bilingual"`:**
+   - Create single `README.md` with both primary and fallback languages
+   - Follow strict formatting: [中文 | English] pattern
+   - See [`.template/docs/README_BILINGUAL_FORMAT.md`](./.template/docs/README_BILINGUAL_FORMAT.md) for detailed rules
+   - Headers: `## 中文 | English` (same line)
+   - Paragraphs: Chinese paragraph, blank line, English paragraph
+   - Tables: Each cell contains `中文<br>English`
+
+   **If `strategy = "primary_only"`:**
+   - Create single `README.md` in `primary_locale` only
+   - No translations, no language switcher
+   - Standard Markdown
+
+3. **Verify language switcher (for separate strategy):**
+   - Top of README.md: Links to all language versions
+   - Format: `English | [繁體中文](./README.zh-TW.md) | [日本語](./README.ja-JP.md)`
+   - Current language shows as plain text (no link to itself)
+
+4. **Validation:**
+   - Separate: Each README file exists and is single-language
+   - Bilingual: Single README.md follows bilingual formatting rules
+   - Primary only: Only README.md exists
+
+**Reference:** [`.template/docs/README_BILINGUAL_FORMAT.md`](./.template/docs/README_BILINGUAL_FORMAT.md)
+
 **This is MANDATORY. No exceptions.**
 
 

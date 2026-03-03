@@ -86,15 +86,15 @@ This document serves as the primary instruction set for AI agents (like OpenCode
 ```markdown
 ## Project Overview
 
-Cardex is an academic knowledge management system for researchers.
+YourProject is a [brief project description].
 
 **📋 Product Requirements**: See [docs/PRD.md](./docs/PRD.md) for complete specification.
 
 **Key Features** (from PRD):
-- Bidirectional linking between notes and papers
-- Citation graph visualization
-- Full-text search with filters
-- Markdown-based note editor
+- [Feature 1]
+- [Feature 2]
+- [Feature 3]
+- [Feature 4]
 
 **Current Phase**: Phase 1 - MVP (see PRD Section 6)
 ```

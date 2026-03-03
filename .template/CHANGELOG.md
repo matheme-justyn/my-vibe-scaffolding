@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.12.1] - 2026-03-03
+
+### Fixed
+- **Documentation**: Remove project-specific example (Cardex) from scaffolding template
+  - AGENTS.md: Changed to generic "YourProject" placeholder
+  - CHANGELOG.md: Removed specific project name reference
+  - Context: Scaffolding template should not contain user's specific project names
+
 ## [1.12.0] - 2026-03-03
 
 ### Added
@@ -39,7 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **AGENTS.md Enhanced**: Added PRD usage example
   - New "Product Requirements Document (PRD)" section in Project Overview
-  - Example PRD reference pattern for Cardex project
+  - Example PRD reference pattern with placeholder variables
   - Benefits of PRD for AI coding listed
   - Links to guide and template
 

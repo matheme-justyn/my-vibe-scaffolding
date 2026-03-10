@@ -72,14 +72,10 @@ You already have **14 skills** available:
 
 Edit `AGENTS.md` to define skill triggers:
 
-```markdown
-### Default Skills for This Project
-
 | Task Type | Skills | Trigger Keywords |
 |-----------|--------|------------------|
 | Feature Dev | `brainstorming` + `test-driven-development` | "add feature", "implement" |
 | Bug Fixing | `systematic-debugging` | "bug", "error", "fix" |
-```
 
 **Option 2: Create Custom Bundles**
 

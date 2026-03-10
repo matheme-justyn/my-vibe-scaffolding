@@ -615,42 +615,40 @@ If a translation key is missing:
 
 ### 6. README Generation Protocol
 
-**CRITICAL: Check `config.toml` README strategy BEFORE generating any README files.**
+**CRITICAL: README files are auto-generated from i18n translations. DO NOT edit README.md directly.**
 
-1. **Read README strategy from config:**
-   ```toml
-   [i18n.readme]
-   strategy = "separate"  # or "bilingual" or "primary_only"
+### Workflow
+
+1. **Edit translation files:**
+   ```bash
+   .template/i18n/locales/en-US/readme.toml
+   .template/i18n/locales/zh-TW/readme.toml
    ```
 
-2. **Generate README based on strategy:**
-
-   **If `strategy = "separate"` (Recommended):**
-   - Create `README.md` in `primary_locale`
-   - Create `README.{lang}.md` for each language in `commit_locales` (except primary)
-   - Add language switcher at top of each file (e.g., `English | [繁體中文](./README.zh-TW.md)`)
-   - Each file is **single-language** (standard Markdown)
-   - Load content from `i18n/locales/{lang}/readme.toml`
-
-   **Example output:**
-   ```
-   README.md          -> Chinese (if primary_locale = zh-TW)
-   README.en-US.md    -> English
-   README.ja-JP.md    -> Japanese (if ja-JP in commit_locales)
+2. **Generate README files:**
+   ```bash
+   ./.template/scripts/generate-readme.sh
    ```
 
-   **If `strategy = "bilingual"`:**
-   - Create single `README.md` with both primary and fallback languages
-   - Follow strict formatting: [中文 | English] pattern
-   - See [`.template/docs/README_BILINGUAL_FORMAT.md`](./.template/docs/README_BILINGUAL_FORMAT.md) for detailed rules
-   - Headers: `## 中文 | English` (same line)
-   - Paragraphs: Chinese paragraph, blank line, English paragraph
-   - Tables: Each cell contains `中文<br>English`
+   This script:
+   - Reads content from `i18n/locales/{lang}/readme.toml`
+   - Generates `README.md` (English) and `README.zh-TW.md` (中文)
+   - Syncs to `.template/README.md` and `.template/README.zh-TW.md`
+   - Adds language switcher links automatically
+   - **NO markdown code fences** around content (README is already markdown)
 
-   **If `strategy = "primary_only"`:**
-   - Create single `README.md` in `primary_locale` only
-   - No translations, no language switcher
-   - Standard Markdown
+   ### Current Configuration
+
+This template uses **`separate` strategy**:
+- `README.md` - English (auto-generated from `en-US/readme.toml`)
+- `README.zh-TW.md` - 繁體中文 (auto-generated from `zh-TW/readme.toml`)
+
+### Important Rules
+
+1. **NEVER edit README.md or README.zh-TW.md directly** - Changes will be overwritten
+2. **Edit i18n TOML files** - All content comes from `i18n/locales/{lang}/readme.toml`
+3. **Run generate-readme.sh** - After editing TOML files, regenerate READMEs
+4. **NO ```markdown``` code fences** - README is markdown, content doesn't need wrapping
 
 3. **Verify language switcher (for separate strategy):**
    - Top of README.md: Links to all language versions

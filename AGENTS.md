@@ -110,45 +110,35 @@ YourProject is a [brief project description].
 
 **IMPORTANT: This section is for AI agents (OpenCode, Cursor, Claude). Human users see simplified instructions in README.**
 
-### First-Time Setup (Project Mode)
+### Installation & Update (Project Mode)
 
-When a user clones a project created from this template, you (AI agent) should run the initialization script when needed:
+**Single command handles both first-time setup and updates:**
 
 ```bash
 ./.template/scripts/init-project.sh
 ```
 
-**What this script does:**
-- Detects if running for first time (no `.template-version` file)
-- Creates project-specific files (VERSION, README, etc.)
-- Sets up Git hooks
-- Initializes OpenCode configuration
-- Creates `.template-version` for tracking
+**The script auto-detects mode:**
 
-**When to run:**
-- User mentions "setup", "initialize", or "configure" the project
+- **First-time mode** (no `.template-version` file exists):
+  - Creates project-specific files (VERSION, README, etc.)
+  - Sets up Git hooks
+  - Initializes OpenCode configuration
+  - Creates `.template-version` for tracking
+
+- **Update mode** (`.template-version` file exists):
+  - Consolidates agent configs (`.claude`, `.roo` → `.agents`)
+  - Updates template version tracking
+  - Reinstalls Git hooks (may have new features)
+  - Preserves all user customizations
+
+**When to run this command:**
+
+- User mentions "setup", "initialize", "configure" the project
+- User mentions "update template", "upgrade", "sync template"
 - Missing required files detected (VERSION, git hooks, etc.)
-- User explicitly requests template initialization
-
-### Update Existing Project
-
-**Same script handles updates automatically:**
-
-```bash
-./.template/scripts/init-project.sh
-```
-
-**What it does in update mode:**
-- Detects existing `.template-version` file (indicates update mode)
-- Consolidates agent configs (`.claude`, `.roo` → `.agents`)
-- Updates template version tracking
-- Reinstalls Git hooks (may have new features)
-- Preserves all user customizations
-
-**When to run:**
-- User mentions "update template", "upgrade", or "sync template"
 - User wants latest template features
-- Consolidate scattered agent configurations
+- Need to consolidate scattered agent configurations
 
 ### Template Development (Scaffolding Mode)
 

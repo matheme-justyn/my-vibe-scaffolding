@@ -7,6 +7,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [1.13.0] - 2026-03-10
+
+### Added
+- **Agent Skills Ecosystem Integration (Phase 1)**: Complete skills system infrastructure
+  - New: `.template/docs/SKILL_FORMAT_GUIDE.md` (622 lines) - Complete SKILL.md format guide
+  - New: `.template/docs/AGENTS_MD_GUIDE.md` (462 lines) - AGENTS.md standard documentation
+  - New: `.template/docs/examples/skills/template-skill/` - Skill creation template
+  - New: `data/bundles.yaml` (290 lines) - 14 predefined skill bundles (role-based + phase-based)
+  - New: `data/workflows.yaml` (484 lines) - 5 complete workflows with step-by-step instructions
+  - New: `.template/docs/SKILLS_USAGE_GUIDE.md` (306 lines) - Complete skills configuration guide
+  - New: `.template/docs/RESOURCE_ANALYSIS_AGENT_SKILLS_ECOSYSTEM.md` (1570 lines) - Ecosystem analysis
+  - ADR 0007: Documents integration decisions and 3-phase implementation plan
+
+- **Smart Install/Update System**
+  - New: `.template/scripts/consolidate-agent-configs.sh` - Consolidate .claude/.roo/.cursor to .agents/
+  - Enhanced: `.template/scripts/init-project.sh` - Auto-detects install vs update mode
+  - Update mode: Consolidates configs, updates version, reinstalls hooks
+
+- **Multi-language README Auto-sync**
+  - Enhanced: `.template/scripts/sync-readme.sh` - Auto-detects all README*.md files
+  - Pre-push hook: Enforces sync for all language variants
+  - Zero-maintenance: New locales automatically supported
+
+### Changed
+- **README.md Simplified**: Reduced from 193 to 144 lines
+  - Focus on 4 core sections: What/Install/Configure/Tech Stack
+  - Skills configuration prominently featured
+  - Removed redundant sections
+  - Applied to all language variants (en-US, zh-TW)
+
+- **AGENTS.md Enhanced**: Added "Default Skills for This Project" section
+  - Defines task-based skill triggers (Feature Dev, Bug Fixing, etc.)
+  - Auto-load recommendations for common workflows
+  - 130+ lines of Skills System documentation
+
+- **i18n Enhanced**: Traditional Chinese terminology for skills/bundles/workflows
+  - Updated `.template/i18n/locales/zh-TW/agents.toml`
+
+### Technical Details
+- Total new content: ~4,300 lines
+- New skills infrastructure: 7 documents, 3 scripts
+- Bundles: 14 predefined (backend-dev, frontend-dev, devops-specialist, etc.)
+- Workflows: 5 complete (feature-development, bug-fix, refactoring, etc.)
+- Skills available: 14 from superpowers (brainstorming, TDD, debugging, etc.)
+
 ## [1.12.1] - 2026-03-03
 
 ### Fixed

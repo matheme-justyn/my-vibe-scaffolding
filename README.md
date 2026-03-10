@@ -4,170 +4,128 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-1.12.1-blue.svg)](./.template/VERSION)
+[![Version](https://img.shields.io/badge/version-1.13.0-blue.svg)](./.template/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-[![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-blue)](https://semver.org/)
 
 English | [繁體中文](./README.zh-TW.md)
 
 </div>
 
-> **📌 This is the Template's README**  
-> If you've used this template for your project, run `.template/scripts/init-project.sh` to initialize your project
+---
 
-## 🏛️ What is My Vibe Scaffolding?
+## 📌 What is This?
 
-**AI-driven project scaffolding template** — Based on psychologist Lev Vygotsky's scaffolding theory, quickly build project structures with AI assistance, follow best practices, and freely remove or customize as you grow.
+**AI-driven project scaffolding template** for quick project setup with best practices.
 
-<div align="center">
-<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-american.png" alt="American Style" width="300"/>
-<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-japanese.png" alt="Japanese Style" width="300"/>
-</div>
+Based on psychologist Lev Vygotsky's scaffolding theory - provides structure when you need it, remove it when you don't.
+
+### Core Features
+
+- 🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude
+- 📦 **Version Management** - Pre-push hooks enforce version updates
+- 🌐 **Multi-language** - BCP 47 i18n for documentation
+- 🛠️ **Smart Install/Update** - One script handles both new projects and updates
 
 ---
 
-## ⚡ Core Features
+## 🚀 Installation & Update
 
-### 🤖 AI Agent Integration
+### First Time: Use This Template
 
-OpenCode/Cursor development experience driven by `AGENTS.md`, AI automatically follows project conventions.
+```bash
+# 1. Click "Use this template" on GitHub → Clone your repo
+# 2. Run installation script
+./.template/scripts/init-project.sh
+```
 
-<details>
-<summary>📄 AGENTS.md Preview</summary>
+### Update Existing Project
+
+```bash
+# Same script auto-detects update mode
+./.template/scripts/init-project.sh
+
+# Updates:
+# ✅ Consolidates agent configs (.claude, .roo → .agents)
+# ✅ Updates template version
+# ✅ Reinstalls Git hooks
+```
+
+---
+
+## ⚙️ Configuration - AI Skills
+
+### What are Skills?
+
+**Skills** = Reusable AI workflows (like functions for AI agents)
+
+Example: `test-driven-development`, `systematic-debugging`, `brainstorming`
+
+### Where Your Skills Are
+
+You already have **14 skills** available:
+- 📍 `~/.config/opencode/skills/superpowers/` - User-level skills
+- 📍 `.agents/skills/` - Project-specific skills (create if needed)
+
+### How to Set Which Skills to Use
+
+**Option 1: Auto-trigger via AGENTS.md** (Recommended)
+
+Edit `AGENTS.md` to define skill triggers:
 
 ```markdown
-# AGENTS.md
+### Default Skills for This Project
 
-## Coding Conventions
-- **Always write tests first**: All new features and bug fixes must have tests first
-- **All functions must have docstrings and type annotations**
-
-## Commit Message
-Format: `type: brief description`
-Allowed types: feat, fix, docs, refactor, test, chore
-
-## What NOT to do
-- ❌ Don't change architecture without discussion
-- ❌ Don't refactor existing code unless requested
+| Task Type | Skills | Trigger Keywords |
+|-----------|--------|------------------|
+| Feature Dev | `brainstorming` + `test-driven-development` | "add feature", "implement" |
+| Bug Fixing | `systematic-debugging` | "bug", "error", "fix" |
 ```
 
-→ Full content: [AGENTS.md](./AGENTS.md)
-</details>
+**Option 2: Create Custom Bundles**
 
-### 🌐 Multi-language Support
+Edit `data/bundles.yaml`:
 
-BCP 47 i18n system, AI automatically adapts to user's language preference.
-
-### 📦 Strict Version Management
-
-Pre-push hook enforces version updates, preventing version chaos. Every push ensures version number is updated.
-
-<details>
-<summary>🔍 How It Works</summary>
-
-**Automatic checks**: On every `git push`, the hook compares:
-- Current `VERSION` file content
-- Latest Git tag version
-
-**If version not updated**:
-- ❌ Push blocked
-- 💡 Prompts to run `.template/scripts/bump-version.sh patch|minor|major`
-
-**Emergency bypass** (not recommended):
-```bash
-git push --no-verify  # Skip all hooks
+```yaml
+- id: "my-bundle"
+  skills:
+    - name: "brainstorming"
+    - name: "test-driven-development"
 ```
 
-**Install hooks**:
-```bash
-./.template/scripts/install-hooks.sh
-```
-</details>
+Use: `@use bundle:my-bundle`
 
-### 🗂️ File Separation Design
-
-`.template/` isolates scaffolding infrastructure, keeping project files clean and independent.
-
-<details>
-<summary>📁 Directory Structure</summary>
+**Option 3: Manual Load**
 
 ```
-.template/          # Scaffolding infrastructure (template core)
-├── docs/           # Template documentation
-├── scripts/        # Template scripts
-└── VERSION         # Template version
-
-.opencode/          # OpenCode AI assistant configuration
-└── INSTALL.md      # AI-assisted installation instructions
-
-docs/               # Your project documentation
-scripts/            # Your project scripts
-VERSION             # Your project version (independent from template version)
+@use brainstorming
+User: "Design an authentication system"
 ```
 
-**Version Files:**
-- `.template/VERSION`: Template version (which scaffolding version you're using)
-- `VERSION`: Your project version
+### Available Skills
 
-→ See [AGENTS.md § Working Mode](./AGENTS.md#working-mode)
-</details>
+- `brainstorming` - Feature ideation
+- `test-driven-development` - TDD workflow
+- `systematic-debugging` - Bug diagnosis
+- `requesting-code-review` - Code review
+- `using-git-worktrees` - Git workflow
+- ...and 9 more
 
-### 📚 Complete Project Guides
-
-Interactive setup for LICENSE, CONTRIBUTING, SECURITY.
+📖 **Full guide:** [`.template/docs/SKILLS_USAGE_GUIDE.md`](./.template/docs/SKILLS_USAGE_GUIDE.md)
 
 ---
 
 ## 🎯 Tech Stack
 
-🧠 **Core Concept: Turn AI assistants into your virtual dev team**
-
-We use [superpowers](https://github.com/ohmyopencode/superpowers) — reusable AI development workflows.
+Why these technologies?
 
 | Technology | Why | Problem Solved |
-|---------|---------|-----------|
-| **OpenCode** (Open-source AI assistant) | 75+ models, CLI-first, scriptable | Avoid vendor lock-in |
-| **AGENTS.md Standard** | Cross-tool compatible (OpenCode/Cursor/Windsurf) | AI understands project conventions |
-| **superpowers Skills** | Reusable development workflows | Encode best practices as executable commands |
-| **Subagents (Multi-agent)** | Specialized roles (explore/librarian/oracle) | Simulate real team collaboration |
-| **Single-instance Workflow** | Avoid SQLite conflicts (ADR 0005) | Stability boost (crashes: daily → weekly) |
-| **MCP Servers Support** | Connect external tools (DB, API, services) | Extend AI capabilities |
+|------------|-----|----------------|
+| **OpenCode** (Open-source AI) | 75+ models, CLI-first | Avoid vendor lock-in |
+| **AGENTS.md Standard** | Cross-tool compatible | AI understands project conventions |
+| **Skills System** | Reusable workflows | Encode best practices |
+| **Bundles & Workflows** | Role-based collections | Quick context loading |
 
-_Choose open, composable, community-driven tools over closed commercial solutions._
-
----
-
-## 🚀 Quick Install
-
-### Option 1: AI Assistant Install (Recommended)
-
-Paste this in OpenCode/Cursor/Claude chat:
-
-```
-my-vibe-scaffolding (scaffolding template)
-Install and configure my-vibe-scaffolding by following the instructions here:
-https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.opencode/INSTALL.md
-```
-
-### Option 2: Manual Install
-
-```bash
-# 1. Click "Use this template" on GitHub → Clone project
-# 2. Initialize project
-./.template/scripts/init-project.sh
-```
-
-For details: [INSTALL.md](./.opencode/INSTALL.md)
-
----
-
-## 📖 Documentation
-
-- [Template Changelog](./.template/CHANGELOG.md) - Template version changes
-- [Project Changelog](./CHANGELOG.md) - Your project changes
-- [Template Sync](./.template/docs/TEMPLATE_SYNC.md) - Update to new versions
-- **[Quick Update Guide](./.template/docs/QUICK_UPDATE.md)** - Fast update for existing projects (OpenCode multi-project support)
-- [Project Guides](./.template/docs/) - LICENSE, CONTRIBUTING, SECURITY writing guides
+We use [superpowers](https://github.com/ohmyopencode/superpowers) - community-driven AI workflows.
 
 ---
 
@@ -179,6 +137,8 @@ MIT License - See [LICENSE](./LICENSE)
 
 <div align="center">
 
-**Based on Vygotsky's Scaffolding Theory | Powered by AI | Designed for Developers**
+**Based on Vygotsky's Scaffolding Theory | Powered by AI | For Developers**
+
+[Documentation](./.template/docs/) | [Changelog](./.template/CHANGELOG.md) | [GitHub](https://github.com/matheme-justyn/my-vibe-scaffolding)
 
 </div>

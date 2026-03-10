@@ -69,3 +69,32 @@ title = "不該做的事"
 no_architecture = "❌ **不要自作主張改架構**：任何架構變更都必須先討論"
 no_refactor = "❌ **不要在沒被要求的情況下重構既有程式碼**：專注在當前任務"
 no_dependencies = "❌ **不要安裝沒討論過的 dependency**：新增套件前必須先討論必要性和替代方案"
+
+[skills]
+title = "技能系統"
+description = "可重複使用的 AI 行為模式"
+portable = "跨工具可攜帶"
+reusable = "可在多個專案使用"
+focused = "專注於單一功能"
+self_documenting = "自我文件化"
+
+[bundles]
+title = "技能組合"
+description = "角色導向的技能集合"
+backend_dev = "後端開發"
+frontend_dev = "前端開發"
+devops_specialist = "DevOps 專家"
+security_engineer = "安全工程師"
+project_start = "專案啟動"
+feature_development = "功能開發"
+production_ready = "生產部署準備"
+debugging_master = "除錯大師"
+
+[workflows]
+title = "工作流程"
+description = "逐步操作手冊"
+feature_development = "完整功能開發流程"
+bug_fix = "系統化 Bug 修復"
+refactoring = "安全重構"
+security_audit = "安全審計"
+ci_cd_setup = "CI/CD 管線設定"

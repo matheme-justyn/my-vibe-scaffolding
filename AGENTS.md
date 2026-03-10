@@ -127,7 +127,7 @@ You're developing this scaffolding itself. File organization:
 - Reference scaffolding assets from `.template/assets/`
 - **Generate bilingual README** following [README_BILINGUAL_FORMAT.md](./.template/docs/README_BILINGUAL_FORMAT.md)
 - **CHANGELOG**: Update `.template/CHANGELOG.md` (template changes)
-- **README sync**: If `sync_readme = true`, root `README.md` auto-syncs to `.template/README.md`
+- **README sync**: If `sync_readme = true`, **all** `README*.md` files (all locales) auto-sync: root → `.template/`
 
 ### Project Mode (`mode = "project"`)
 
@@ -311,6 +311,156 @@ refactor(core): simplify error handling logic
 - ❌ **不要自作主張改架構**：任何架構變更都必須先討論
 - ❌ **不要在沒被要求的情況下重構既有程式碼**：專注在當前任務
 - ❌ **不要安裝沒討論過的 dependency**：新增套件前必須先討論必要性和替代方案
+
+## Skill System
+
+This scaffolding supports the **SKILL.md format** for reusable AI behavior patterns. Skills are portable across OpenCode, Cursor, Windsurf, and Claude.
+
+### What are Skills?
+
+**Skills** are encapsulated AI workflows - think of them as functions for AI agents:
+
+- 📦 **Portable**: Work across different AI tools
+- 🔄 **Reusable**: Use in multiple projects
+- 🎯 **Focused**: One skill, one job (TDD, API design, security audit)
+- 📝 **Self-documenting**: Frontmatter describes purpose and usage
+
+### Skill Discovery Paths
+
+Skills are loaded from these directories (in order):
+
+```
+.agents/skills/           # Project-specific skills (your custom skills)
+.template/docs/examples/skills/  # Template-provided examples
+~/.config/opencode/skills/       # User-installed skills (superpowers)
+```
+
+### Available Skills
+
+**Project Skills** (`.agents/skills/`):
+- Place project-specific skills here
+- These override template and user skills
+
+**Template Skills** (`.template/docs/examples/skills/`):
+- `template-skill/` - Template for creating new skills
+
+**User Skills** (`~/.config/opencode/skills/superpowers/`):
+- `brainstorming` - Feature ideation and planning
+- `test-driven-development` - TDD workflow
+- `systematic-debugging` - Systematic bug diagnosis
+- `using-git-worktrees` - Isolated feature development
+- `executing-plans` - Execute implementation plans
+- `finishing-a-development-branch` - Complete development work
+- ... (13 total skills)
+
+### Bundles & Workflows
+
+**Bundles** (`data/bundles.yaml`) - Role-based skill collections:
+
+- `backend-dev` - API design, database, testing, security
+- `frontend-dev` - Component design, state management, a11y
+- `devops-specialist` - Infrastructure, deployment, monitoring
+- `security-engineer` - Security auditing and hardening
+- `project-start` - Brainstorming, architecture, setup
+- `feature-development` - Building new features
+- `production-ready` - Production deployment preparation
+- `debugging-master` - Troubleshooting and fixing issues
+
+**Workflows** (`data/workflows.yaml`) - Step-by-step playbooks:
+
+- `feature-development` - Complete feature from idea to deployment
+- `bug-fix` - Systematic bug diagnosis and fix
+- `refactoring` - Safe code refactoring
+- `security-audit` - Comprehensive security audit
+- `ci-cd-setup` - CI/CD pipeline setup
+
+### Using Skills
+
+**Load single skill:**
+```
+@use brainstorming
+User: "Design a user authentication system"
+```
+
+**Load bundle:**
+```
+@use bundle:backend-dev
+User: "Create a REST API for blog posts"
+```
+
+**Execute workflow:**
+```
+@workflow feature-development
+User: "Add user profile editing"
+```
+
+### Creating New Skills
+
+1. **Copy template:**
+   ```bash
+   cp -r .template/docs/examples/skills/template-skill .agents/skills/my-skill
+   ```
+
+2. **Edit SKILL.md:**
+   - Update frontmatter (name, version, description, tags)
+   - Define "When to Use" triggers
+   - Write step-by-step "Instructions"
+   - Add "Examples" and "Anti-Patterns"
+
+3. **Test:**
+   ```
+   @use my-skill
+   User: "Test my skill"
+   ```
+
+### Documentation
+
+- **[SKILL_FORMAT_GUIDE.md](./.template/docs/SKILL_FORMAT_GUIDE.md)** - Complete skill format guide
+- **[AGENTS_MD_GUIDE.md](./.template/docs/AGENTS_MD_GUIDE.md)** - AGENTS.md standard
+- **[ADR 0007](./.template/docs/adr/0007-agent-skills-ecosystem-integration.md)** - Integration decisions
+
+### Architecture
+
+```
+my-vibe-scaffolding/
+├── .agents/                    # Project skills & config
+│   └── skills/                 # Custom skills
+├── .template/
+│   ├── docs/
+│   │   ├── SKILL_FORMAT_GUIDE.md   # Skill creation guide
+│   │   └── examples/
+│   │       └── skills/
+│   │           └── template-skill/     # Skill template
+├── data/
+│   ├── bundles.yaml            # Role-based skill collections
+│   └── workflows.yaml          # Step-by-step playbooks
+└── AGENTS.md                   # This file
+```
+
+
+### Default Skills for This Project
+
+**Auto-load these skills based on task context:**
+
+| Task Type | Skills | Trigger Keywords |
+|-----------|--------|------------------|
+| Feature Development | `brainstorming`<br>`test-driven-development` | "新增功能", "實作", "開發" |
+| Bug Fixing | `systematic-debugging` | "bug", "錯誤", "修正", "不work" |
+| Code Review | `requesting-code-review` | "review", "檢查程式碼" |
+| Planning | `brainstorming`<br>`writing-plans` | "規劃", "設計", "架構" |
+| Git Workflow | `using-git-worktrees` | "feature branch", "worktree" |
+
+**Usage:**
+```
+# AI will auto-detect based on your request
+User: "新增使用者登入功能"  → auto-loads brainstorming + test-driven-development
+User: "修正登入 bug"        → auto-loads systematic-debugging
+
+# Or manually load
+@use brainstorming
+User: "設計認證系統"
+```
+
 
 ## Internationalization (i18n)
 

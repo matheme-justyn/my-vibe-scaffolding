@@ -207,6 +207,132 @@ See:
 
 ---
 
-**Status**: Proposed
-**Date**: 2026-02-26
-**Next**: Decision needed - implement this structure?
+**Status**: Accepted
+**Date**: 2026-02-26 (Proposed) | 2026-03-03 (Accepted)
+**Implementation Completed**: 2026-03-03
+
+---
+
+## Implementation Status (2026-03-03)
+
+### ✅ Completed
+
+**All planned changes have been implemented:**
+
+1. **Directory structure created** ✅
+   ```
+   .template/
+   ├── VERSION
+   ├── docs/
+   │   ├── DOCUMENTATION_GUIDELINES.md
+   │   ├── README_GUIDE.md
+   │   ├── PRD.md (added 2026-03-03)
+   │   ├── adr/
+   │   │   ├── 0002-example-tech-stack-selection.md
+   │   │   ├── 0003-example-api-design-principles.md
+   │   │   └── 0004-example-testing-strategy.md
+   │   └── templates/
+   ├── scripts/
+   │   ├── init-project.sh
+   │   ├── bump-version.sh
+   │   └── lib-config.sh
+   ├── i18n/
+   │   └── locales/
+   └── languages/
+   ```
+
+2. **File references updated** ✅
+   - AGENTS.md now references `.template/docs/` paths
+   - README.md updated with `.template/scripts/` paths
+   - All scripts use `.template/VERSION` correctly
+
+3. **i18n system moved** ✅
+   - `i18n/` directory relocated to `.template/i18n/`
+   - `languages/` directory relocated to `.template/languages/`
+   - `config.toml` paths updated to reference new locations
+
+4. **ADRs organized** ✅
+   - Example ADRs (0002-0004) in `.template/docs/adr/`
+   - Real ADRs (0001, 0005, 0006) in `.template/docs/adr/`
+   - Note: In scaffolding mode, all ADRs stay in `.template/docs/adr/`
+
+### 🔄 Migration Script Status
+
+**Decision**: Migration script (`migrate-to-template-dir.sh`) will be created for legacy projects.
+
+**Current Status**: In progress (see TODO in this ADR)
+
+**Purpose**: Help existing users of pre-v1.9.0 template migrate to new structure
+
+**Scope**:
+- Detect if project uses old structure (i18n in root)
+- Move files to `.template/` with safety checks
+- Update file references automatically
+- Preserve user customizations
+
+### 📊 Verification
+
+**Verified on 2026-03-03:**
+
+```bash
+# Structure check
+$ ls .template/
+# Output: docs/ scripts/ i18n/ languages/ VERSION ✅
+
+# i18n location
+$ test -d .template/i18n && echo "Found"
+# Output: Found ✅
+
+# References check
+$ grep -r "template/docs" AGENTS.md
+# Output: Multiple matches ✅
+```
+
+### 🎯 Benefits Realized
+
+1. **Zero conflicts** during template updates (v1.9.0 → v1.12.1)
+2. **Clear separation** between template and project files
+3. **Easier onboarding** - users immediately see what's template vs theirs
+4. **Safe customization** - users can modify root files without fear
+
+---
+
+## Next Steps
+
+1. **Create migration script** (`.template/scripts/migrate-to-template-dir.sh`)
+   - Priority: Medium
+   - Target: v1.13.0
+
+2. **Document migration process** in `.template/docs/TEMPLATE_SYNC.md`
+   - Add section for v1.8.x → v1.9.0+ migration
+
+3. **Add migration guide to CHANGELOG**
+   - For users upgrading from pre-v1.9.0 versions
+
+---
+
+## Lessons Learned
+
+### What Worked Well
+
+- **Gradual rollout**: Moved directories incrementally (i18n first, then scripts)
+- **Backward compatibility**: Old paths continued working during transition
+- **Clear documentation**: Updated AGENTS.md immediately after each change
+
+### What Could Be Improved
+
+- **Migration script should have been created earlier**: Some users confused by manual migration
+- **Changelog communication**: Should have highlighted breaking changes more prominently
+
+---
+
+## Related ADRs
+
+- **ADR 0001**: Established ADR system (foundation for this decision)
+- **ADR 0005**: OpenCode stability (similar isolation concept for `.opencode-data/`)
+
+---
+
+**Decision finalized**: 2026-03-03
+**Implemented by**: Template maintenance team + AI assistant
+**Reviewed by**: Primary maintainer

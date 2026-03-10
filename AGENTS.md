@@ -695,6 +695,28 @@ If a translation key is missing:
    - Adds language switcher links automatically
    - **NO markdown code fences** around content (README is already markdown)
 
+3. **MANDATORY Verification (ALWAYS do this before committing):**
+   ```bash
+   # Verify all 4 files exist and are in sync
+   diff README.md .template/README.md
+   diff README.zh-TW.md .template/README.zh-TW.md
+   ```
+   
+   **Success criteria:**
+   - ✅ Both diffs show no differences (files are identical)
+   - ✅ Both language versions updated (en-US and zh-TW)
+   - ✅ Language switcher links present in both files
+   - ✅ No ```markdown code fences wrapping content
+   
+   **If verification fails:**
+   - Re-run generate-readme.sh
+   - Do NOT commit until all checks pass
+   - Reads content from `i18n/locales/{lang}/readme.toml`
+   - Generates `README.md` (English) and `README.zh-TW.md` (中文)
+   - Syncs to `.template/README.md` and `.template/README.zh-TW.md`
+   - Adds language switcher links automatically
+   - **NO markdown code fences** around content (README is already markdown)
+
    ### Current Configuration
 
 This template uses **`separate` strategy**:

@@ -83,7 +83,6 @@ This document serves as the primary instruction set for AI agents (like OpenCode
 - **Guide**: See [.template/docs/PRD_GUIDE.md](./.template/docs/PRD_GUIDE.md)
 
 **Example PRD reference**:
-```markdown
 ## Project Overview
 
 YourProject is a [brief project description].
@@ -97,7 +96,6 @@ YourProject is a [brief project description].
 - [Feature 4]
 
 **Current Phase**: Phase 1 - MVP (see PRD Section 6)
-```
 
 **Benefits of PRD for AI coding**:
 - ✅ AI has complete context at session start

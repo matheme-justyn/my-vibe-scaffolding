@@ -53,7 +53,6 @@
 ### 核心特性
 
 **AGENTS.md 檔案格式**:
-```markdown
 # AGENTS.md
 
 ## Setup commands
@@ -65,7 +64,6 @@
 - TypeScript strict mode
 - Single quotes, no semicolons
 - Use functional patterns where possible
-```
 
 **關鍵特點**:
 1. **Markdown 格式**: 無需結構化 frontmatter，純 Markdown
@@ -294,7 +292,6 @@ description: A clear description of what this skill does and when to use it
 ### 實作建議
 
 **採納的標準格式**:
-```markdown
 ---
 name: skill-name
 description: Complete description for agent activation
@@ -311,7 +308,6 @@ description: Complete description for agent activation
 
 ## Examples
 [Real-world examples]
-```
 
 **Skill 結構範本**:
 ```
@@ -407,7 +403,6 @@ description: Complete description for agent activation
 ```
 
 **文件範例**:
-```markdown
 ## Skill 安裝位置
 
 ### 全域技能 (所有專案可用)
@@ -418,7 +413,6 @@ description: Complete description for agent activation
 ### 專案技能 (當前專案)
 - `.agents/skills/` — 跨 agent 工具，團隊共享
 - `.claude/skills/` — Claude Code 專用
-```
 
 **不建議整合**:
 - ❌ 完整的 8 層優先級系統（過於複雜）
@@ -725,7 +719,6 @@ description = "步驟導向的任務執行指南"
 ```
 
 **User flow 參考**:
-```markdown
 ## 開始使用 Skills
 
 1. **開啟 skill 管理介面**
@@ -739,7 +732,6 @@ description = "步驟導向的任務執行指南"
    
 4. **使用 skill**
    - 在提示中引用 `@skill-name`
-```
 
 **不建議整合**:
 - ❌ 複製 Claude Code plugin 系統（工具特定）
@@ -858,7 +850,6 @@ gemini-extension.json                   # Gemini CLI extension manifest [NEW]
 
 #### 現有 AGENTS.md 需強化的章節
 
-```markdown
 <!-- 現有內容維持不變 -->
 
 ## Skill System
@@ -908,7 +899,6 @@ Use @brainstorming to plan this feature.
 - [AGENTS.md Standard](https://agents.md/) — Open format for agent instructions
 - [Agent Skills Specification](https://agentskills.io/) — SKILL.md format standard
 - [Skill Management Guide](./docs/users/skill-management.md) — 本專案的 skill 管理指南
-```
 
 ### i18n 更新
 
@@ -1171,7 +1161,6 @@ jobs:
 
 #### 外部資源追蹤
 
-```markdown
 <!-- .template/docs/EXTERNAL_RESOURCES.md -->
 
 # External Resources Tracking
@@ -1191,7 +1180,6 @@ jobs:
 - agents.md: Standard stable, no updates
 
 ### Next Review: 2026-04-10
-```
 
 #### 版本更新觸發條件
 
@@ -1435,7 +1423,6 @@ jobs:
 
 ### A. Skill 格式範本
 
-```markdown
 ---
 name: skill-name
 description: Clear, specific description of when to use this skill and what it does
@@ -1501,7 +1488,6 @@ output example
 
 - [Official documentation](https://example.com)
 - [Related tutorial](https://example.com)
-```
 
 ### B. Bundle 範本
 

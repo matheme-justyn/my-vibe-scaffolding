@@ -19,7 +19,6 @@
 
 **範例：** 已經幫你在 AGENTS.md 加入以下內容：
 
-```markdown
 ### Default Skills for This Project
 
 **Auto-load these skills based on task context:**
@@ -31,7 +30,6 @@
 | Code Review | requesting-code-review | "review", "檢查程式碼" |
 | Planning | brainstorming + writing-plans | "規劃", "設計", "架構" |
 | Git Workflow | using-git-worktrees | "feature branch", "worktree" |
-```
 
 **使用：**
 ```
@@ -180,16 +178,12 @@ User: "檢查這個 API 的程式碼"
 
 編輯 `AGENTS.md`，找到 `### Default Skills for This Project` 章節：
 
-```markdown
 | Task Type | Skills | Trigger Keywords |
 |-----------|--------|------------------|
 | 你的任務類型 | `skill-name` | "關鍵字1", "關鍵字2" |
-```
 
 **範例：**
-```markdown
 | API 開發 | `api-design`<br>`test-driven-development` | "建立 API", "REST", "endpoint" |
-```
 
 ---
 

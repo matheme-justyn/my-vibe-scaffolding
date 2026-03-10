@@ -161,7 +161,6 @@ echo "   建議：<20 個檔案"
 - ❌ 中間文件
 
 **建議加入你的 AGENTS.md:**
-```markdown
 ## Root Directory Policy
 
 Keep root clean and purposeful:
@@ -174,7 +173,6 @@ Keep root clean and purposeful:
 **NOT Allowed:**
 - Temporary notes (TODO.md, NOTES.md)
 - AI-generated summaries
-```
 
 ---
 

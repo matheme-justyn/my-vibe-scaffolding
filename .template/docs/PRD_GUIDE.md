@@ -119,7 +119,6 @@ docs/
 See full template with examples: [PRD_TEMPLATE.md](./templates/PRD_TEMPLATE.md)
 
 **Quick structure**:
-```markdown
 # [Project Name] - Product Requirements Document
 
 ## 1. Overview
@@ -145,7 +144,6 @@ See full template with examples: [PRD_TEMPLATE.md](./templates/PRD_TEMPLATE.md)
 - MVP scope
 - Phase 1, 2, 3...
 - Success metrics
-```
 
 ---
 
@@ -159,7 +157,6 @@ User should be able to log in.
 ```
 
 **✅ Good**:
-```markdown
 ## Login Feature
 
 **Requirements**:
@@ -173,7 +170,6 @@ User should be able to log in.
 - Locked account → show unlock time remaining
 - First-time user → redirect to onboarding
 - Already logged in → redirect to dashboard
-```
 
 ### 2. Use Structured Format
 
@@ -184,7 +180,6 @@ User should be able to log in.
 - ✅ Mermaid diagrams (flows, architecture)
 
 **Example - API Spec in PRD**:
-```markdown
 ## API Requirements
 
 ### POST /api/auth/login
@@ -214,12 +209,10 @@ User should be able to log in.
   "locked_until": "2026-03-03T14:30:00Z"  // if account locked
 }
 \`\`\`
-```
 
 ### 3. Include Visual Context
 
 **Use Mermaid for flows**:
-```markdown
 ## User Authentication Flow
 
 \`\`\`mermaid
@@ -233,7 +226,6 @@ sequenceDiagram
     Frontend->>Frontend: Store token
     Frontend-->>User: Redirect to dashboard
 \`\`\`
-```
 
 ### 4. Prioritize Features
 
@@ -244,7 +236,6 @@ sequenceDiagram
 - **Won't Have** - Out of scope
 
 **Example**:
-```markdown
 ## Feature Priority
 
 | Feature | Priority | Reason |
@@ -253,12 +244,10 @@ sequenceDiagram
 | OAuth (Google) | Should Have | Reduces friction |
 | 2FA | Could Have | Security enhancement |
 | Biometric login | Won't Have | V1 scope |
-```
 
 ### 5. Define Success Metrics
 
 **Measurable criteria**:
-```markdown
 ## Success Metrics
 
 **Performance**:
@@ -270,7 +259,6 @@ sequenceDiagram
 - Login success rate > 95%
 - Account lockout rate < 1%
 - Password reset completion > 80%
-```
 
 ---
 
@@ -311,7 +299,6 @@ Login Feature: User logs in with credentials. Handle errors properly.
 ```
 
 **After (Markdown)**:
-```markdown
 ## 2.1 Login Feature
 
 **User Story**: As a user, I want to log in securely so I can access my account.
@@ -328,7 +315,6 @@ Login Feature: User logs in with credentials. Handle errors properly.
 | Invalid email format | "Please enter a valid email" | 400 |
 | Wrong password | "Invalid credentials" | 401 |
 | Account locked | "Too many attempts. Try again in 15 minutes" | 429 |
-```
 
 ---
 
@@ -336,7 +322,6 @@ Login Feature: User logs in with credentials. Handle errors properly.
 
 **Reference PRD in AGENTS.md**:
 
-```markdown
 ## Project Overview
 
 [Your project description]
@@ -349,7 +334,6 @@ Login Feature: User logs in with credentials. Handle errors properly.
 - Advanced search with filters
 
 **Current Phase**: Phase 1 - MVP (see PRD Section 5)
-```
 
 **This ensures AI reads PRD at session start.**
 

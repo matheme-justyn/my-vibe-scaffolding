@@ -21,7 +21,7 @@ echo ""
 FILES=$(grep -rl '```markdown' --include="*.md" "$PROJECT_ROOT" 2>/dev/null | \
         grep -v '.git/' | \
         grep -v '0008-no-markdown-code-fence' | \
-        sort -u)
+        sort -u || true)
 
 if [[ -z "$FILES" ]]; then
     echo -e "${GREEN}✓ No markdown fences found. All clean!${NC}"
@@ -30,7 +30,7 @@ fi
 
 echo -e "${YELLOW}Found markdown fences in the following files:${NC}"
 echo "$FILES" | while read -r file; do
-    echo "  - ${file#$PROJECT_ROOT/}"
+    [[ -n "$file" ]] && echo "  - ${file#$PROJECT_ROOT/}"
 done
 echo ""
 
@@ -42,64 +42,45 @@ echo -e "${BLUE}Creating backup in: ${BACKUP_DIR#$PROJECT_ROOT/}${NC}"
 FIXED_COUNT=0
 
 # Process each file
-echo "$FILES" | while read -r file; do
-    if [[ ! -f "$file" ]]; then
-        continue
-    fi
+while IFS= read -r file; do
+    [[ -z "$file" || ! -f "$file" ]] && continue
     
     # Backup
     BACKUP_FILE="$BACKUP_DIR/$(basename "$file")"
     cp "$file" "$BACKUP_FILE"
     
-    # Count occurrences before
-    BEFORE=$(grep -c '```markdown' "$file" 2>/dev/null || echo 0)
-    
-    if [[ "$BEFORE" -eq 0 ]]; then
-        continue
-    fi
-    
-    # Fix: Remove lines with exactly ```markdown (opening fence)
-    # Keep lines that mention ```markdown in prose (e.g., "use ```markdown")
-    # This is a smart removal that preserves context while removing fence lines
-    
-    # Create temp file
+    # Create temp file with fences removed
     TEMP_FILE="${file}.tmp"
     
-    # Process line by line
+    # Process: Remove ```markdown opening and corresponding ``` closing
     awk '
-    BEGIN { in_markdown_fence = 0; prev_blank = 0 }
+    BEGIN { in_markdown_fence = 0 }
     
-    # Detect opening ```markdown fence
+    # Opening fence
     /^```markdown$/ {
         in_markdown_fence = 1
-        next  # Skip this line
+        next
     }
     
-    # Detect closing ``` when inside markdown fence
+    # Closing fence (only when we are in markdown fence)
     in_markdown_fence && /^```$/ {
         in_markdown_fence = 0
-        next  # Skip this line
+        next
     }
     
     # Print all other lines
-    !in_markdown_fence || !/^```markdown$/ {
-        print
-    }
+    { print }
     ' "$file" > "$TEMP_FILE"
     
-    # Replace original file
-    mv "$TEMP_FILE" "$file"
-    
-    # Count after
-    AFTER=$(grep -c '```markdown' "$file" 2>/dev/null || echo 0)
-    
-    REMOVED=$((BEFORE - AFTER))
-    
-    if [[ "$REMOVED" -gt 0 ]]; then
-        echo -e "${GREEN}✓ Fixed: ${file#$PROJECT_ROOT/} (removed $REMOVED fences)${NC}"
-        ((FIXED_COUNT++)) || true
+    # Check if anything changed
+    if ! cmp -s "$file" "$TEMP_FILE"; then
+        mv "$TEMP_FILE" "$file"
+        echo -e "${GREEN}✓ Fixed: ${file#$PROJECT_ROOT/}${NC}"
+        FIXED_COUNT=$((FIXED_COUNT + 1))
+    else
+        rm "$TEMP_FILE"
     fi
-done
+done <<< "$FILES"
 
 echo ""
 echo -e "${GREEN}✓ Fixed $FIXED_COUNT files${NC}"

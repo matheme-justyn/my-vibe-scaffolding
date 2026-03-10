@@ -93,7 +93,6 @@ compatible_tools: ["opencode", "cursor", "windsurf", "claude"]
 
 The actual AI instructions. Structure:
 
-```markdown
 # Skill Name
 
 ## Purpose
@@ -132,7 +131,6 @@ Step-by-step AI behavior:
 ### Example 1: Basic Usage
 
 Input:
-```
 User: "Add authentication"
 ```
 
@@ -160,7 +158,6 @@ What NOT to do:
 
 **File:** `code-review/SKILL.md`
 
-```markdown
 ---
 name: "code-review"
 version: "1.0.0"
@@ -216,7 +213,6 @@ Assess:
 
 Output as:
 
-```markdown
 ## Security Issues
 - [HIGH] Issue description (Line X)
 - [MEDIUM] Issue description (Line Y)
@@ -230,7 +226,6 @@ Output as:
 ## Recommendations
 1. Fix high-priority security issues first
 2. Consider refactoring `processData` into smaller functions
-```
 
 ## Anti-Patterns
 
@@ -245,7 +240,6 @@ Output as:
 
 **File:** `api-design/SKILL.md`
 
-```markdown
 ---
 name: "api-design"
 version: "2.1.0"
@@ -289,7 +283,6 @@ Ask clarifying questions:
 
 Create resource hierarchy:
 
-```
 /users                  # Collection
 /users/{id}             # Resource
 /users/{id}/posts       # Nested collection
@@ -384,7 +377,6 @@ User: "Design an API for managing blog users with posts and comments"
 
 **AI Output:**
 
-```markdown
 ## Resource Hierarchy
 
 - `/users` - User collection
@@ -407,7 +399,6 @@ User: "Design an API for managing blog users with posts and comments"
 - `GET /posts/{postId}` - Get post (alternative route)
 
 [... full specification ...]
-```
 
 ## Anti-Patterns
 
@@ -467,21 +458,17 @@ requires: ["git-workflow"]  # Not directly needed
 ### 5. Instructions Clarity
 
 **Good:**
-```markdown
 ### Step 1: Validate Input
 
 Check that:
 1. Email format matches regex: `^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$`
 2. Password length >= 8 characters
 3. Username is alphanumeric
-```
 
 **Bad:**
-```markdown
 ### Step 1
 
 Validate stuff properly.
-```
 
 ---
 
@@ -489,7 +476,6 @@ Validate stuff properly.
 
 Reference skills in your project's AGENTS.md:
 
-```markdown
 ## AI Assistant Skills
 
 Our project uses these skills:
@@ -501,7 +487,6 @@ Our project uses these skills:
 Skills location: `.agents/skills/`
 
 To use a skill:
-```
 @use brainstorming
 User: "Design a user authentication system"
 ```

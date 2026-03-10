@@ -14,7 +14,6 @@ When using this scaffolding for your project, you should create your own `SECURI
 ### 1. **Supported Versions**
 Which versions receive security updates
 
-```markdown
 ## Supported Versions
 
 | Version | Supported          |
@@ -22,12 +21,10 @@ Which versions receive security updates
 | 2.x.x   | :white_check_mark: |
 | 1.x.x   | :x:                |
 | < 1.0   | :x:                |
-```
 
 ### 2. **Reporting a Vulnerability**
 How to report security issues
 
-```markdown
 ## Reporting a Vulnerability
 
 **DO NOT** open a public issue for security vulnerabilities.
@@ -36,12 +33,10 @@ Instead:
 - Email: security@your-domain.com
 - Use GitHub's private vulnerability reporting (if enabled)
 - Expect response within 48 hours
-```
 
 ### 3. **Security Update Process**
 How you handle vulnerabilities
 
-```markdown
 ## Security Update Process
 
 1. Vulnerability reported
@@ -49,12 +44,10 @@ How you handle vulnerabilities
 3. If confirmed, we develop a fix
 4. Fix is released in a security patch
 5. Public disclosure after patch is available
-```
 
 ### 4. **Bug Bounty Program** (Optional)
 If you offer rewards
 
-```markdown
 ## Bug Bounty Program
 
 We offer rewards for valid security vulnerabilities:
@@ -63,11 +56,9 @@ We offer rewards for valid security vulnerabilities:
 - Medium: $50-$200
 
 See [bounty program details](link) for scope and rules.
-```
 
 ## Template Structure
 
-```markdown
 # Security Policy
 
 ## Supported Versions
@@ -121,33 +112,24 @@ When using this project:
 
 We thank these security researchers:
 - [Name] - [Vulnerability] - [Date]
-```
 
 ## Different Approaches
 
 ### Open Source Project
-```markdown
 We welcome responsible disclosure from security researchers.
 Public acknowledgment and potential bounties available.
-```
 
 ### Company/Internal Project
-```markdown
 Report to internal security team via security@company.com
 Follow company security incident response policy.
-```
 
 ### Personal Project
-```markdown
 Please email me at personal@email.com with any security concerns.
 I'll do my best to address issues promptly.
-```
 
 ### No Active Maintenance
-```markdown
 This project is no longer actively maintained. Use at your own risk.
 Forks are encouraged if you need security updates.
-```
 
 ## GitHub Security Features
 

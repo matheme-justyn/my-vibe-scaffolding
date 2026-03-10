@@ -51,7 +51,6 @@ Mention the issue templates in `.github/ISSUE_TEMPLATE/`
 
 ## Template Structure
 
-```markdown
 # Contributing to [Project Name]
 
 Thank you for your interest in contributing! 🎉
@@ -107,32 +106,23 @@ Use the [Feature Request template](.github/ISSUE_TEMPLATE/feature_request.md)
 
 - Open a [Discussion](https://github.com/your-username/your-project/discussions)
 - Email: your-email@example.com
-```
 
 ## Different Contribution Policies
 
 ### Open to All Contributions
-```markdown
 We welcome contributions from everyone! Please submit PRs freely.
-```
 
 ### Selective Contributions
-```markdown
 We appreciate your interest! Please open an issue first to discuss 
 your proposed changes before starting work.
-```
 
 ### No PRs Accepted
-```markdown
 This is a personal/company project. We're not accepting PRs, but 
 feel free to fork and customize for your needs.
-```
 
 ### Company/Team Only
-```markdown
 This repository is for internal team members only. External 
 contributions are not accepted.
-```
 
 ## Examples from Popular Projects
 

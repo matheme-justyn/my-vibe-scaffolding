@@ -45,7 +45,6 @@ AGENTS.md 是純 Markdown 檔案，沒有強制的結構要求。這是它的優
 
 ### 最小範例
 
-```markdown
 # AGENTS.md
 
 ## Setup commands
@@ -57,11 +56,9 @@ AGENTS.md 是純 Markdown 檔案，沒有強制的結構要求。這是它的優
 - TypeScript strict mode
 - Single quotes, no semicolons
 - Use functional patterns where possible
-```
 
 ### 完整範例
 
-```markdown
 # AGENTS.md
 
 ## Project Overview
@@ -97,7 +94,6 @@ Allowed types:
 - `chore`: Other maintenance work
 
 Example:
-```
 feat: add user authentication
 fix: resolve memory leak in worker
 ```
@@ -189,17 +185,14 @@ AGENTS.md 和 Skill System 是互補的：
 
 在 AGENTS.md 中可以引用 skills：
 
-```markdown
 ## Testing Approach
 
 We follow Test-Driven Development. Use the `@test-driven-development` skill when implementing new features.
-```
 
 ### 在 AGENTS.md 中加入 Skill System 章節
 
 建議在 AGENTS.md 中加入：
 
-```markdown
 ## Skill System
 
 本專案支援 Agent Skills 標準，讓 AI coding assistants 載入專用的任務指令。
@@ -247,7 +240,6 @@ Use @brainstorming to plan this feature.
 - [AGENTS.md Standard](https://agents.md/) — Open format for agent instructions
 - [Agent Skills Specification](https://agentskills.io/) — SKILL.md format standard
 - [Skill Management Guide](./docs/users/skill-management.md) — 本專案的 skill 管理指南
-```
 
 ---
 
@@ -282,32 +274,25 @@ my-monorepo/
 AGENTS.md 應該簡短且易於掃描。避免冗長的解釋。
 
 ❌ **不好**：
-```markdown
 ## Testing
 We use Jest for testing. Jest is a JavaScript testing framework...
 (長篇大論 Jest 的介紹)
-```
 
 ✅ **好**：
-```markdown
 ## Testing
 - Framework: Jest
 - Run tests: `npm test`
 - Write tests first (TDD)
-```
 
 ### 2. 使用具體命令
 
 給 AI 可以直接執行的命令，而非模糊的描述。
 
 ❌ **不好**：
-```markdown
 ## Setup
 Install dependencies and start the server
-```
 
 ✅ **好**：
-```markdown
 ## Setup
 \`\`\`bash
 npm install
@@ -318,12 +303,10 @@ npm run dev
 
 「What NOT to do」比「What to do」更重要，因為它防止 AI 犯錯。
 
-```markdown
 ## What NOT to do
 - ❌ **Never** use `as any` or `@ts-ignore`
 - ❌ **Never** commit directly to `main`
 - ❌ **Never** install dependencies without discussion
-```
 
 ### 4. 定期更新
 
@@ -345,7 +328,6 @@ AGENTS.md 是活文件。隨著專案演進，持續更新：
 
 ### TypeScript Full-stack App
 
-```markdown
 # AGENTS.md
 
 ## Tech Stack
@@ -379,11 +361,9 @@ npm run dev
 - ❌ Don't use class components
 - ❌ Don't bypass TypeScript errors
 - ❌ Don't commit `.env` files
-```
 
 ### Python Data Science Project
 
-```markdown
 # AGENTS.md
 
 ## Tech Stack
@@ -414,7 +394,6 @@ pip install -r requirements.txt
 - ❌ Don't use mutable default arguments
 - ❌ Don't ignore type checking warnings
 - ❌ Don't commit Jupyter checkpoint files
-```
 
 ---
 

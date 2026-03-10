@@ -150,7 +150,6 @@ AGENTS.md                               # [UPDATE] 新增 Skill System 章節
 
 在 AGENTS.md 新增以下章節：
 
-```markdown
 ## Skill System
 
 本專案支援 Agent Skills 標準，讓 AI coding assistants 載入專用的任務指令。
@@ -179,7 +178,6 @@ Skills 使用 `SKILL.md` 檔案格式，包含 YAML frontmatter 和 Markdown 指
 - [AGENTS.md Standard](https://agents.md/)
 - [Agent Skills Specification](https://agentskills.io/)
 - [Skill Management Guide](./docs/users/skill-management.md)
-```
 
 ## Consequences
 

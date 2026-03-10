@@ -62,9 +62,7 @@ Permission is hereby granted...
 
 ### Step 4: Add Badge to README
 
-```markdown
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
-```
 
 ## Common Combinations
 

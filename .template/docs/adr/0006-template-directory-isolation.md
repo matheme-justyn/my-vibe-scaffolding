@@ -98,20 +98,16 @@ project-root/
 Update all references to moved files:
 
 **AGENTS.md**:
-```markdown
 ### Required Reading
 - `.template/docs/DOCUMENTATION_GUIDELINES.md` (MUST READ)
 - `.template/docs/README_GUIDE.md`
 - `.template/docs/TEMPLATE_SYNC.md`
-```
 
 **README.md**:
-```markdown
 ### 使用此模板建立新專案
 
 ```bash
 ./.template/scripts/init-project.sh
-```
 
 參考 [.template/docs/README_GUIDE.md](./.template/docs/README_GUIDE.md)
 ```

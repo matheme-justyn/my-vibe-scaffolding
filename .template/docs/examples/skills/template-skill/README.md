@@ -178,14 +178,12 @@ Before using your new skill:
 
 Reference your skill:
 
-```markdown
 ## AI Assistant Skills
 
 - **your-skill-name** (v1.0.0) - [Brief description]
   Location: `.agents/skills/your-skill-name/`
   
 To use: `@use your-skill-name`
-```
 
 ### In Code
 

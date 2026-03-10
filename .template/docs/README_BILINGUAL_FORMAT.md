@@ -33,11 +33,9 @@ README.ja-JP.md        # Japanese version (if needed)
 ```
 
 **Language Switcher** (at top of each README):
-```markdown
 # Project Name
 
 English | [繁體中文](./README.zh-TW.md) | [日本語](./README.ja-JP.md)
-```
 
 **Advantages:**
 - ✅ Cleaner: Each file is single-language, easier to read
@@ -151,53 +149,43 @@ fallback_locale = "en-US"
 **Format**: `## 中文 | English` (same line, separated by `|`)
 
 **Example**:
-```markdown
 ## 🏛️ 什麼是 My Vibe Scaffolding？ | What is My Vibe Scaffolding?
 ## ⚡ 核心功能 | Core Features
 ## 🎯 Vibe 技術選型 | Vibe Tech Stack
-```
 
 **❌ WRONG**:
-```markdown
 ## 🏛️ 什麼是 My Vibe Scaffolding？
 
 ## What is My Vibe Scaffolding?
-```
 
 ### 2. Paragraphs - Bilingual
 
 **Format**: Chinese paragraph, blank line, English paragraph
 
 **Example**:
-```markdown
 **AI 驅動的專案鷹架模板** — 基於心理學家 Lev Vygotsky 的鷹架理論，透過 AI 輔助快速建立專案結構、遵循最佳實踐，並在成長後自由拆除或客製化。
 
 **AI-driven project scaffolding template** — Based on psychologist Lev Vygotsky's scaffolding theory, quickly build project structures with AI assistance, follow best practices, and freely remove or customize as you grow.
-```
 
 ### 3. Bullet Lists - Bilingual
 
 **Format**: Each bullet has Chinese line, then English line (using `<br>` or two spaces)
 
 **Example**:
-```markdown
 - 🤖 **AI Agent 整合** — `AGENTS.md` 驅動的 OpenCode/Cursor 開發體驗  
   **AI Agent Integration** — OpenCode/Cursor development experience driven by `AGENTS.md`
 
 - 🌐 **多語言支援** — BCP 47 i18n 系統，AI 自動適應使用者語言  
   **Multi-language Support** — BCP 47 i18n system, AI automatically adapts to user's language
-```
 
 ### 4. Tables - Bilingual
 
 **Format**: Each cell contains Chinese `<br>` English
 
 **Example**:
-```markdown
 | 技術決策<br>Technology | 選擇理由<br>Why | 解決的問題<br>Problem Solved |
 |---------|---------|-----------|
 | **OpenCode（開源 AI 助手）**<br>**OpenCode (Open-source AI assistant)** | 75+ 模型支援、CLI 優先、可腳本化<br>75+ models, CLI-first, scriptable | 不被單一供應商綁定<br>Avoid vendor lock-in |
-```
 
 **Key**: Use `<br>` (HTML line break) inside table cells for line breaks.
 
@@ -206,7 +194,6 @@ fallback_locale = "en-US"
 **Format**: Code appears ONCE (no duplication). Comments can be bilingual if needed.
 
 **Example**:
-```markdown
 ### 方式 1：AI 助手安裝（推薦） | Option 1: AI Assistant Install (Recommended)
 
 在 OpenCode/Cursor/Claude 對話中貼上：  
@@ -217,10 +204,8 @@ my-vibe-scaffolding (scaffolding template)
 Install and configure my-vibe-scaffolding by following the instructions here:
 https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.opencode/INSTALL.md
 \```
-```
 
 **Example with bilingual comments**:
-```markdown
 \```bash
 # 1. GitHub 點擊 "Use this template" → Clone 專案
 # 1. Click "Use this template" on GitHub → Clone project
@@ -228,10 +213,8 @@ https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.openc
 # 2. Initialize project
 ./.template/scripts/init-project.sh
 \```
-```
 
 **❌ WRONG**: Don't duplicate entire code blocks
-```markdown
 \```bash
 # 中文版
 ./.template/scripts/init-project.sh
@@ -241,19 +224,16 @@ https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.openc
 # English version
 ./.template/scripts/init-project.sh
 \```
-```
 
 ### 6. Links - Bilingual
 
 **Format**: Inline bilingual description separated by `|`
 
 **Example**:
-```markdown
 詳細說明 | For details: [INSTALL.md](./.opencode/INSTALL.md)
 
 - [更新日誌](./CHANGELOG.md) - 版本變更記錄 | Version change log
 - [模板同步](./.template/docs/TEMPLATE_SYNC.md) - 更新到新版本 | Update to new versions
-```
 
 ## AI Agent Implementation (Bilingual Strategy Only)
 
@@ -429,7 +409,6 @@ def generate_readme_paragraph(content_zh, content_en, primary_locale):
 
 ### Correct Bilingual README Structure
 
-```markdown
 ## 🏛️ 什麼是 My Vibe Scaffolding？ | What is My Vibe Scaffolding?
 
 **AI 驅動的專案鷹架模板** — 基於...
@@ -442,19 +421,15 @@ def generate_readme_paragraph(content_zh, content_en, primary_locale):
 
 - 🤖 **AI Agent 整合** — `AGENTS.md` 驅動...  
   **AI Agent Integration** — OpenCode/Cursor experience...
-```
 
 ### Common Mistakes (Bilingual Strategy)
 
 ❌ **Headers on separate lines**
-```markdown
 ## 什麼是 My Vibe Scaffolding？
 
 ## What is My Vibe Scaffolding?
-```
 
 ❌ **Duplicated code blocks**
-```markdown
 \```bash
 ./.template/scripts/init-project.sh
 \```
@@ -462,21 +437,17 @@ def generate_readme_paragraph(content_zh, content_en, primary_locale):
 \```bash
 ./.template/scripts/init-project.sh
 \```
-```
 
 ❌ **Table cells without `<br>`**
-```markdown
 | Technology | Why |
 |------------|-----|
 | **OpenCode** (Open-source) | 75+ models |
-```
 
 ---
 
 ### Correct Separate Files Structure
 
 **README.md (Chinese):**
-```markdown
 # My Vibe Scaffolding
 
 English | [繁體中文](./README.zh-TW.md)
@@ -484,10 +455,8 @@ English | [繁體中文](./README.zh-TW.md)
 ## 什麼是 My Vibe Scaffolding？
 
 **AI 驅動的專案鷹架模板** — 基於心理學家 Lev Vygotsky 的鷹架理論...
-```
 
 **README.en-US.md (English):**
-```markdown
 # My Vibe Scaffolding
 
 English | [繁體中文](./README.zh-TW.md)
@@ -495,7 +464,6 @@ English | [繁體中文](./README.zh-TW.md)
 ## What is My Vibe Scaffolding?
 
 **AI-driven project scaffolding template** — Based on psychologist Lev Vygotsky's scaffolding theory...
-```
 
 ## Version History
 

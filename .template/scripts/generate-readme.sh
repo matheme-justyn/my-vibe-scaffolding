@@ -1,52 +1,27 @@
 #!/usr/bin/env bash
-# generate-readme.sh - Generate i18n-aware README files from .template/i18n/locales/
-# Usage: ./generate-readme.sh [locale]
-#   If no locale specified, generates all locales
+# generate-readme.sh - Generate i18n-aware README files
+# Content simplified for human users, detailed instructions in AGENTS.md for AI
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-I18N_DIR="$PROJECT_ROOT/.template/i18n/locales"
 TEMPLATE_VERSION=$(cat "$PROJECT_ROOT/.template/VERSION")
 
-# Colors
-RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-# Parse TOML value (simple parser for string values)
-parse_toml_value() {
-    local file="$1"
-    local key="$2"
-    
-    # Extract value after = and remove quotes
-    grep "^${key} = " "$file" | sed 's/^[^=]*= *"\(.*\)" *$/\1/' | head -1
-}
-
-# Generate README for a specific locale
 generate_readme() {
     local locale="$1"
-    local readme_toml="$I18N_DIR/$locale/readme.toml"
-    
-    if [[ ! -f "$readme_toml" ]]; then
-        echo -e "${RED}✗ Locale '$locale' not found: $readme_toml${NC}"
-        return 1
-    fi
-    
-    echo -e "${BLUE}Generating README for locale: $locale${NC}"
-    
-    # Determine output file
     local output_file
+    
     if [[ "$locale" == "en-US" ]]; then
         output_file="$PROJECT_ROOT/README.md"
     else
         output_file="$PROJECT_ROOT/README.${locale}.md"
     fi
     
-    # Language switcher
     local lang_switcher
     if [[ "$locale" == "en-US" ]]; then
         lang_switcher="English | [繁體中文](./README.zh-TW.md)"
@@ -54,10 +29,6 @@ generate_readme() {
         lang_switcher="[English](./README.md) | 繁體中文"
     fi
     
-    # Parse translations
-    local what_is_this=$(parse_toml_value "$readme_toml" "title" | grep -A 1 "\[concept\]" | tail -1 || echo "What is This?")
-    
-    # Generate README content
     cat > "$output_file" <<EOF
 <div align="center">
 
@@ -76,7 +47,6 @@ ${lang_switcher}
 
 EOF
     
-    # Add content from TOML
     if [[ "$locale" == "en-US" ]]; then
         cat >> "$output_file" <<'EOF'
 ## 📌 What is This?
@@ -90,31 +60,17 @@ Based on psychologist Lev Vygotsky's scaffolding theory - provides structure whe
 - 🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude
 - 📦 **Version Management** - Pre-push hooks enforce version updates
 - 🌐 **Multi-language** - BCP 47 i18n for documentation
-- 🛠️ **Smart Install/Update** - One script handles both new projects and updates
+- 🛠️ **Smart Setup** - First-time setup handled automatically by AI agent
 
 ---
 
-## 🚀 Installation & Update
+## 🚀 Installation
 
-### First Time: Use This Template
+1. Click **"Use this template"** on GitHub to create your repository
+2. Clone your new repository
+3. Start using — the template is ready out of the box
 
-```bash
-# 1. Click "Use this template" on GitHub → Clone your repo
-# 2. Run installation script
-./.template/scripts/init-project.sh
-```
-
-### Update Existing Project
-
-```bash
-# Same script auto-detects update mode
-./.template/scripts/init-project.sh
-
-# Updates:
-# ✅ Consolidates agent configs (.claude, .roo → .agents)
-# ✅ Updates template version
-# ✅ Reinstalls Git hooks
-```
+**Note**: First-time setup will be handled automatically by AI agent when needed
 
 ---
 
@@ -132,35 +88,23 @@ You already have **14 skills** available:
 - 📍 `~/.config/opencode/skills/superpowers/` - User-level skills
 - 📍 `.agents/skills/` - Project-specific skills (create if needed)
 
-### How to Set Which Skills to Use
+### How to Use Skills
 
 **Option 1: Auto-trigger via AGENTS.md** (Recommended)
 
-Edit `AGENTS.md` to define skill triggers:
+Skills load automatically based on task type. See `AGENTS.md` for trigger keywords.
 
-| Task Type | Skills | Trigger Keywords |
-|-----------|--------|------------------|
-| Feature Dev | `brainstorming` + `test-driven-development` | "add feature", "implement" |
-| Bug Fixing | `systematic-debugging` | "bug", "error", "fix" |
-
-**Option 2: Create Custom Bundles**
-
-Edit `data/bundles.yaml`:
-
-```yaml
-- id: "my-bundle"
-  skills:
-    - name: "brainstorming"
-    - name: "test-driven-development"
-```
-
-Use: `@use bundle:my-bundle`
-
-**Option 3: Manual Load**
+**Option 2: Manual Load**
 
 ```
 @use brainstorming
 User: "Design an authentication system"
+```
+
+**Option 3: Use Bundles**
+
+```
+@use bundle:backend-dev
 ```
 
 ### Available Skills
@@ -206,7 +150,6 @@ MIT License - See [LICENSE](./LICENSE)
 </div>
 EOF
     else
-        # Chinese version
         cat >> "$output_file" <<'EOF'
 ## 📌 這是什麼？
 
@@ -219,31 +162,17 @@ EOF
 - 🤖 **AI Agent 整合** - `AGENTS.md` + Skills 系統，支援 OpenCode/Cursor/Claude
 - 📦 **版本管理** - Pre-push hooks 強制版本更新
 - 🌐 **多語言** - BCP 47 i18n 文件國際化
-- 🛠️ **智慧安裝/更新** - 單一腳本處理安裝和更新
+- 🛠️ **智慧設定** - 首次設定由 AI agent 自動處理
 
 ---
 
-## 🚀 安裝與更新
+## 🚀 安裝
 
-### 首次使用：Use This Template
+1. 在 GitHub 點擊 **"Use this template"** 建立你的 repository
+2. Clone 你的新 repository
+3. 開始使用 — 模板已經就緒
 
-```bash
-# 1. 在 GitHub 點擊 "Use this template" → Clone 你的 repo
-# 2. 執行安裝腳本
-./.template/scripts/init-project.sh
-```
-
-### 更新既有專案
-
-```bash
-# 同一個腳本自動偵測更新模式
-./.template/scripts/init-project.sh
-
-# 更新內容：
-# ✅ 整併 agent 配置（.claude, .roo → .agents）
-# ✅ 更新 template 版本
-# ✅ 重新安裝 Git hooks
-```
+**注意**：首次設定在需要時會由 AI agent 自動處理
 
 ---
 
@@ -261,35 +190,23 @@ EOF
 - 📍 `~/.config/opencode/skills/superpowers/` - 使用者層級 skills
 - 📍 `.agents/skills/` - 專案特定 skills（需要時建立）
 
-### 如何設定要用哪些 Skills？
+### 如何使用 Skills？
 
 **方法 1: 透過 AGENTS.md 自動觸發**（推薦）
 
-編輯 `AGENTS.md` 定義 skill 觸發條件：
+Skills 會根據任務類型自動載入。觸發關鍵字請參考 `AGENTS.md`。
 
-| 任務類型 | Skills | 觸發關鍵字 |
-|---------|--------|-----------|
-| 功能開發 | `brainstorming` + `test-driven-development` | "新增功能", "實作" |
-| Bug 修復 | `systematic-debugging` | "bug", "錯誤", "修正" |
-
-**方法 2: 建立自訂 Bundles**
-
-編輯 `data/bundles.yaml`：
-
-```yaml
-- id: "my-bundle"
-  skills:
-    - name: "brainstorming"
-    - name: "test-driven-development"
-```
-
-使用：`@use bundle:my-bundle`
-
-**方法 3: 手動載入**
+**方法 2: 手動載入**
 
 ```
 @use brainstorming
 User: "設計認證系統"
+```
+
+**方法 3: 使用 Bundles**
+
+```
+@use bundle:backend-dev
 ```
 
 ### 可用的 Skills
@@ -339,22 +256,13 @@ EOF
     echo -e "${GREEN}✓ Generated: $output_file${NC}"
 }
 
-# Main logic
 main() {
-    if [[ $# -eq 0 ]]; then
-        # Generate all locales
-        echo -e "${BLUE}Generating README files for all locales...${NC}"
-        echo ""
-        
-        generate_readme "en-US"
-        generate_readme "zh-TW"
-        
-        echo ""
-        echo -e "${GREEN}✓ All README files generated successfully!${NC}"
-    else
-        # Generate specific locale
-        generate_readme "$1"
-    fi
+    echo -e "${BLUE}Generating README files...${NC}"
+    generate_readme "en-US"
+    generate_readme "zh-TW"
+    cp "$PROJECT_ROOT/README.md" "$PROJECT_ROOT/.template/README.md"
+    cp "$PROJECT_ROOT/README.zh-TW.md" "$PROJECT_ROOT/.template/README.zh-TW.md"
+    echo -e "${GREEN}✓ All README files generated and synced!${NC}"
 }
 
 main "$@"

@@ -18,12 +18,12 @@ vibe_growth = "📈 **逐步成長** — 客製化模板、調整規範、形成
 vibe_removable = "🔄 **可拆除性** — 不再需要時可自由拆除或修改"
 framework_desc = "這是一個 **成長式的學習與開發框架**，在 AI 輔助下逐步提升開發技能。"
 
-[usage]
-title = "使用方式"
-step1 = "1. 點擊 GitHub 上的 **\"Use this template\"** 按鈕"
-step2 = "2. 建立新的 repository"
-step3 = "3. Clone 到本地開始開發"
-
+[installation]
+title = "安裝"
+step1 = "1. 在 GitHub 點擊 **\"Use this template\"** 建立你的 repository"
+step2 = "2. Clone 你的新 repository"
+step3 = "3. 開始使用 — 模板已經就緒"
+note = "**注意**：首次設定在需要時會由 AI agent 自動處理"
 [files_included]
 title = "包含檔案"
 description = "此模板包含以下檔案和目錄結構："

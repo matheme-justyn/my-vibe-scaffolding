@@ -18,12 +18,12 @@ vibe_growth = "📈 **Progressive Growth** — Customize, adjust, develop your o
 vibe_removable = "🔄 **Removability** — Remove or modify when no longer needed"
 framework_desc = "A **growth-oriented learning and development framework** that progressively improves your development skills with AI assistance."
 
-[usage]
-title = "Usage"
-step1 = "1. Click **\"Use this template\"** button on GitHub"
-step2 = "2. Create a new repository"
-step3 = "3. Clone to local and start developing"
-
+[installation]
+title = "Installation"
+step1 = "1. Click **\"Use this template\"** on GitHub to create your repository"
+step2 = "2. Clone your new repository"
+step3 = "3. Start using — the template is ready out of the box"
+note = "**Note**: First-time setup will be handled automatically by AI agent when needed"
 [files_included]
 title = "Included Files"
 description = "This template includes the following files and directory structure:"

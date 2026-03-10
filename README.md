@@ -24,31 +24,17 @@ Based on psychologist Lev Vygotsky's scaffolding theory - provides structure whe
 - 🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude
 - 📦 **Version Management** - Pre-push hooks enforce version updates
 - 🌐 **Multi-language** - BCP 47 i18n for documentation
-- 🛠️ **Smart Install/Update** - One script handles both new projects and updates
+- 🛠️ **Smart Setup** - First-time setup handled automatically by AI agent
 
 ---
 
-## 🚀 Installation & Update
+## 🚀 Installation
 
-### First Time: Use This Template
+1. Click **"Use this template"** on GitHub to create your repository
+2. Clone your new repository
+3. Start using — the template is ready out of the box
 
-```bash
-# 1. Click "Use this template" on GitHub → Clone your repo
-# 2. Run installation script
-./.template/scripts/init-project.sh
-```
-
-### Update Existing Project
-
-```bash
-# Same script auto-detects update mode
-./.template/scripts/init-project.sh
-
-# Updates:
-# ✅ Consolidates agent configs (.claude, .roo → .agents)
-# ✅ Updates template version
-# ✅ Reinstalls Git hooks
-```
+**Note**: First-time setup will be handled automatically by AI agent when needed
 
 ---
 
@@ -66,35 +52,23 @@ You already have **14 skills** available:
 - 📍 `~/.config/opencode/skills/superpowers/` - User-level skills
 - 📍 `.agents/skills/` - Project-specific skills (create if needed)
 
-### How to Set Which Skills to Use
+### How to Use Skills
 
 **Option 1: Auto-trigger via AGENTS.md** (Recommended)
 
-Edit `AGENTS.md` to define skill triggers:
+Skills load automatically based on task type. See `AGENTS.md` for trigger keywords.
 
-| Task Type | Skills | Trigger Keywords |
-|-----------|--------|------------------|
-| Feature Dev | `brainstorming` + `test-driven-development` | "add feature", "implement" |
-| Bug Fixing | `systematic-debugging` | "bug", "error", "fix" |
-
-**Option 2: Create Custom Bundles**
-
-Edit `.agents/bundles.yaml`:
-
-```yaml
-- id: "my-bundle"
-  skills:
-    - name: "brainstorming"
-    - name: "test-driven-development"
-```
-
-Use: `@use bundle:my-bundle`
-
-**Option 3: Manual Load**
+**Option 2: Manual Load**
 
 ```
 @use brainstorming
 User: "Design an authentication system"
+```
+
+**Option 3: Use Bundles**
+
+```
+@use bundle:backend-dev
 ```
 
 ### Available Skills

@@ -24,31 +24,17 @@
 - 🤖 **AI Agent 整合** - `AGENTS.md` + Skills 系統，支援 OpenCode/Cursor/Claude
 - 📦 **版本管理** - Pre-push hooks 強制版本更新
 - 🌐 **多語言** - BCP 47 i18n 文件國際化
-- 🛠️ **智慧安裝/更新** - 單一腳本處理安裝和更新
+- 🛠️ **智慧設定** - 首次設定由 AI agent 自動處理
 
 ---
 
-## 🚀 安裝與更新
+## 🚀 安裝
 
-### 首次使用：Use This Template
+1. 在 GitHub 點擊 **"Use this template"** 建立你的 repository
+2. Clone 你的新 repository
+3. 開始使用 — 模板已經就緒
 
-```bash
-# 1. 在 GitHub 點擊 "Use this template" → Clone 你的 repo
-# 2. 執行安裝腳本
-./.template/scripts/init-project.sh
-```
-
-### 更新既有專案
-
-```bash
-# 同一個腳本自動偵測更新模式
-./.template/scripts/init-project.sh
-
-# 更新內容：
-# ✅ 整併 agent 配置（.claude, .roo → .agents）
-# ✅ 更新 template 版本
-# ✅ 重新安裝 Git hooks
-```
+**注意**：首次設定在需要時會由 AI agent 自動處理
 
 ---
 
@@ -66,35 +52,23 @@
 - 📍 `~/.config/opencode/skills/superpowers/` - 使用者層級 skills
 - 📍 `.agents/skills/` - 專案特定 skills（需要時建立）
 
-### 如何設定要用哪些 Skills？
+### 如何使用 Skills？
 
 **方法 1: 透過 AGENTS.md 自動觸發**（推薦）
 
-編輯 `AGENTS.md` 定義 skill 觸發條件：
+Skills 會根據任務類型自動載入。觸發關鍵字請參考 `AGENTS.md`。
 
-| 任務類型 | Skills | 觸發關鍵字 |
-|---------|--------|-----------|
-| 功能開發 | `brainstorming` + `test-driven-development` | "新增功能", "實作" |
-| Bug 修復 | `systematic-debugging` | "bug", "錯誤", "修正" |
-
-**方法 2: 建立自訂 Bundles**
-
-編輯 `.agents/bundles.yaml`：
-
-```yaml
-- id: "my-bundle"
-  skills:
-    - name: "brainstorming"
-    - name: "test-driven-development"
-```
-
-使用：`@use bundle:my-bundle`
-
-**方法 3: 手動載入**
+**方法 2: 手動載入**
 
 ```
 @use brainstorming
 User: "設計認證系統"
+```
+
+**方法 3: 使用 Bundles**
+
+```
+@use bundle:backend-dev
 ```
 
 ### 可用的 Skills

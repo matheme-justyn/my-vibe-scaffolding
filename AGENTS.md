@@ -106,6 +106,66 @@ YourProject is a [brief project description].
 
 <!-- TODO: Fill in project description, goals, and context -->
 
+## Project Setup for AI Agents
+
+**IMPORTANT: This section is for AI agents (OpenCode, Cursor, Claude). Human users see simplified instructions in README.**
+
+### First-Time Setup (Project Mode)
+
+When a user clones a project created from this template, you (AI agent) should run the initialization script when needed:
+
+```bash
+./.template/scripts/init-project.sh
+```
+
+**What this script does:**
+- Detects if running for first time (no `.template-version` file)
+- Creates project-specific files (VERSION, README, etc.)
+- Sets up Git hooks
+- Initializes OpenCode configuration
+- Creates `.template-version` for tracking
+
+**When to run:**
+- User mentions "setup", "initialize", or "configure" the project
+- Missing required files detected (VERSION, git hooks, etc.)
+- User explicitly requests template initialization
+
+### Update Existing Project
+
+**Same script handles updates automatically:**
+
+```bash
+./.template/scripts/init-project.sh
+```
+
+**What it does in update mode:**
+- Detects existing `.template-version` file (indicates update mode)
+- Consolidates agent configs (`.claude`, `.roo` → `.agents`)
+- Updates template version tracking
+- Reinstalls Git hooks (may have new features)
+- Preserves all user customizations
+
+**When to run:**
+- User mentions "update template", "upgrade", or "sync template"
+- User wants latest template features
+- Consolidate scattered agent configurations
+
+### Template Development (Scaffolding Mode)
+
+When developing the template itself, modifications go to `.template/` directory:
+
+```bash
+# Template mode doesn't need init script
+# You're directly modifying template files
+```
+
+**Key differences:**
+- Edit `.template/docs/`, `.template/scripts/`, etc.
+- Changes apply to the template, not a specific project
+- Commit to template repository
+
+---
+
 ## Working Mode
 
 **This scaffolding has two working modes configured in `config.toml`:**

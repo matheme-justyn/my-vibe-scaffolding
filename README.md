@@ -79,7 +79,7 @@ Edit `AGENTS.md` to define skill triggers:
 
 **Option 2: Create Custom Bundles**
 
-Edit `data/bundles.yaml`:
+Edit `.agents/bundles.yaml`:
 
 ```yaml
 - id: "my-bundle"

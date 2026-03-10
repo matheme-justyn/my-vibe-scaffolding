@@ -48,7 +48,7 @@ User: "新增使用者登入功能"
 - ✅ 可重複使用
 - ✅ 可在不同專案共享
 
-**設定位置：** `data/bundles.yaml`
+**設定位置：** `.agents/bundles.yaml`
 
 **範例：** 已經幫你加入以下 bundle：
 
@@ -88,7 +88,7 @@ User: "開始工作"
 - ✅ 每個步驟用不同 skill
 - ✅ 適合重複性任務
 
-**設定位置：** `data/workflows.yaml`
+**設定位置：** `.agents/workflows.yaml`
 
 **範例：** 已經幫你加入以下 workflow：
 
@@ -195,7 +195,7 @@ User: "檢查這個 API 的程式碼"
 
 ### 如何建立自己的 Bundle
 
-編輯 `data/bundles.yaml`：
+編輯 `.agents/bundles.yaml`：
 
 ```yaml
 - id: "your-bundle-id"
@@ -216,7 +216,7 @@ User: "檢查這個 API 的程式碼"
 
 ### 如何建立自己的 Workflow
 
-編輯 `data/workflows.yaml`：
+編輯 `.agents/workflows.yaml`：
 
 ```yaml
 - id: "your-workflow-id"
@@ -294,8 +294,8 @@ User: "檢查這個 API 的程式碼"
 | 我想要... | 使用方法 | 檔案 |
 |-----------|----------|------|
 | 自動觸發 skills | 在 AGENTS.md 定義觸發規則 | `AGENTS.md` |
-| 組合多個 skills | 建立 bundle | `data/bundles.yaml` |
-| 定義步驟流程 | 建立 workflow | `data/workflows.yaml` |
+| 組合多個 skills | 建立 bundle | `.agents/bundles.yaml` |
+| 定義步驟流程 | 建立 workflow | `.agents/workflows.yaml` |
 | 手動載入單一 skill | `@use skill-name` | - |
 | 手動載入 bundle | `@use bundle:bundle-id` | - |
 | 執行 workflow | `@workflow workflow-id` | - |

@@ -500,7 +500,7 @@ npx antigravity-awesome-skills --path ./custom
 
 1. **Bundle 概念** — 角色導向的技能組合
    ```yaml
-   # data/bundles.yaml
+   # .agents/bundles.yaml
    essentials:
      name: "Essentials"
      description: "Core skills for all projects"
@@ -756,7 +756,7 @@ description = "步驟導向的任務執行指南"
 | **AGENTS.md 標準** | agents.md | 文件強化，明確標註標準來源 | `.template/docs/AGENTS_MD_GUIDE.md` |
 | **SKILL.md 格式** | anthropics/skills | 採納為 scaffolding 標準 | `.template/docs/examples/skills/*/SKILL.md` |
 | **`.agents/` 路徑** | RooCode docs | 支援跨工具 skill 路徑 | `AGENTS.md`, 文件範例 |
-| **Bundle 概念** | antigravity | 設計 role-based skill collections | `data/bundles.yaml` |
+| **Bundle 概念** | antigravity | 設計 role-based skill collections | `.agents/bundles.yaml` |
 | **Workflow 格式** | antigravity | 建立 step-by-step playbooks | `docs/users/workflows.md` |
 | **繁體中文術語** | Claude Code docs | 提取翻譯 key | `i18n/locales/zh-TW/agents.toml` |
 
@@ -1000,7 +1000,7 @@ title = "建構 AI Agent 系統"
 description = "AI agent 開發和部署流程"
 ```
 
-### data/bundles.yaml (新檔案)
+### .agents/bundles.yaml (新檔案)
 
 ```yaml
 # Role-based skill collections
@@ -1057,7 +1057,7 @@ security:
     - compliance-checker
 ```
 
-### data/workflows.yaml (新檔案)
+### .agents/workflows.yaml (新檔案)
 
 ```yaml
 # Step-by-step execution playbooks
@@ -1223,8 +1223,8 @@ jobs:
 3. ✅ 建立 `.template/docs/examples/skills/template-skill/`
 4. ✅ 更新 `AGENTS.md` 加入 Skill System 章節
 5. ✅ 更新 `i18n/locales/zh-TW/agents.toml` 加入翻譯
-6. ✅ 建立 `data/bundles.yaml`
-7. ✅ 建立 `data/workflows.yaml`
+6. ✅ 建立 `.agents/bundles.yaml`
+7. ✅ 建立 `.agents/workflows.yaml`
 
 **驗收標準**:
 - [ ] AGENTS.md 包含 skill system 說明

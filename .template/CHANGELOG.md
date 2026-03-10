@@ -15,8 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - New: `.template/docs/SKILL_FORMAT_GUIDE.md` (622 lines) - Complete SKILL.md format guide
   - New: `.template/docs/AGENTS_MD_GUIDE.md` (462 lines) - AGENTS.md standard documentation
   - New: `.template/docs/examples/skills/template-skill/` - Skill creation template
-  - New: `data/bundles.yaml` (290 lines) - 14 predefined skill bundles (role-based + phase-based)
-  - New: `data/workflows.yaml` (484 lines) - 5 complete workflows with step-by-step instructions
+  - New: `.agents/bundles.yaml` (290 lines) - 14 predefined skill bundles (role-based + phase-based)
+  - New: `.agents/workflows.yaml` (484 lines) - 5 complete workflows with step-by-step instructions
   - New: `.template/docs/SKILLS_USAGE_GUIDE.md` (306 lines) - Complete skills configuration guide
   - New: `.template/docs/RESOURCE_ANALYSIS_AGENT_SKILLS_ECOSYSTEM.md` (1570 lines) - Ecosystem analysis
   - ADR 0007: Documents integration decisions and 3-phase implementation plan

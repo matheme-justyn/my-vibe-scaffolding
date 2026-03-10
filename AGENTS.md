@@ -355,7 +355,7 @@ Skills are loaded from these directories (in order):
 
 ### Bundles & Workflows
 
-**Bundles** (`data/bundles.yaml`) - Role-based skill collections:
+**Bundles** (`.agents/bundles.yaml`) - Role-based skill collections:
 
 - `backend-dev` - API design, database, testing, security
 - `frontend-dev` - Component design, state management, a11y
@@ -366,7 +366,7 @@ Skills are loaded from these directories (in order):
 - `production-ready` - Production deployment preparation
 - `debugging-master` - Troubleshooting and fixing issues
 
-**Workflows** (`data/workflows.yaml`) - Step-by-step playbooks:
+**Workflows** (`.agents/workflows.yaml`) - Step-by-step playbooks:
 
 - `feature-development` - Complete feature from idea to deployment
 - `bug-fix` - Systematic bug diagnosis and fix

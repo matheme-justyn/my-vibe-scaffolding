@@ -79,7 +79,7 @@
 
 **方法 2: 建立自訂 Bundles**
 
-編輯 `data/bundles.yaml`：
+編輯 `.agents/bundles.yaml`：
 
 ```yaml
 - id: "my-bundle"

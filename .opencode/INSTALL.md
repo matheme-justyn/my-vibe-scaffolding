@@ -1,6 +1,38 @@
 # Installing My Vibe Scaffolding
 
-This scaffolding provides a comprehensive project template with AI agent support, i18n, version management, and best practices.
+This scaffolding provides AI agent support, i18n, version management, and best practices for project development.
+
+---
+
+## 🚀 Quick Install (Recommended)
+
+**One command handles both installation and updates:**
+
+```bash
+./.template/scripts/init-project.sh
+```
+
+**The script automatically detects:**
+
+- **New project** (no `.template-version` file):
+  - Creates project-specific files (VERSION, README, etc.)
+  - Sets up Git hooks
+  - Initializes OpenCode configuration
+  - Creates `.template-version` for tracking
+
+- **Existing project** (`.template-version` exists):
+  - Consolidates agent configs (`.claude`, `.roo` → `.agents`)
+  - Updates template version tracking
+  - Reinstalls Git hooks
+  - Preserves all your customizations
+
+**Benefits:**
+- ✅ Single command for install and update
+- ✅ Auto-detects project state
+- ✅ Safe: Won't overwrite your README/LICENSE/custom files
+- ✅ Smart: Only updates what's needed
+
+---
 
 ## Prerequisites
 
@@ -11,7 +43,7 @@ This scaffolding provides a comprehensive project template with AI agent support
 
 ### MCP Servers (Optional but Recommended)
 
-MCP (Model Context Protocol) enables AI assistants to directly access your filesystem, git repository, and GitHub. These tools enhance OpenCode/Cursor/Claude capabilities.
+MCP (Model Context Protocol) enhances AI capabilities with filesystem, git, and GitHub access.
 
 **Required tools for MCP:**
 
@@ -34,146 +66,68 @@ MCP (Model Context Protocol) enables AI assistants to directly access your files
    ```
 
 **MCP Servers included:**
-
 - **filesystem** - Direct file read/write access for AI
 - **git** - Git operations (status, diff, commit, etc.)
 - **memory** - AI memory persistence across sessions
 - **github** (optional) - GitHub API integration (requires Personal Access Token)
 
-**Configuration:**
-- MCP servers are configured in `opencode.json`
-- GitHub token (if enabled) is stored in `.env`
-- During `init-project.sh`, you'll be asked whether to enable GitHub MCP
-- MCP configuration is **automatically tested** after setup
-
-**Test MCP Setup Manually:**
+**Test MCP Setup:**
 ```bash
 ./.template/scripts/test-mcp-setup.sh
 ```
 
-This script will verify:
-- Bun and uv are installed correctly
-- opencode.json has valid MCP configuration
-- GitHub token is set (if using GitHub MCP)
-- .env is properly gitignored
-
 ---
 
-## Installation Options
+## Installation Scenarios
 
-**🚨 重要：先確認你的情況**
-
-### 新專案 vs 已有專案？
-
-**新專案：**
-- 剛從 GitHub "Use this template" 建立
-- 沒有 `.template-version` 檔案
-- → 使用「完整安裝」
-
-**已有專案：**
-- 之前已使用此 scaffolding
-- 有 `.template-version` 檔案
-- → 使用「增量更新」
-
----
-
-### 🤖 AI 輔助安裝/更新（推薦）
-
-**讓 AI 自動判斷並執行適當流程！**
-
-在 OpenCode/Cursor/Claude 對話中貼上：
-
-```
-my-vibe-scaffolding (scaffolding template)
-Install or update my-vibe-scaffolding by following the instructions here:
-https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.opencode/INSTALL.md
-
-Execute: ./.template/scripts/smart-install.sh
-
-This script will:
-1. Detect if this is a new project or existing project
-2. Run appropriate installation (full) or update (incremental)
-3. Configure OpenCode project-isolated database
-4. Update necessary files safely
-```
-
-**優點：**
-- ✅ 自動偵測專案狀態
-- ✅ 新專案 → 完整初始化
-- ✅ 已有專案 → 只更新 `.template/` + OpenCode 配置
-- ✅ 不會覆蓋使用者的 README/LICENSE/自訂檔案
-
----
-
-
-Choose the appropriate method based on your needs:
-- During `init-project.sh`, you'll be asked whether to enable GitHub MCP
-
----
-
-## Installation Options
-
-Choose the appropriate method based on your needs:
-
-## Installation Options
-
-This scaffolding provides a comprehensive project template with AI agent support, i18n, version management, and best practices.
-
-## Installation Options
-
-Choose the appropriate method based on your needs:
-
-### Option 1: 🆕 新專案完整安裝
-
-**Use this when starting a brand new project.**
+### Scenario 1: New Project from Template
 
 1. **Use GitHub Template**:
    - Visit https://github.com/matheme-justyn/my-vibe-scaffolding
    - Click "Use this template" → "Create a new repository"
    - Clone your new repository
 
-2. **Initialize Project**:
+2. **Initialize**:
    ```bash
    cd your-project-name
    ./.template/scripts/init-project.sh
    ```
 
-3. **Install Git Hooks** (version enforcement):
-   ```bash
-   ./.template/scripts/install-hooks.sh
-   ```
-
-4. **Start OpenCode with Environment Variables**:
-   ```bash
-   ./.template/scripts/start-opencode.sh
-   ```
-   
-   This script:
-   - Loads environment variables from `.env` (including GitHub token)
-   - Starts OpenCode with MCP servers enabled
-   - Custom port: `./.template/scripts/start-opencode.sh 61179`
-
-   **Why use this script?**
-   - OpenCode doesn't support environment variables directly in `opencode.json`
-   - Keeps GitHub token secure (not committed to git)
-   - Works consistently across macOS/Linux/Windows
-
-
-5. **Done!** Start building your project.
+3. **Done!** Start building your project.
 
 ---
 
-### Option 2: Integrate into Existing Project
+### Scenario 2: Update Existing Project
 
-**Use this when you want to add scaffolding features to an existing project.**
+If you previously used this scaffolding and want to update:
 
-⚠️ **Warning**: This will add/overwrite files. Commit your work first!
+```bash
+./.template/scripts/init-project.sh
+```
 
-#### Recommended: AI-Assisted Integration
+The script detects you have `.template-version` and runs update mode automatically.
 
-**Let AI analyze conflicts and guide you through the integration:**
+**What gets updated:**
+- `.template/` directory (framework files)
+- OpenCode configuration
+- Git hooks
+- Agent configs consolidated to `.agents/`
 
-Paste this in OpenCode/Cursor/Claude chat:
+**What stays unchanged:**
+- Your README.md
+- Your LICENSE
+- Your custom files
+- Your project code
+
+---
+
+### Scenario 3: Integrate into Existing Project
+
+⚠️ **Warning**: This adds scaffolding to an existing project. Commit your work first!
+
+#### Option A: AI-Assisted Integration (Recommended)
+
+Paste this in OpenCode/Cursor/Claude:
 
 ```
 I'm integrating my-vibe-scaffolding into an existing project.
@@ -183,13 +137,13 @@ Please follow these steps:
 2. Read the generated conflict report (.scaffolding-analysis/conflict-report.md)
 3. Help me resolve conflicts based on the report categories:
    - Category 1 (🔄 Must Rewrite): Rewrite following scaffolding guides
-   - Category 2 (⬇️ Direct Import): Use scaffolding version (e.g., AGENTS.md replaces CLAUDE.md)
+   - Category 2 (⬇️ Direct Import): Use scaffolding version
    - Category 3 (🔧 Convert): Merge/convert to scaffolding format
    - Category 4 (✅ Keep Yours): Keep project's version
    - Category 5 (➕ New Files): Import scaffolding's new files
 ```
 
-#### Manual Integration
+#### Option B: Manual Integration
 
 1. **Add as Remote**:
    ```bash
@@ -197,102 +151,42 @@ Please follow these steps:
    git fetch scaffolding
    ```
 
-2. **Run Conflict Analysis** (Recommended):
+2. **Run Conflict Analysis**:
    ```bash
    ./.template/scripts/analyze-conflicts.sh
    ```
-   
-   This generates a detailed report categorizing all conflicts.
 
-3. **Merge Scaffolding** (interactive):
+3. **Merge**:
    ```bash
-   # Create a branch for the merge
    git checkout -b integrate-scaffolding
-   
-   # Merge (will have conflicts, that's expected)
    git merge scaffolding/main --allow-unrelated-histories
    ```
 
-4. **Resolve Conflicts** (based on analysis report):
-
-   **Category 1: Must Rewrite 🔄**
-   - `CONTRIBUTING.md` → Rewrite following `.template/docs/PROJECT_CONTRIBUTING_GUIDE.md`
-   - `SECURITY.md` → Rewrite following `.template/docs/PROJECT_SECURITY_GUIDE.md`
-
-   **Category 2: Direct Import ⬇️**
-   - `CLAUDE.md` → **Delete**, use `AGENTS.md` instead
-   - `.cursor/` → **Optional**: Delete or keep as reference
-   - `.template/` → Import all scaffolding infrastructure
-
-   **Category 3: Convert 🔧**
-   - `.gitignore` → Merge both versions
-   - `VERSION` → Keep project version, scaffolding version goes to `.template-version`
-
-   **Category 4: Keep Yours ✅**
-   - `README.md` → Keep project's (optional: improve with `.template/docs/README_GUIDE.md`)
-   - `LICENSE` → Keep project's
-
-5. **Configure for Your Project**:
-   ```bash
-   # Set mode to project (not scaffolding)
-   cp config.toml.example config.toml
-   # Edit config.toml: set mode = "project"
-   
-   # Install hooks
-   ./.template/scripts/install-hooks.sh
-   ```
-
-6. **Commit and Continue**:
-   ```bash
-   git add -A
-   git commit -m "chore: integrate my-vibe-scaffolding template"
-   git checkout main
-   git merge integrate-scaffolding
-   ```
+4. **Resolve conflicts** based on the analysis report, then commit.
 
 ---
 
-### Option 3: Cherry-Pick Features
+### Scenario 4: Cherry-Pick Features
 
-**Use this when you only want specific features.**
+Only want specific features? Pick what you need:
 
-Pick what you need:
-
-#### A. Version Management + Git Hooks
+#### Version Management + Git Hooks
 ```bash
-# Download hook
 curl -o .git/hooks/pre-push https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.template/hooks/pre-push
 chmod +x .git/hooks/pre-push
-
-# Create VERSION file
 echo "1.0.0" > VERSION
-git add VERSION
 ```
 
-#### B. AI Agent Configuration (AGENTS.md)
+#### AI Agent Configuration
 ```bash
 curl -o AGENTS.md https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/AGENTS.md
 # Edit AGENTS.md for your project
 ```
 
-#### C. i18n System
+#### i18n System
 ```bash
-# Download i18n structure
-mkdir -p i18n/locales/en-US i18n/locales/zh-TW
+mkdir -p .template/i18n/locales/en-US .template/i18n/locales/zh-TW
 curl -o config.toml.example https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/config.toml.example
-
-# Download locale files
-curl -o i18n/locales/zh-TW/agents.toml https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.template/i18n/locales/zh-TW/agents.toml
-# ... etc
-```
-
-#### D. Documentation Structure
-```bash
-# Create docs structure
-mkdir -p docs/adr
-
-# Download ADR template
-curl -o docs/adr/0001-record-architecture-decisions.md https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.template/docs/adr/0001-record-architecture-decisions.md
 ```
 
 ---
@@ -335,21 +229,8 @@ See `.template/docs/PROJECT_LICENSE_GUIDE.md` for guidance.
 - **i18n Support**: Multi-language documentation (BCP 47)
 - **Project Guides**: LICENSE, CONTRIBUTING, SECURITY setup guides
 - **Documentation Structure**: ADR templates, organization guidelines
+- **Skills System**: Reusable AI workflows (bundles, workflows)
 - **Working Modes**: Scaffolding vs Project mode separation
-
----
-
-## Updating
-
-To sync with latest scaffolding updates:
-
-```bash
-git remote add scaffolding https://github.com/matheme-justyn/my-vibe-scaffolding.git
-git fetch scaffolding
-git merge scaffolding/main
-```
-
-Or see detailed sync guide: `.template/docs/TEMPLATE_SYNC.md`
 
 ---
 
@@ -365,18 +246,20 @@ Fix:
 git push && git push --tags
 ```
 
-### Conflicts during merge
-
-This is normal when integrating into existing projects. Resolve carefully:
-- Keep your project's identity files (README, LICENSE)
-- Keep scaffolding's `.template/` infrastructure
-- Merge AGENTS.md if you have one
-
 ### Language not switching
 
 1. Check `config.toml` exists (copy from `.example`)
-2. Verify locale directory: `i18n/locales/{your-lang}/`
+2. Verify locale directory: `.template/i18n/locales/{your-lang}/`
 3. Ensure OpenCode reads `AGENTS.md` (it should by default)
+
+### MCP not working
+
+Run the test script:
+```bash
+./.template/scripts/test-mcp-setup.sh
+```
+
+This will diagnose Bun, uv, and MCP configuration issues.
 
 ---
 
@@ -384,7 +267,7 @@ This is normal when integrating into existing projects. Resolve carefully:
 
 - Issues: https://github.com/matheme-justyn/my-vibe-scaffolding/issues
 - Documentation: See `.template/docs/` directory
-- Changelog: `CHANGELOG.md`
+- Changelog: `.template/CHANGELOG.md`
 
 ---
 
@@ -392,6 +275,6 @@ This is normal when integrating into existing projects. Resolve carefully:
 
 - [README Guide](./.template/docs/README_GUIDE.md) - How to write project README
 - [Documentation Guidelines](./.template/docs/DOCUMENTATION_GUIDELINES.md) - File organization
+- [Skills Usage Guide](./.template/docs/SKILLS_USAGE_GUIDE.md) - Using AI skills system
 - [License Guide](./.template/docs/PROJECT_LICENSE_GUIDE.md) - Choosing a license
 - [Contributing Guide](./.template/docs/PROJECT_CONTRIBUTING_GUIDE.md) - Setting contribution policy
-- [Security Guide](./.template/docs/PROJECT_SECURITY_GUIDE.md) - Creating security policy

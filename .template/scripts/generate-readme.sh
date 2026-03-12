@@ -55,6 +55,10 @@ EOF
 
 Based on psychologist Lev Vygotsky's scaffolding theory - provides structure when you need it, remove it when you don't.
 
+<div align="center">
+<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-american.png" alt="American Style Illustration" width="300"/>
+<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-japanese.png" alt="Japanese Style Illustration" width="300"/>
+</div>
 ### Core Features
 
 - 🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude
@@ -135,6 +139,60 @@ We use [superpowers](https://github.com/ohmyopencode/superpowers) - community-dr
 
 ---
 
+## 🗂️ Why `.template/` Directory?
+
+**Question**: Why `.template/` instead of `template/` or `scaffolding/`?
+
+**Answer**: Intentional design choice based on:
+
+1. **Hidden by default** - Leading dot indicates "system/framework" files
+2. **Version control friendly** - Git shows `.template/` changes separately from project code
+3. **AI agent clarity** - Agents distinguish "template structure" vs "project files"
+4. **Industry precedent** - Follows `.github/`, `.vscode/`, `.husky/` pattern
+
+**Alternative considered**: `template/` (rejected - too visible, confuses with project templates)
+
+---
+
+## 🛡️ Service Detection
+
+**Problem**: AI agents attempt to call unavailable services (e.g., `google-search` when API not configured)
+
+**Solution**: Declarative service availability in `config.toml`:
+
+```toml
+[services]
+unsupported = ["google-search", "google_search"]
+
+[services.alternatives]
+google-search = ["websearch_web_search_exa", "webfetch"]
+```
+
+**AI Agent Protocol**:
+1. Check `config.toml` before calling ANY external service
+2. If service in `unsupported` list → use alternative
+3. Inform user of substitution
+
+📖 **Full protocol**: [`.agents/service-detection.md`](./.agents/service-detection.md)
+
+---
+
+## 🏗️ Architecture
+
+This template adapts **Claude Code's five-layer architecture** (2025 hackathon winner):
+
+| Layer | Claude Code | This Template | Status |
+|-------|-------------|---------------|--------|
+| **1. Agents** | Delegation system | Task delegation in `AGENTS.md` | ✅ Complete |
+| **2. Skills** | Prompt modules | `.agents/skills/`, superpowers | ✅ Complete |
+| **3. Commands** | Task mappings | Commands block in `AGENTS.md` | ✅ Complete |
+| **4. Hooks** | Git automation | `.template/scripts/install-hooks.sh` | ✅ Complete |
+| **5. Rules** | Guardrails | Service detection, conventions | ✅ Complete |
+
+🔗 **Design decisions**: [`docs/adr/0009-reference-claude-code-architecture.md`](./docs/adr/0009-reference-claude-code-architecture.md)
+
+---
+
 ## 📄 License
 
 MIT License - See [LICENSE](./LICENSE)
@@ -157,6 +215,10 @@ EOF
 
 基於心理學家 Lev Vygotsky 的鷹架理論 — 需要時提供結構，不需要時移除。
 
+<div align="center">
+<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-american.png" alt="American Style Illustration" width="300"/>
+<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-japanese.png" alt="Japanese Style Illustration" width="300"/>
+</div>
 ### 核心功能
 
 - 🤖 **AI Agent 整合** - `AGENTS.md` + Skills 系統，支援 OpenCode/Cursor/Claude
@@ -234,6 +296,60 @@ User: "設計認證系統"
 | **Bundles & Workflows** | 角色導向集合 | 快速載入情境 |
 
 我們使用 [superpowers](https://github.com/ohmyopencode/superpowers) — 社群驅動的 AI 工作流程。
+
+---
+
+## 🗂️ 為什麼使用 `.template/` 目錄？
+
+**問題**：為什麼用 `.template/` 而非 `template/` 或 `scaffolding/`？
+
+**答案**：基於以下考量的刻意設計：
+
+1. **預設隱藏** - 前導點表示「系統/框架」檔案
+2. **版本控制友善** - Git 將 `.template/` 變更與專案程式碼分開顯示
+3. **AI agent 清晰** - Agent 能區分「模板結構」vs「專案檔案」
+4. **業界先例** - 遵循 `.github/`、`.vscode/`、`.husky/` 模式
+
+**考慮過的替代方案**：`template/`（已拒絕 - 太顯眼，與專案模板混淆）
+
+---
+
+## 🛡️ 服務偵測
+
+**問題**：AI agent 嘗試呼叫不可用的服務（例如未配置 API 時呼叫 `google-search`）
+
+**解決方案**：在 `config.toml` 中宣告式管理服務可用性：
+
+```toml
+[services]
+unsupported = ["google-search", "google_search"]
+
+[services.alternatives]
+google-search = ["websearch_web_search_exa", "webfetch"]
+```
+
+**AI Agent 協定**：
+1. 呼叫任何外部服務前先檢查 `config.toml`
+2. 若服務在 `unsupported` 清單 → 使用替代方案
+3. 通知使用者替代情況
+
+📖 **完整協定**：[`.agents/service-detection.md`](./.agents/service-detection.md)
+
+---
+
+## 🏗️ 架構
+
+本模板改編自 **Claude Code 的五層架構**（2025 hackathon 冠軍）：
+
+| 層級 | Claude Code | 本模板 | 狀態 |
+|------|-------------|--------|------|
+| **1. Agents** | 委派系統 | `AGENTS.md` 中的任務委派 | ✅ 完成 |
+| **2. Skills** | Prompt 模組 | `.agents/skills/`、superpowers | ✅ 完成 |
+| **3. Commands** | 任務映射 | `AGENTS.md` 中的 Commands 區塊 | ✅ 完成 |
+| **4. Hooks** | Git 自動化 | `.template/scripts/install-hooks.sh` | ✅ 完成 |
+| **5. Rules** | 防護機制 | 服務偵測、慣例規範 | ✅ 完成 |
+
+🔗 **設計決策**：[`docs/adr/0009-reference-claude-code-architecture.md`](./docs/adr/0009-reference-claude-code-architecture.md)
 
 ---
 

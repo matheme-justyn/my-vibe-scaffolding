@@ -211,3 +211,68 @@ auto_backup = true             # 是否備份到 git（如果有）
 #
 #   詳細說明：docs/MULTI_INSTANCE_LIMITATION.md
 #
+
+# ==============================================================================
+# Service Capabilities Detection
+# ==============================================================================
+# Declare which services are available, unsupported, or require alternatives
+# This prevents OpenCode from attempting to use unavailable services
+#
+# Based on: ADR 0008 - OpenCode Configuration Strategy
+
+[services]
+# Explicitly declare unsupported services
+# These will trigger graceful fallback with helpful error messages
+unsupported = [
+  "google-search",   # Requires GCP Gemini API enablement (see error: SERVICE_DISABLED)
+  "google_search",   # Alternative naming
+]
+
+# Service capability matrix - maps functionality to available tools
+[services.capabilities]
+web_search = [
+  "websearch_web_search_exa",  # Primary: Exa web search (clean, LLM-optimized)
+  "webfetch",                   # Fallback: Direct URL fetch
+]
+code_search = [
+  "grep_app_searchGitHub",      # Search public GitHub repositories
+]
+documentation = [
+  "context7_query-docs",        # Query official documentation via Context7
+  "context7_resolve-library-id", # Resolve library IDs for Context7
+]
+
+# Fallback behavior when service unavailable
+[services.fallback]
+# Mode options:
+#   - "suggest": Show alternatives, let AI/user decide (default)
+#   - "auto": Automatically use first available alternative
+#   - "fail": Stop with error message (strict mode)
+mode = "suggest"
+
+# Log failed service call attempts for debugging
+log_attempts = true
+
+# Show detailed reason for service unavailability
+show_reason = true
+
+# ==============================================================================
+# Usage Examples
+# ==============================================================================
+#
+# When AI attempts google-search:
+#   1. Check config.toml [services.unsupported]
+#   2. Find "google-search" in list
+#   3. Look up alternatives in [services.capabilities.web_search]
+#   4. Suggest: "Service 'google-search' unavailable. Using 'websearch_web_search_exa' instead."
+#
+# To add new unsupported service:
+#   [services]
+#   unsupported = [
+#     "google-search",
+#     "my-new-service",  # Add here
+#   ]
+#
+#   [services.capabilities]
+#   my_functionality = ["alternative-tool-1", "alternative-tool-2"]
+#

@@ -19,6 +19,10 @@ English | [繁體中文](./README.zh-TW.md)
 
 Based on psychologist Lev Vygotsky's scaffolding theory - provides structure when you need it, remove it when you don't.
 
+<div align="center">
+<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-american.png" alt="American Style Illustration" width="300"/>
+<img src="./.template/assets/images/20260225_vibe-scaffolding-illustration-japanese.png" alt="Japanese Style Illustration" width="300"/>
+</div>
 ### Core Features
 
 - 🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude
@@ -96,6 +100,60 @@ Why these technologies?
 | **Bundles & Workflows** | Role-based collections | Quick context loading |
 
 We use [superpowers](https://github.com/ohmyopencode/superpowers) - community-driven AI workflows.
+
+---
+
+## 🗂️ Why `.template/` Directory?
+
+**Question**: Why `.template/` instead of `template/` or `scaffolding/`?
+
+**Answer**: Intentional design choice based on:
+
+1. **Hidden by default** - Leading dot indicates "system/framework" files
+2. **Version control friendly** - Git shows `.template/` changes separately from project code
+3. **AI agent clarity** - Agents distinguish "template structure" vs "project files"
+4. **Industry precedent** - Follows `.github/`, `.vscode/`, `.husky/` pattern
+
+**Alternative considered**: `template/` (rejected - too visible, confuses with project templates)
+
+---
+
+## 🛡️ Service Detection
+
+**Problem**: AI agents attempt to call unavailable services (e.g., `google-search` when API not configured)
+
+**Solution**: Declarative service availability in `config.toml`:
+
+```toml
+[services]
+unsupported = ["google-search", "google_search"]
+
+[services.alternatives]
+google-search = ["websearch_web_search_exa", "webfetch"]
+```
+
+**AI Agent Protocol**:
+1. Check `config.toml` before calling ANY external service
+2. If service in `unsupported` list → use alternative
+3. Inform user of substitution
+
+📖 **Full protocol**: [`.agents/service-detection.md`](./.agents/service-detection.md)
+
+---
+
+## 🏗️ Architecture
+
+This template adapts **Claude Code's five-layer architecture** (2025 hackathon winner):
+
+| Layer | Claude Code | This Template | Status |
+|-------|-------------|---------------|--------|
+| **1. Agents** | Delegation system | Task delegation in `AGENTS.md` | ✅ Complete |
+| **2. Skills** | Prompt modules | `.agents/skills/`, superpowers | ✅ Complete |
+| **3. Commands** | Task mappings | Commands block in `AGENTS.md` | ✅ Complete |
+| **4. Hooks** | Git automation | `.template/scripts/install-hooks.sh` | ✅ Complete |
+| **5. Rules** | Guardrails | Service detection, conventions | ✅ Complete |
+
+🔗 **Design decisions**: [`docs/adr/0009-reference-claude-code-architecture.md`](./docs/adr/0009-reference-claude-code-architecture.md)
 
 ---
 

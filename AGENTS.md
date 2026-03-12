@@ -249,6 +249,326 @@ echo ".opencode-data/" >> .gitignore
 ---
 
 
+---
+
+## Specialized Agents
+
+**版本**: 1.0.0  
+**來源**: [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (Anthropic Hackathon Winner)  
+**文件**: [`.agents/agents/README.md`](./.agents/agents/README.md)
+
+### 為什麼需要專業化 Agents？
+
+單一 agent 承擔所有任務會導致品質不穩定、上下文過載、決策疲勞。專業化 agents 透過分工提供一致的高品質輸出。
+
+### Available Agents
+
+| Agent | 用途 | 何時使用 | 調用方式 |
+|-------|------|---------|---------|
+| **planner** | 任務規劃分解 | 複雜功能、重構、多檔案變更 | `task(subagent_type="planner", ...)` |
+| **architect** | 架構設計決策 | 技術選型、系統設計、模式選擇 | `task(subagent_type="architect", ...)` |
+| **tdd-guide** | TDD 工作流程 | 新功能開發、測試驅動開發 | `task(subagent_type="tdd-guide", ...)` |
+| **code-reviewer** | 程式碼審查 | PR 前審查、品質檢查 | `task(subagent_type="code-reviewer", ...)` |
+| **security-reviewer** | 安全審查 | 敏感功能、API、認證授權 | `task(subagent_type="security-reviewer", ...)` |
+
+### 使用範例
+
+#### 規劃複雜功能
+
+```typescript
+User: "新增使用者認證系統"
+
+Main Agent: "這是複雜任務，讓我調用 planner 進行規劃"
+
+task(
+  subagent_type="planner",
+  load_skills=[],
+  prompt=`規劃使用者認證系統實作
+  
+  要求：
+  - JWT token 認證
+  - 密碼雜湊（bcrypt）
+  - Session 管理
+  - 登入/登出/註冊 API
+  `, 
+  run_in_background=false
+)
+
+// Planner 會返回詳細的分階段計畫、檔案路徑、依賴關係圖
+```
+
+#### 架構設計決策
+
+```typescript
+User: "REST 還是 GraphQL？"
+
+task(
+  subagent_type="architect",
+  load_skills=[],
+  prompt=`評估 REST vs GraphQL
+  
+  專案：電商平台 MVP
+  團隊：3 名全端工程師
+  `, 
+  run_in_background=false
+)
+
+// Architect 會提供多維度技術評估、權衡分析、明確推薦
+```
+
+#### TDD 工作流程
+
+```typescript
+User: "實作購物車結帳功能"
+
+task(
+  subagent_type="tdd-guide",
+  load_skills=["test-driven-development"],
+  prompt="指導購物車結帳的 TDD 開發流程",
+  run_in_background=false
+)
+
+// TDD Guide 會提供測試案例列表、Red-Green-Refactor 步驟
+```
+
+#### 程式碼審查
+
+```typescript
+User: "審查登入 API"
+
+task(
+  subagent_type="code-reviewer",
+  load_skills=["requesting-code-review"],
+  prompt=`審查 src/api/auth/login.ts
+  
+  重點：錯誤處理、輸入驗證、安全性、程式碼品質
+  `,
+  run_in_background=false
+)
+
+// Code Reviewer 會返回問題清單、改進建議、程式碼範例
+```
+
+#### 安全審查
+
+```typescript
+User: "檢查密碼重設功能的安全性"
+
+task(
+  subagent_type="security-reviewer",
+  load_skills=[],
+  prompt=`審查密碼重設功能
+  
+  檢查：Token 安全性、時序攻擊、Rate limiting、OWASP Top 10
+  `,
+  run_in_background=false
+)
+
+// Security Reviewer 會返回安全漏洞列表、攻擊場景、修復建議
+```
+
+### Agent 協作模式
+
+**Sequential（順序執行）** - 複雜功能的完整流程：
+
+```
+planner (規劃) → architect (設計) → tdd-guide (開發) → 
+code-reviewer (審查) → security-reviewer (安全)
+```
+
+**Conditional（條件觸發）** - 根據複雜度決定：
+
+```
+簡單變更：直接實作
+複雜變更：planner → 實作
+安全敏感：security-reviewer → 修正
+```
+
+**Parallel（平行執行）** - 獨立任務：
+
+```typescript
+task(subagent_type="code-reviewer", ..., run_in_background=true)
+task(subagent_type="security-reviewer", ..., run_in_background=true)
+// 平行執行兩個審查
+```
+
+### 決策樹
+
+```
+收到任務
+├─ 新功能/重構？
+│  ├─ 複雜 → planner
+│  └─ 簡單 → 直接實作
+├─ 架構決策？ → architect
+├─ 開發功能？
+│  ├─ 用 TDD → tdd-guide
+│  └─ 否 → 直接實作
+├─ 審查程式碼？ → code-reviewer
+└─ 安全相關？ → security-reviewer
+```
+
+### 最佳實踐
+
+**DO ✅**
+- 提供明確的任務描述和專案上下文
+- 循序漸進：規劃 → 設計 → 實作 → 審查
+- 載入相關 skills 加強 agent 能力
+- 安全功能必經 security-reviewer
+
+**DON'T ❌**
+- 簡單任務過度委派（改變數名不需要 agent）
+- 缺乏上下文的提示（"選個資料庫"）
+- 跳過必要審查步驟
+
+**完整指南**: [`.agents/agents/README.md`](./.agents/agents/README.md)
+
+---
+
+## Core Skills System
+
+**Version**: 1.0.0  
+**Source**: [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (Anthropic Hackathon Winner)  
+**Documentation**: [`.agents/skills/README.md`](./.agents/skills/README.md)
+
+### Why Core Skills?
+
+Skills provide specialized implementation patterns and best practices for specific domains. Unlike agents (which delegate tasks), skills guide **how** to execute tasks correctly.
+
+### Available Skills (15 total)
+
+Skills are organized by domain expertise:
+
+| Category | Count | Skills |
+|----------|-------|--------|
+| **Universal** | 5 | api-design, security-review, tdd-workflow, coding-standards, verification-loop |
+| **Backend** | 3 | backend-patterns, database-optimization, error-handling |
+| **Frontend** | 3 | frontend-patterns, react-hooks, component-design |
+| **Testing** | 2 | e2e-testing, unit-testing |
+| **Other** | 2 | content-engine, market-research |
+
+### Quick Reference
+
+#### Universal Skills (All Projects)
+
+- **api-design**: REST API design patterns, status codes, pagination, versioning
+- **security-review**: Authentication, input validation, SQL injection prevention, XSS/CSRF
+- **tdd-workflow**: Test-driven development, 80%+ coverage, Red-Green-Refactor
+- **coding-standards**: Code style, naming conventions, TypeScript patterns
+- **verification-loop**: Systematic pre-completion checks
+
+#### Backend Skills
+
+- **backend-patterns**: Node.js async patterns, middleware, microservices
+- **database-optimization**: Query optimization, N+1 prevention, indexing, caching
+- **error-handling**: Error middleware, logging, circuit breakers, graceful degradation
+
+#### Frontend Skills
+
+- **frontend-patterns**: React/Next.js architecture, state management, performance
+- **react-hooks**: useState, useEffect, useMemo, useCallback, custom hooks
+- **component-design**: Composition patterns, render props, compound components
+
+#### Testing Skills
+
+- **e2e-testing**: Playwright patterns, page objects, CI/CD integration
+- **unit-testing**: Jest/Vitest patterns, mocking, AAA structure
+
+### Usage Patterns
+
+**Automatic Loading** (Recommended):
+Skills auto-load when AGENTS.md detects relevant keywords:
+
+```typescript
+User: "Design a REST API for user management"
+// Auto-loads: api-design, security-review, backend-patterns
+```
+
+**Manual Loading**:
+
+```typescript
+// Load single skill
+@use api-design
+User: "Design API endpoints"
+
+// Load multiple skills
+@use tdd-workflow
+@use e2e-testing
+User: "Implement login with tests"
+```
+
+### Skill Combinations (Best Practices)
+
+**Backend API Development**:
+```typescript
+@use api-design
+@use security-review
+@use backend-patterns
+@use tdd-workflow
+User: "Build user authentication API"
+```
+
+**Frontend Component Development**:
+```typescript
+@use frontend-patterns
+@use react-hooks
+@use component-design
+@use unit-testing
+User: "Create reusable modal component"
+```
+
+**Full-stack Feature**:
+```typescript
+@use api-design
+@use frontend-patterns
+@use tdd-workflow
+@use e2e-testing
+User: "Implement checkout flow"
+```
+
+### Integration with Superpowers
+
+These skills complement your existing superpowers skills:
+
+| ECC Skill | Superpowers Equivalent | Recommendation |
+|-----------|------------------------|----------------|
+| `tdd-workflow` | `superpowers/test-driven-development` | Use both together |
+| `verification-loop` | `superpowers/verification-before-completion` | Use both together |
+| `security-review` | — | New capability |
+| `api-design` | — | New capability |
+
+**Strategy**: ECC skills provide implementation patterns, superpowers provide workflow guidance.
+
+### When to Use Which Skill
+
+| Task Type | Skills to Load |
+|-----------|----------------|
+| New API endpoint | `api-design`, `security-review`, `tdd-workflow` |
+| Database query slow | `database-optimization`, `backend-patterns` |
+| React component | `frontend-patterns`, `react-hooks`, `component-design` |
+| Authentication | `security-review`, `api-design`, `backend-patterns` |
+| Pre-deployment | `verification-loop`, `security-review`, `e2e-testing` |
+| Bug fix | `tdd-workflow`, `unit-testing`, `systematic-debugging` |
+
+### Skill Auto-Detection Keywords
+
+AGENTS.md automatically loads skills based on these keywords:
+
+- **API/Backend**: "API", "endpoint", "backend", "Node.js", "Express", "microservices"
+- **Security**: "authentication", "security", "auth", "sensitive", "password"
+- **Frontend**: "React", "Next.js", "component", "UI", "frontend", "hooks"
+- **Database**: "database", "query", "slow", "N+1", "index", "cache"
+- **Testing**: "test", "TDD", "E2E", "Playwright", "Jest", "Vitest"
+- **Deployment**: "deploy", "production", "verify", "complete"
+
+### Complete Documentation
+
+**Full guides available**:
+- [`.agents/skills/README.md`](./.agents/skills/README.md) - Complete skill documentation
+- [`docs/PRD-claude-code-inspired-upgrades.md`](./docs/PRD-claude-code-inspired-upgrades.md) - Integration PRD
+- [`docs/adr/0009-reference-claude-code-architecture.md`](./docs/adr/0009-reference-claude-code-architecture.md) - Architecture decisions
+
+---
+
 ## Tech Stack
 
 <!-- TODO: List technologies, frameworks, and tools used in this project -->
@@ -286,6 +606,252 @@ When performing GitHub operations (issues, PRs, releases):
 
 Configuration: `opencode.json`  
 Setup guide: [.template/docs/MCP_SETUP_GUIDE.md](./.template/docs/MCP_SETUP_GUIDE.md)
+
+## Commands
+
+**Reference**: AGENTS.md 2026 Standard - Commands are one of 6 core blocks required for AI agent coordination.
+
+### AI Development Commands
+
+**Source**: [everything-claude-code](https://github.com/affaan-m/everything-claude-code)  
+**Documentation**: [`.agents/commands/README.md`](./.agents/commands/README.md)
+
+These commands provide task-specific workflows combining agents and skills:
+
+| Command | Description | Agent | Use When |
+|---------|-------------|-------|----------|
+| **plan** | Create implementation plan with risk assessment | planner | Starting complex features |
+| **code-review** | Review code for quality, security, maintainability | code-reviewer | Before commits, PR review |
+| **build-fix** | Diagnose and fix build errors | architect | Build failures |
+| **e2e** | Create end-to-end tests | tdd-guide | Testing workflows |
+| **checkpoint** | Save state before major changes | — | Before refactoring |
+| **test-all** | Run all tests with coverage | tdd-guide | Pre-commit, CI/CD |
+| **security-scan** | Security vulnerability audit | security-reviewer | Pre-deployment |
+| **analyze** | Codebase quality analysis | architect | Code health check |
+| **refactor** | Systematic code refactoring | architect | Improving maintainability |
+| **document** | Generate/update documentation | architect | API docs, README |
+
+**Usage**: Commands are invoked by referencing the command file (e.g., "run plan command for user auth").
+
+**Command Chains** (Common Workflows):
+- **Feature Development**: plan → checkpoint → [implement] → test-all → code-review → security-scan → document
+- **Bug Fix**: checkpoint → analyze → [fix] → test-all → code-review
+- **Refactoring**: analyze → checkpoint → test-all → refactor → test-all → code-review
+- **Pre-Deployment**: test-all → code-review → security-scan → document
+
+
+### Development
+
+- **Install**: (Project-specific - depends on tech stack)
+  - Node.js: `npm install` or `pnpm install`
+  - Python: `pip install -r requirements.txt`
+  - Go: `go mod download`
+  - Note: This scaffolding template itself has no development commands (it's a template, not an application)
+
+- **Dev**: (Project-specific - depends on tech stack)
+  - Node.js: `npm run dev`
+  - Python: `python manage.py runserver` (Django) or `flask run`
+  - Go: `go run main.go`
+
+- **Build**: (Project-specific - depends on tech stack)
+  - Node.js: `npm run build`
+  - Python: (typically no build step)
+  - Go: `go build`
+
+- **Test**: (Project-specific - depends on tech stack)
+  - Node.js: `npm test`
+  - Python: `pytest` or `python -m unittest`
+  - Go: `go test ./...`
+
+### Template Management
+
+These commands manage the scaffolding template itself:
+
+- **Init project**: `./.template/scripts/init-project.sh`
+  - First-time project setup or template updates
+  - Auto-detects: first-time mode (no `.template-version`) vs update mode (existing `.template-version`)
+  - Creates project files, sets up git hooks, initializes OpenCode config
+
+- **Bump version**: `./.template/scripts/bump-version.sh [patch|minor|major]`
+  - Update `.template/VERSION` and `VERSION` files
+  - Create git commit and tag
+  - Update `CHANGELOG.md` and `README.md` badges
+  - Usage:
+    - `./template/scripts/bump-version.sh patch` - Bug fixes (1.0.0 → 1.0.1)
+    - `./.template/scripts/bump-version.sh minor` - New features (1.0.0 → 1.1.0)
+    - `./.template/scripts/bump-version.sh major` - Breaking changes (1.0.0 → 2.0.0)
+
+- **Generate README**: `./.template/scripts/generate-readme.sh`
+  - Generate `README.md` and `README.{lang}.md` from `i18n/locales/{lang}/readme.toml`
+  - Sync to `.template/README.md` and `.template/README.{lang}.md`
+  - Add language switcher links automatically
+  - **CRITICAL**: Always use this script to update README, never edit README.md directly
+
+- **Sync README**: `./.template/scripts/sync-readme.sh`
+  - Sync root README files to `.template/` directory (if `sync_readme = true` in scaffolding mode)
+  - Used in scaffolding mode when developing the template itself
+
+- **Sync template**: `./.template/scripts/sync-template.sh`
+  - Sync template changes from `.template/` to project root
+  - Version comparison (.template-version vs .template/VERSION)
+  - Change summary display (git-style diff)
+  - Selective file sync with exclude patterns (--exclude)
+  - Conflict detection and resolution guidance
+  - Usage:
+    - `sync-template.sh` - Interactive sync
+    - `sync-template.sh -n` - Dry run (preview)
+    - `sync-template.sh -e "docs/*"` - Exclude specific files
+    - `sync-template.sh -f` - Force sync regardless of version
+
+### Git Hooks
+
+- **Install hooks**: `./.template/scripts/install-hooks.sh`
+  - Install pre-commit and pre-push git hooks
+  - Pre-push hook: Enforce version bump before pushing to main
+  - Location: `.git/hooks/`
+
+### OpenCode Specific
+
+These commands help manage OpenCode stability and workflow:
+
+- **Health check**: `./.template/scripts/health-check.sh`
+  - Check OpenCode database size, session count, startup time
+  - Recommend cleanup if thresholds exceeded
+  - Run manually or via cron job
+
+- **Clean sessions**: `./.template/scripts/smart-cleanup.sh`
+  - Smart session cleanup (keeps recent/active sessions)
+  - Triggered by health check or run manually
+  - Archives old sessions to `.opencode-data/archive/`
+
+- **Monitor stability**: `./.template/scripts/monitor-stability.sh`
+  - Monitor OpenCode crashes and performance
+  - Generate daily stability reports
+  - Track memory usage and session duration
+
+- **Init OpenCode**: `./.template/scripts/init-opencode.sh`
+  - Set up project-specific OpenCode database
+  - Configure `.vscode/settings.json` for isolated data directory
+  - Prevents multi-project database conflicts
+
+- **Detect OS**: `./.template/scripts/detect-os.sh`
+  - Auto-detect operating system and available commands
+  - Update `config.toml` [system] section
+  - Run during project initialization or when environment changes
+
+### Utility Scripts
+
+- **Verify setup**: `./.template/scripts/verify-setup.sh`
+  - Verify project configuration integrity
+  - Check required files exist
+  - Validate configuration format
+
+- **Check version sync**: `./.template/scripts/check-version-sync.sh`
+  - Ensure `.template/VERSION` and `VERSION` are in sync
+  - Used by pre-push git hook
+
+### Usage Tips
+
+**For template maintainers** (scaffolding mode):
+- Use `bump-version.sh` before every commit to main
+- Run `generate-readme.sh` after updating i18n translation files
+- Use `sync-readme.sh` to keep `.template/` README in sync
+
+**For template users** (project mode):
+- Run `init-project.sh` once after creating project from template
+- Use development commands specific to your tech stack
+- Run `health-check.sh` if OpenCode becomes unstable
+
+**For all users**:
+- `install-hooks.sh` - Run once to set up automatic version enforcement
+- `verify-setup.sh` - Run to check configuration integrity
+
+
+## Service Detection Protocol
+
+**CRITICAL: AI agents MUST check service availability BEFORE calling external services.**
+
+**Reference**: [`.agents/service-detection.md`](./.agents/service-detection.md) | **ADR**: [0008](./
+.template/docs/adr/0008-opencode-config-claude-code-reference.md)
+
+### Quick Protocol
+
+**Before calling ANY external service:**
+
+1. ✅ **Check `config.toml`** `[services.unsupported]` list
+2. ✅ **If service is unsupported** → Look up alternatives in `[services.capabilities]`
+3. ✅ **Use alternative tool** and inform user of substitution
+4. ✅ **Provide clear reasoning** for why alternative was chosen
+
+### Example: Handling Unsupported google-search
+
+**Bad (DON'T DO THIS)**:
+```
+User: "Search the web for React best practices"
+Agent: [Attempts google-search]
+Result: 403 Forbidden - Gemini for Google Cloud API has not been used...
+Agent: "Sorry, I encountered an error."
+```
+
+**Good (DO THIS)**:
+```
+User: "Search the web for React best practices"
+Agent: [Checks config.toml → google-search in unsupported list]
+Agent: [Looks up alternatives → websearch_web_search_exa available]
+Agent: "Using websearch_web_search_exa as alternative to google-search (provides LLM-optimized results)"
+Agent: [Executes search successfully]
+```
+
+### Service Configuration Location
+
+**File**: `config.toml` (copy from `config.toml.example`)
+
+**Structure**:
+```toml
+[services]
+unsupported = ["google-search", "google_search"]
+
+[services.capabilities]
+web_search = ["websearch_web_search_exa", "webfetch"]
+code_search = ["grep_app_searchGitHub"]
+documentation = ["context7_query-docs", "context7_resolve-library-id"]
+
+[services.fallback]
+mode = "suggest"  # "suggest" | "auto" | "fail"
+log_attempts = true
+show_reason = true
+```
+
+### Error Message Template
+
+When service is unavailable:
+
+```markdown
+❌ Service '{service_name}' is not available in this configuration.
+
+Reason: {specific_reason}
+
+✅ Available alternatives:
+  1. {alternative_1} - {description}
+  2. {alternative_2} - {description}
+
+Recommended: {best_alternative}
+Using: {chosen_alternative}
+
+[Continues execution with alternative]
+```
+
+### Service Capability Matrix
+
+| Functionality | Unsupported Services | Available Alternatives | Recommended |
+|---------------|----------------------|------------------------|-------------|
+| **Web Search** | `google-search`, `google_search` | `websearch_web_search_exa`, `webfetch` | `websearch_web_search_exa` (LLM-optimized) |
+| **Code Search** | — | `grep_app_searchGitHub` | `grep_app_searchGitHub` |
+| **Documentation** | — | `context7_query-docs`, `context7_resolve-library-id` | `context7_query-docs` |
+| **Web Fetch** | — | `webfetch` | `webfetch` (direct URL) |
+
+**Full details**: See [`.agents/service-detection.md`](./.agents/service-detection.md)
+
 
 ## Coding Conventions
 

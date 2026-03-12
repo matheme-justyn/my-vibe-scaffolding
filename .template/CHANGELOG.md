@@ -5,6 +5,72 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.15.0] - 2025-03-12
+
+### Added - Everything-Claude-Code Architecture Integration
+
+**Five-Layer AI Architecture** (from hackathon winner):
+
+#### Layer 1: Specialized Agents (5)
+- `planner` - Task planning and breakdown
+- `architect` - Architecture design decisions  
+- `tdd-guide` - TDD workflow guidance
+- `code-reviewer` - Code quality review
+- `security-reviewer` - Security vulnerability scanning
+
+#### Layer 2: Core Skills (15)
+- **Universal (5)**: api-design, security-review, tdd-workflow, coding-standards, verification-loop
+- **Backend (3)**: backend-patterns, database-optimization, error-handling
+- **Frontend (3)**: frontend-patterns, react-hooks, component-design
+- **Testing (2)**: e2e-testing, unit-testing
+- **Other (2)**: content-engine, market-research
+
+#### Layer 3: Essential Commands (10)
+- plan, code-review, build-fix, e2e, checkpoint
+- test-all, security-scan, analyze, refactor, document
+
+#### Layer 4: Common Rules (60 rules, 4 categories)
+- Git Rules (11): Commit conventions, branching, safe operations
+- Testing Rules (16): TDD, coverage, test quality
+- Security Rules (13): Prevent vulnerabilities, secure coding
+- Code Style Rules (20): Naming, formatting, consistency
+
+#### Layer 5: AgentShield
+- Security framework preventing AI configuration vulnerabilities
+- 5-category protection system (file ops, commands, APIs, code, data)
+
+### Changed
+- AGENTS.md: Added 3 new sections (Agents, Skills, Commands) - +319 lines
+- README.md: Added "Advanced AI Agent Features" section - +88 lines
+- Version badges updated: v1.13.0 → v1.15.0
+
+### Documentation
+- ADR 0010: Everything-Claude-Code integration decisions
+- ADR 0009: Reference Claude Code architecture (from previous session)
+- ADR 0008: OpenCode config Claude Code reference
+- PRD: Claude Code inspired upgrades (comprehensive analysis)
+
+### Files Added (39 total)
+- `.agents/agents/` (6 files)
+- `.agents/skills/` (16 files)
+- `.agents/commands/` (11 files)
+- `.agents/rules/` (5 files)
+- `.agents/agentshield/` (1 file)
+
+### Technical Details
+- Total new code: ~14,000 lines
+- Backward compatible: 100%
+- Breaking changes: None
+- Source: https://github.com/affaan-m/everything-claude-code
+
+### References
+- [ADR 0010](./docs/adr/0010-everything-claude-code-integration.md)
+- [Agents Guide](./.agents/agents/README.md)
+- [Skills Guide](./.agents/skills/README.md)
+- [Commands Guide](./.agents/commands/README.md)
+- [Rules Guide](./.agents/rules/README.md)
+
+
 ## [Unreleased]
 
 

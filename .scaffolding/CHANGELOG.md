@@ -5,6 +5,57 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-03-16
+
+### Added - CI/CD Integration & Testing Infrastructure
+
+#### GitHub Actions Workflows (4 workflows, ~832 lines)
+- **ci.yml** (230 lines): Main CI workflow with comprehensive validation
+  - Script syntax validation for all bash scripts
+  - Configuration file validation (TOML)
+  - Module files existence checks
+  - Terminology files validation
+  - PR template validation
+  - Documentation completeness checks
+- **validate-pr-templates.yml** (147 lines): PR template validation
+  - Template file existence checks (4 languages: en-US, zh-TW, zh-CN, ja-JP)
+  - Template structure validation (required sections)
+  - generate-pr-template.sh syntax validation
+  - Dry-run PR template generation for all languages
+- **validate-config.yml** (206 lines): Configuration validation
+  - TOML syntax validation using Python toml library
+  - Required sections checks ([project], [locale], [modules], [academic])
+  - Project type validation (frontend/backend/fullstack/academic/cli/library/documentation)
+  - Citation style validation (apa/mla/chicago/ieee/acm)
+  - Module configuration validation
+- **validate-modules.yml** (249 lines): Module system validation
+  - Core module files existence (4 modules)
+  - Terminology files existence (8 files)
+  - Module structure validation (headings, content length)
+  - ADR 0012 documentation validation
+  - Module loading scenario testing
+  - Module coverage calculation
+
+#### Testing Infrastructure
+- **test-init-project.sh** (119 lines): init-project.sh validation script
+  - Executable permission checks
+  - Shebang validation
+  - File creation logic verification
+  - Mode detection logic validation
+  - Syntax checking
+
+#### Benefits
+- ✅ **Automated quality gates**: Catch errors before merging to main
+- ✅ **Consistency enforcement**: Ensure scaffolding structure integrity
+- ✅ **Multi-language validation**: Test all 4 language templates
+- ✅ **Module system monitoring**: Track module coverage and validate loading logic
+- ✅ **Configuration safety**: Prevent invalid TOML and misconfiguration
+- ✅ **Documentation health**: Ensure required docs exist and are complete
+
+### Changed
+- **ci-placeholder.yml**: Kept existing placeholder (will be replaced by new ci.yml in future)
+
+
 ## [2.0.1] - 2026-03-16
 
 ### Changed

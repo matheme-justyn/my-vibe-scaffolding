@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-03-16
+
+### Changed
+- **README.md**: Updated to showcase v2.0.0 Module System features
+  - Added "What's New in v2.0.0" section with complete feature overview
+  - Documented Module System (31 modules, terminology, hierarchical loading)
+  - Documented Academic Project Support (citation styles, field-specific terms)
+  - Documented Multi-Language PR Templates (4 languages)
+  - Enhanced Infrastructure documentation (configure-project-type.sh, ADR 0012)
+  - Core Module Documentation summary (4 high-priority modules complete)
+  - Added Quick Start guide for v2.0.0
+  - Available in both English (README.md) and Traditional Chinese (README.zh-TW.md)
+
+### Fixed
+- **pre-push hook**: Fixed incorrect path references (.template → .scaffolding)
+  - Updated check-version-sync.sh path
+  - Updated VERSION file paths
+  - Updated bump-version.sh path references
+
+### Documentation
+- **generate-readme.sh**: Updated to include v2.0.0 feature sections
+- **readme.toml** (en-US/zh-TW): Added [whats_new_v2] section with complete feature descriptions
+
+
 ## [2.0.0] - 2026-03-16
 
 ### Added - Module System and Conditional Loading

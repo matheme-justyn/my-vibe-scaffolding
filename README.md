@@ -4,7 +4,7 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-1.15.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 English | [繁體中文](./README.zh-TW.md)
@@ -39,6 +39,77 @@ Based on psychologist Lev Vygotsky's scaffolding theory - provides structure whe
 3. Start using — the template is ready out of the box
 
 **Note**: First-time setup will be handled automatically by AI agent when needed
+
+## 🎉 What's New in v2.0.0
+
+Major upgrade with Module System, Academic Support, and enhanced AI workflows:
+
+### 📚 Module System
+
+Config-driven conditional documentation loading:
+
+- **31 modules** organized by domain (frontend/backend/fullstack/academic)
+- **6 core modules** always loaded: STYLE_GUIDE, GIT_WORKFLOW, ACADEMIC_WRITING, CITATION_MANAGEMENT, CONTEXT_FILE, AGENTS
+- **25 conditional modules** loaded based on `config.toml` project type
+- **Terminology system**: 183 standardized terms across software/academic domains
+- **Hierarchical loading**: Universal → Domain-specific → Custom overrides
+
+### 🎓 Academic Project Support
+
+First-class support for research and academic writing:
+
+- **Citation styles**: APA, MLA, Chicago, IEEE, ACM
+- **Field-specific terminology**: Computer Science, Engineering, Social Science, Humanities
+- **Academic writing standards**: Research methodology, literature review, thesis structure
+- **ACADEMIC_WRITING.md** (777 lines): Complete academic writing guide
+- **CITATION_MANAGEMENT.md** (741 lines): Citation and reference management
+
+### 🌐 Multi-Language PR Templates
+
+Smart pull request templates with language detection:
+
+- **4 languages**: English, Traditional Chinese, Simplified Chinese, Japanese
+- **Auto-detection**: Uses `config.toml` primary language setting
+- **Custom instructions**: Language-specific contribution guidelines
+- **Script**: `.scaffolding/scripts/generate-pr-template.sh`
+
+### 🛠️ Enhanced Infrastructure
+
+New tools for project setup and configuration:
+
+- **configure-project-type.sh** (377 lines): Interactive project type selector
+- **ADR 0012** (655 lines): Complete Module System architecture documentation
+- **MIGRATION_GUIDE.md** (245 lines): Upgrade guide from 1.x to 2.0.0
+- **Module Loading Protocol** in AGENTS.md: AI agent conditional loading guide
+
+### 📖 Core Module Documentation
+
+4 high-priority modules complete (26 low-priority modules planned for 2.1.x):
+
+- **STYLE_GUIDE.md** (838 lines): Universal code style guide
+- **GIT_WORKFLOW.md** (855 lines): Git workflow, commits, PR standards
+- **ACADEMIC_WRITING.md** (777 lines): Academic writing guidelines
+- **CITATION_MANAGEMENT.md** (741 lines): Citation and reference management
+
+### 🚀 Quick Start with v2.0.0
+
+```bash
+# 1. Set up project type (interactive)
+./.scaffolding/scripts/configure-project-type.sh
+
+# 2. Configure your preferences in config.toml
+# For academic projects, set:
+#   [academic]
+#   citation_style = "apa"
+#   field = "computer_science"
+
+# 3. Generate PR template (auto-detects language)
+./.scaffolding/scripts/generate-pr-template.sh
+
+# 4. Start coding - AI agent will load relevant modules automatically
+```
+
+**Upgrading from 1.x?** See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for detailed instructions.
 
 ---
 
@@ -138,94 +209,6 @@ google-search = ["websearch_web_search_exa", "webfetch"]
 3. Inform user of substitution
 
 📖 **Full protocol**: [`.agents/service-detection.md`](./.agents/service-detection.md)
-
----
-
-
-## 🤖 Advanced AI Agent Features
-
-**NEW in v1.15.0**: Complete five-layer AI architecture from hackathon-winning [everything-claude-code](https://github.com/affaan-m/everything-claude-code).
-
-### Layer 1: Specialized Agents (5)
-
-AI agents for task delegation and specialized workflows:
-
-| Agent | Use Case | Example |
-|-------|----------|---------|
-| **planner** | Complex feature planning | "Plan user authentication system" |
-| **architect** | Architecture decisions | "Choose database: PostgreSQL vs MongoDB" |
-| **tdd-guide** | Test-driven development | "Implement checkout with TDD" |
-| **code-reviewer** | Quality & security review | "Review auth.ts for issues" |
-| **security-reviewer** | Vulnerability scanning | "Check password reset security" |
-
-📖 **Full guide**: [`.agents/agents/README.md`](./.agents/agents/README.md)
-
-### Layer 2: Core Skills (15)
-
-Reusable expertise modules organized by domain:
-
-**Universal (5)**: api-design, security-review, tdd-workflow, coding-standards, verification-loop  
-**Backend (3)**: backend-patterns, database-optimization, error-handling  
-**Frontend (3)**: frontend-patterns, react-hooks, component-design  
-**Testing (2)**: e2e-testing, unit-testing  
-**Other (2)**: content-engine, market-research
-
-**Usage**:
-```typescript
-// Auto-loads based on keywords
-User: "Design REST API" → api-design, security-review, backend-patterns
-
-// Manual load
-@use api-design
-@use security-review
-```
-
-📖 **Full guide**: [`.agents/skills/README.md`](./.agents/skills/README.md)
-
-### Layer 3: Commands (10)
-
-Task-specific workflows for common operations:
-
-| Command | Description | When to Use |
-|---------|-------------|-------------|
-| **plan** | Create implementation plan | Starting complex features |
-| **code-review** | Review code quality | Before commits/PRs |
-| **test-all** | Run all tests + coverage | Pre-commit, CI/CD |
-| **security-scan** | Vulnerability audit | Pre-deployment |
-| **refactor** | Systematic refactoring | Improving code quality |
-| **document** | Generate docs | API docs, README |
-
-**Common Workflows**:
-- **Feature Dev**: plan → checkpoint → [code] → test-all → code-review → security-scan
-- **Bug Fix**: checkpoint → analyze → [fix] → test-all → code-review
-- **Refactor**: analyze → checkpoint → test-all → refactor → test-all
-
-📖 **Full guide**: [`.agents/commands/README.md`](./.agents/commands/README.md)
-
-### Layer 4: Rules (60)
-
-Behavioral constraints across 4 categories:
-
-- **Git Rules (11)**: Never commit secrets, meaningful commits, safe force-push
-- **Testing Rules (16)**: TDD workflow, 80%+ coverage, no flaky tests
-- **Security Rules (13)**: Input validation, parameterized queries, httpOnly cookies
-- **Code Style Rules (20)**: Naming conventions, function size, no magic numbers
-
-**Severity Levels**: 🔴 CRITICAL (blocks) | 🟠 HIGH (fix before merge) | 🟡 MEDIUM | 🟢 LOW
-
-📖 **Full guide**: [`.agents/rules/README.md`](./.agents/rules/README.md)
-
-### Layer 5: AgentShield
-
-Security framework preventing AI configuration vulnerabilities:
-
-- **File Operations**: Confirm before deleting/overwriting
-- **Command Execution**: Block destructive commands without confirmation
-- **External Services**: Require permission for API calls with credentials
-- **Code Modification**: Flag auth/payment code for human review
-- **Data Access**: Protect sensitive files (.env, SSH keys)
-
-📖 **Full guide**: [`.agents/agentshield/README.md`](./.agents/agentshield/README.md)
 
 ---
 

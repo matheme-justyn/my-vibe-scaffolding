@@ -24,6 +24,66 @@ step1 = "1. 在 GitHub 點擊 **\"Use this template\"** 建立你的 repository"
 step2 = "2. Clone 你的新 repository"
 step3 = "3. 開始使用 — 模板已經就緒"
 note = "**注意**：首次設定在需要時會由 AI agent 自動處理"
+
+[whats_new_v2]
+title = "v2.0.0 新功能"
+intro = "重大升級：Module System、學術專案支援、強化 AI 工作流程："
+
+module_system_title = "### 📚 模組系統"
+module_system_desc = "基於配置的條件式文件載入："
+module_system_item1 = "- **31 個模組** 依領域組織（frontend/backend/fullstack/academic）"
+module_system_item2 = "- **6 個核心模組** 永遠載入：STYLE_GUIDE、GIT_WORKFLOW、ACADEMIC_WRITING、CITATION_MANAGEMENT、CONTEXT_FILE、AGENTS"
+module_system_item3 = "- **25 個條件模組** 根據 `config.toml` 專案類型載入"
+module_system_item4 = "- **術語系統**：183 個標準化術語（軟體/學術領域）"
+module_system_item5 = "- **階層式載入**：通用 → 領域專用 → 自訂覆蓋"
+
+academic_title = "### 🎓 學術專案支援"
+academic_desc = "研究和學術寫作的一流支援："
+academic_item1 = "- **引用格式**：APA、MLA、Chicago、IEEE、ACM"
+academic_item2 = "- **領域專用術語**：資訊科學、工程、社會科學、人文"
+academic_item3 = "- **學術寫作標準**：研究方法、文獻回顧、論文結構"
+academic_item4 = "- **ACADEMIC_WRITING.md** (777 行)：完整學術寫作指南"
+academic_item5 = "- **CITATION_MANAGEMENT.md** (741 行)：引用與參考文獻管理"
+
+pr_templates_title = "### 🌐 多語言 PR 模板"
+pr_templates_desc = "智慧型 Pull Request 模板與語言偵測："
+pr_templates_item1 = "- **4 種語言**：英文、繁體中文、簡體中文、日文"
+pr_templates_item2 = "- **自動偵測**：使用 `config.toml` 主要語言設定"
+pr_templates_item3 = "- **自訂說明**：語言專用貢獻指南"
+pr_templates_item4 = "- **腳本**：`.scaffolding/scripts/generate-pr-template.sh`"
+
+infrastructure_title = "### 🛠️ 強化基礎設施"
+infrastructure_desc = "專案設定與配置的新工具："
+infrastructure_item1 = "- **configure-project-type.sh** (377 行)：互動式專案類型選擇器"
+infrastructure_item2 = "- **ADR 0012** (655 行)：完整 Module System 架構文件"
+infrastructure_item3 = "- **MIGRATION_GUIDE.md** (245 行)：1.x 到 2.0.0 升級指南"
+infrastructure_item4 = "- **Module Loading Protocol** 於 AGENTS.md：AI agent 條件載入指南"
+
+documentation_title = "### 📖 核心模組文件"
+documentation_desc = "4 個高優先級模組完成（26 個低優先級模組規劃於 2.1.x）："
+documentation_item1 = "- **STYLE_GUIDE.md** (838 行)：通用程式碼風格指南"
+documentation_item2 = "- **GIT_WORKFLOW.md** (855 行)：Git 工作流程、提交、PR 標準"
+documentation_item3 = "- **ACADEMIC_WRITING.md** (777 行)：學術寫作指南"
+documentation_item4 = "- **CITATION_MANAGEMENT.md** (741 行)：引用與參考文獻管理"
+
+quick_start_title = "### 🚀 v2.0.0 快速開始"
+quick_start_code = """```bash
+# 1. 設定專案類型（互動式）
+./.scaffolding/scripts/configure-project-type.sh
+
+# 2. 在 config.toml 中配置你的偏好
+# 對於學術專案，設定：
+#   [academic]
+#   citation_style = \"apa\"
+#   field = \"computer_science\"
+
+# 3. 生成 PR 模板（自動偵測語言）
+./.scaffolding/scripts/generate-pr-template.sh
+
+# 4. 開始編碼 - AI agent 會自動載入相關模組
+```"""
+
+migration_note = "**從 1.x 升級？** 參閱 [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) 取得詳細說明。"
 [files_included]
 title = "包含檔案"
 description = "此模板包含以下檔案和目錄結構："

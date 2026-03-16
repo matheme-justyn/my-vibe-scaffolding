@@ -4,7 +4,7 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-1.13.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 [English](./README.md) | 繁體中文
@@ -39,6 +39,78 @@
 3. 開始使用 — 模板已經就緒
 
 **注意**：首次設定在需要時會由 AI agent 自動處理
+
+## 🎉 v2.0.0 新功能
+
+重大升級：Module System、學術專案支援、強化 AI 工作流程：
+
+### 📚 模組系統
+
+基於配置的條件式文件載入：
+
+- **31 個模組** 依領域組織（frontend/backend/fullstack/academic）
+- **6 個核心模組** 永遠載入：STYLE_GUIDE、GIT_WORKFLOW、ACADEMIC_WRITING、CITATION_MANAGEMENT、CONTEXT_FILE、AGENTS
+- **25 個條件模組** 根據 `config.toml` 專案類型載入
+- **術語系統**：183 個標準化術語（軟體/學術領域）
+- **階層式載入**：通用 → 領域專用 → 自訂覆蓋
+
+### 🎓 學術專案支援
+
+研究和學術寫作的一流支援：
+
+- **引用格式**：APA、MLA、Chicago、IEEE、ACM
+- **領域專用術語**：資訊科學、工程、社會科學、人文
+- **學術寫作標準**：研究方法、文獻回顧、論文結構
+- **ACADEMIC_WRITING.md** (777 行)：完整學術寫作指南
+- **CITATION_MANAGEMENT.md** (741 行)：引用與參考文獻管理
+
+### 🌐 多語言 PR 模板
+
+智慧型 Pull Request 模板與語言偵測：
+
+- **4 種語言**：英文、繁體中文、簡體中文、日文
+- **自動偵測**：使用 `config.toml` 主要語言設定
+- **自訂說明**：語言專用貢獻指南
+- **腳本**：`.scaffolding/scripts/generate-pr-template.sh`
+
+### 🛠️ 強化基礎設施
+
+專案設定與配置的新工具：
+
+- **configure-project-type.sh** (377 行)：互動式專案類型選擇器
+- **ADR 0012** (655 行)：完整 Module System 架構文件
+- **MIGRATION_GUIDE.md** (245 行)：1.x 到 2.0.0 升級指南
+- **Module Loading Protocol** 於 AGENTS.md：AI agent 條件載入指南
+
+### 📖 核心模組文件
+
+4 個高優先級模組完成（26 個低優先級模組規劃於 2.1.x）：
+
+- **STYLE_GUIDE.md** (838 行)：通用程式碼風格指南
+- **GIT_WORKFLOW.md** (855 行)：Git 工作流程、提交、PR 標準
+- **ACADEMIC_WRITING.md** (777 行)：學術寫作指南
+- **CITATION_MANAGEMENT.md** (741 行)：引用與參考文獻管理
+
+### 🚀 v2.0.0 快速開始
+
+```bash
+# 1. 設定專案類型（互動式）
+./.scaffolding/scripts/configure-project-type.sh
+
+# 2. 在 config.toml 中配置你的偏好
+# 對於學術專案，設定：
+#   [academic]
+#   citation_style = "apa"
+#   field = "computer_science"
+
+# 3. 生成 PR 模板（自動偵測語言）
+./.scaffolding/scripts/generate-pr-template.sh
+
+# 4. 開始編碼 - AI agent 會自動載入相關模組
+```
+
+**從 1.x 升級？** 參閱 [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) 取得詳細說明。
+
 
 ---
 

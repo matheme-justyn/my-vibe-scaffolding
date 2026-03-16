@@ -24,6 +24,66 @@ step1 = "1. Click **\"Use this template\"** on GitHub to create your repository"
 step2 = "2. Clone your new repository"
 step3 = "3. Start using — the template is ready out of the box"
 note = "**Note**: First-time setup will be handled automatically by AI agent when needed"
+
+[whats_new_v2]
+title = "What's New in v2.0.0"
+intro = "Major upgrade with Module System, Academic Support, and enhanced AI workflows:"
+
+module_system_title = "### 📚 Module System"
+module_system_desc = "Config-driven conditional documentation loading:"
+module_system_item1 = "- **31 modules** organized by domain (frontend/backend/fullstack/academic)"
+module_system_item2 = "- **6 core modules** always loaded: STYLE_GUIDE, GIT_WORKFLOW, ACADEMIC_WRITING, CITATION_MANAGEMENT, CONTEXT_FILE, AGENTS"
+module_system_item3 = "- **25 conditional modules** loaded based on `config.toml` project type"
+module_system_item4 = "- **Terminology system**: 183 standardized terms across software/academic domains"
+module_system_item5 = "- **Hierarchical loading**: Universal → Domain-specific → Custom overrides"
+
+academic_title = "### 🎓 Academic Project Support"
+academic_desc = "First-class support for research and academic writing:"
+academic_item1 = "- **Citation styles**: APA, MLA, Chicago, IEEE, ACM"
+academic_item2 = "- **Field-specific terminology**: Computer Science, Engineering, Social Science, Humanities"
+academic_item3 = "- **Academic writing standards**: Research methodology, literature review, thesis structure"
+academic_item4 = "- **ACADEMIC_WRITING.md** (777 lines): Complete academic writing guide"
+academic_item5 = "- **CITATION_MANAGEMENT.md** (741 lines): Citation and reference management"
+
+pr_templates_title = "### 🌐 Multi-Language PR Templates"
+pr_templates_desc = "Smart pull request templates with language detection:"
+pr_templates_item1 = "- **4 languages**: English, Traditional Chinese, Simplified Chinese, Japanese"
+pr_templates_item2 = "- **Auto-detection**: Uses `config.toml` primary language setting"
+pr_templates_item3 = "- **Custom instructions**: Language-specific contribution guidelines"
+pr_templates_item4 = "- **Script**: `.scaffolding/scripts/generate-pr-template.sh`"
+
+infrastructure_title = "### 🛠️ Enhanced Infrastructure"
+infrastructure_desc = "New tools for project setup and configuration:"
+infrastructure_item1 = "- **configure-project-type.sh** (377 lines): Interactive project type selector"
+infrastructure_item2 = "- **ADR 0012** (655 lines): Complete Module System architecture documentation"
+infrastructure_item3 = "- **MIGRATION_GUIDE.md** (245 lines): Upgrade guide from 1.x to 2.0.0"
+infrastructure_item4 = "- **Module Loading Protocol** in AGENTS.md: AI agent conditional loading guide"
+
+documentation_title = "### 📖 Core Module Documentation"
+documentation_desc = "4 high-priority modules complete (26 low-priority modules planned for 2.1.x):"
+documentation_item1 = "- **STYLE_GUIDE.md** (838 lines): Universal code style guide"
+documentation_item2 = "- **GIT_WORKFLOW.md** (855 lines): Git workflow, commits, PR standards"
+documentation_item3 = "- **ACADEMIC_WRITING.md** (777 lines): Academic writing guidelines"
+documentation_item4 = "- **CITATION_MANAGEMENT.md** (741 lines): Citation and reference management"
+
+quick_start_title = "### 🚀 Quick Start with v2.0.0"
+quick_start_code = """```bash
+# 1. Set up project type (interactive)
+./.scaffolding/scripts/configure-project-type.sh
+
+# 2. Configure your preferences in config.toml
+# For academic projects, set:
+#   [academic]
+#   citation_style = \"apa\"
+#   field = \"computer_science\"
+
+# 3. Generate PR template (auto-detects language)
+./.scaffolding/scripts/generate-pr-template.sh
+
+# 4. Start coding - AI agent will load relevant modules automatically
+```"""
+
+migration_note = "**Upgrading from 1.x?** See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for detailed instructions."
 [files_included]
 title = "Included Files"
 description = "This template includes the following files and directory structure:"

@@ -4,7 +4,7 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-1.15.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-1.13.0-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 English | [繁體中文](./README.zh-TW.md)
@@ -138,94 +138,6 @@ google-search = ["websearch_web_search_exa", "webfetch"]
 3. Inform user of substitution
 
 📖 **Full protocol**: [`.agents/service-detection.md`](./.agents/service-detection.md)
-
----
-
-
-## 🤖 Advanced AI Agent Features
-
-**NEW in v1.15.0**: Complete five-layer AI architecture from hackathon-winning [everything-claude-code](https://github.com/affaan-m/everything-claude-code).
-
-### Layer 1: Specialized Agents (5)
-
-AI agents for task delegation and specialized workflows:
-
-| Agent | Use Case | Example |
-|-------|----------|---------|
-| **planner** | Complex feature planning | "Plan user authentication system" |
-| **architect** | Architecture decisions | "Choose database: PostgreSQL vs MongoDB" |
-| **tdd-guide** | Test-driven development | "Implement checkout with TDD" |
-| **code-reviewer** | Quality & security review | "Review auth.ts for issues" |
-| **security-reviewer** | Vulnerability scanning | "Check password reset security" |
-
-📖 **Full guide**: [`.agents/agents/README.md`](./.agents/agents/README.md)
-
-### Layer 2: Core Skills (15)
-
-Reusable expertise modules organized by domain:
-
-**Universal (5)**: api-design, security-review, tdd-workflow, coding-standards, verification-loop  
-**Backend (3)**: backend-patterns, database-optimization, error-handling  
-**Frontend (3)**: frontend-patterns, react-hooks, component-design  
-**Testing (2)**: e2e-testing, unit-testing  
-**Other (2)**: content-engine, market-research
-
-**Usage**:
-```typescript
-// Auto-loads based on keywords
-User: "Design REST API" → api-design, security-review, backend-patterns
-
-// Manual load
-@use api-design
-@use security-review
-```
-
-📖 **Full guide**: [`.agents/skills/README.md`](./.agents/skills/README.md)
-
-### Layer 3: Commands (10)
-
-Task-specific workflows for common operations:
-
-| Command | Description | When to Use |
-|---------|-------------|-------------|
-| **plan** | Create implementation plan | Starting complex features |
-| **code-review** | Review code quality | Before commits/PRs |
-| **test-all** | Run all tests + coverage | Pre-commit, CI/CD |
-| **security-scan** | Vulnerability audit | Pre-deployment |
-| **refactor** | Systematic refactoring | Improving code quality |
-| **document** | Generate docs | API docs, README |
-
-**Common Workflows**:
-- **Feature Dev**: plan → checkpoint → [code] → test-all → code-review → security-scan
-- **Bug Fix**: checkpoint → analyze → [fix] → test-all → code-review
-- **Refactor**: analyze → checkpoint → test-all → refactor → test-all
-
-📖 **Full guide**: [`.agents/commands/README.md`](./.agents/commands/README.md)
-
-### Layer 4: Rules (60)
-
-Behavioral constraints across 4 categories:
-
-- **Git Rules (11)**: Never commit secrets, meaningful commits, safe force-push
-- **Testing Rules (16)**: TDD workflow, 80%+ coverage, no flaky tests
-- **Security Rules (13)**: Input validation, parameterized queries, httpOnly cookies
-- **Code Style Rules (20)**: Naming conventions, function size, no magic numbers
-
-**Severity Levels**: 🔴 CRITICAL (blocks) | 🟠 HIGH (fix before merge) | 🟡 MEDIUM | 🟢 LOW
-
-📖 **Full guide**: [`.agents/rules/README.md`](./.agents/rules/README.md)
-
-### Layer 5: AgentShield
-
-Security framework preventing AI configuration vulnerabilities:
-
-- **File Operations**: Confirm before deleting/overwriting
-- **Command Execution**: Block destructive commands without confirmation
-- **External Services**: Require permission for API calls with credentials
-- **Code Modification**: Flag auth/payment code for human review
-- **Data Access**: Protect sensitive files (.env, SSH keys)
-
-📖 **Full guide**: [`.agents/agentshield/README.md`](./.agents/agentshield/README.md)
 
 ---
 

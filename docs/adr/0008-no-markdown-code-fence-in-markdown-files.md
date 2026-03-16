@@ -33,7 +33,7 @@ This creates several issues:
 ### Where This Occurs
 
 Common locations where this anti-pattern appears:
-- Documentation files (`.template/docs/*.md`)
+- Documentation files (`.scaffolding/docs/*.md`)
 - Root README files
 - ADR documents
 - Guide/tutorial files
@@ -179,7 +179,7 @@ grep -r '```markdown' --include="*.md" . && echo "❌ Found violations" || echo 
 
 This ADR was created after discovering the anti-pattern in:
 - README.md (fixed in commit f3c582a)
-- Multiple documentation files in `.template/docs/`
+- Multiple documentation files in `.scaffolding/docs/`
 - Example files and templates
 
 **Lesson learned**: When generating markdown programmatically (scripts, AI), always output raw markdown without unnecessary code fence wrappers.

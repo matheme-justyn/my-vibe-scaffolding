@@ -276,3 +276,97 @@ show_reason = true
 #   [services.capabilities]
 #   my_functionality = ["alternative-tool-1", "alternative-tool-2"]
 #
+
+# ==============================================================================
+# Project Type & Features Configuration (2.0.0+)
+# ==============================================================================
+# Config-driven module system - determines which documentation modules load
+
+[project]
+# Project type determines which domain-specific modules load
+type = "fullstack"  # frontend | backend | fullstack | cli | library | academic | documentation | translation | other
+
+# Project features determine which feature modules load
+features = [
+  # Software Development Features
+  # "api",        # API_DESIGN.md
+  # "database",   # DATABASE_CONVENTIONS.md
+  # "auth",       # AUTH_IMPLEMENTATION.md
+  # "i18n",       # I18N_GUIDE.md
+  # "realtime",   # REALTIME_PATTERNS.md
+  # "upload",     # FILE_HANDLING.md
+  
+  # Academic/Documentation Features
+  # "citation",     # CITATION_MANAGEMENT.md
+  # "literature",   # LITERATURE_REVIEW.md
+  # "translation",  # TRANSLATION_GUIDE.md
+]
+
+# Quality requirements determine which quality modules load
+quality = [
+  # "performance",   # PERFORMANCE_OPTIMIZATION.md
+  # "accessibility", # ACCESSIBILITY.md
+  # "production",    # PRODUCTION_READINESS.md
+]
+
+# ==============================================================================
+# Academic Project Settings (2.0.0+)
+# ==============================================================================
+# Only applies when project.type = "academic"
+
+[academic]
+# Citation style for academic writing
+citation_style = "APA"  # APA | MLA | Chicago | IEEE | Vancouver
+
+# Academic field
+field = "computer_science"  # computer_science | social_science | humanities | natural_science | medicine
+
+# Document languages (for bilingual academic work)
+primary_language = "zh-TW"
+secondary_language = "en-US"
+
+# ==============================================================================
+# GitHub Settings (2.0.0+)
+# ==============================================================================
+
+[github]
+# Generate multilingual PR template
+use_pr_template = true  # Generates .github/PULL_REQUEST_TEMPLATE.md
+
+# PR template language follows [i18n].primary_locale
+# Template files: .scaffolding/templates/pr/PULL_REQUEST_TEMPLATE.{lang}.md
+
+# ==============================================================================
+# Documentation Modules Configuration (2.0.0+)
+# ==============================================================================
+
+[modules]
+# Force-enable modules (regardless of project.type)
+always_enabled = [
+  "STYLE_GUIDE",
+  "TERMINOLOGY",
+  "GIT_WORKFLOW",
+  "TESTING_STRATEGY",
+  "SECURITY_CHECKLIST",
+]
+
+# Manually enable additional modules
+manual_enabled = []
+
+# Manually disable modules (even if project.type suggests them)
+manual_disabled = []
+
+# ==============================================================================
+# Terminology System (2.0.0+)
+# ==============================================================================
+
+[terminology]
+# Terminology loading priority (highest to lowest)
+# When same term exists in multiple files, which one wins?
+priority = ["project", "domain", "common"]  # project > domain > common
+
+# Terminology sources
+# - project: .agents/terminology/custom.md (user-defined)
+# - domain: .scaffolding/terminology/{domain}/*.md (software/academic/documentation)
+# - common: .scaffolding/terminology/terminology.md (universal terms)
+

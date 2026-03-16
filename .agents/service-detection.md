@@ -2,7 +2,7 @@
 
 **Version**: 1.0.0  
 **Last Updated**: 2026-03-12  
-**Related ADR**: [0009 - Reference Claude Code Architecture](../.template/docs/adr/0009-reference-claude-code-architecture.md)
+**Related ADR**: [0009 - Reference Claude Code Architecture](../.scaffolding/docs/adr/0009-reference-claude-code-architecture.md)
 
 ---
 
@@ -339,7 +339,7 @@ Actual: [verify output]
 
 ### Automated Validation
 
-See `.template/scripts/verify-template.sh` for:
+See `.scaffolding/scripts/verify-template.sh` for:
 - Config format validation
 - Service name consistency checks
 - Alternative tool availability verification
@@ -358,6 +358,6 @@ See `.template/scripts/verify-template.sh` for:
 
 ## References
 
-- **ADR 0008**: [OpenCode Configuration Strategy](../.template/docs/adr/0009-reference-claude-code-architecture.md)
+- **ADR 0008**: [OpenCode Configuration Strategy](../.scaffolding/docs/adr/0009-reference-claude-code-architecture.md)
 - **AGENTS.md**: Service Detection Protocol section
 - **config.toml.example**: Service configuration reference

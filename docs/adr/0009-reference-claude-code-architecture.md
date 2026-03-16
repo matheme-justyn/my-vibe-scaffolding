@@ -30,7 +30,7 @@ We will **adapt Claude Code's five-layer architecture** to OpenCode, mapping eac
 | **1. Agents** | Delegation system | Task delegation in `AGENTS.md` | ✅ Complete |
 | **2. Skills** | Prompt modules | `.agents/skills/`, superpowers | ✅ Complete |
 | **3. Commands** | Task mappings | Commands block in `AGENTS.md` | ✅ Complete |
-| **4. Hooks** | Git automation | `.template/scripts/install-hooks.sh` | ✅ Complete |
+| **4. Hooks** | Git automation | `.scaffolding/scripts/install-hooks.sh` | ✅ Complete |
 | **5. Rules** | Guardrails | Service detection, coding conventions | ✅ Complete |
 
 ### Key Adaptations
@@ -66,7 +66,7 @@ Rationale: AGENTS.md is the single source of truth for AI agent instructions.
 
 #### 4. Hooks Layer
 **Claude Code**: `.claude/hooks/` directory  
-**OpenCode**: `.template/scripts/install-hooks.sh` + git hooks in `.git/hooks/`
+**OpenCode**: `.scaffolding/scripts/install-hooks.sh` + git hooks in `.git/hooks/`
 
 Example: Pre-push hook enforces version bump before pushing to main.
 
@@ -135,8 +135,8 @@ Example: Prevent google-search calls when API unavailable, use alternatives.
 
 - [AGENTS.md](../../AGENTS.md) - Commands and Service Detection Protocol sections
 - [`.agents/service-detection.md`](../../.agents/service-detection.md) - Service detection implementation
-- [`.template/docs/service-detection-protocol.md`](../service-detection-protocol.md) - User guide
-- [`.template/docs/SKILLS_USAGE_GUIDE.md`](../SKILLS_USAGE_GUIDE.md) - Skills system documentation
+- [`.scaffolding/docs/service-detection-protocol.md`](../service-detection-protocol.md) - User guide
+- [`.scaffolding/docs/SKILLS_USAGE_GUIDE.md`](../SKILLS_USAGE_GUIDE.md) - Skills system documentation
 
 ## References
 

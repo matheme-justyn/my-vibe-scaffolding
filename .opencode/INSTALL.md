@@ -9,7 +9,7 @@ This scaffolding provides AI agent support, i18n, version management, and best p
 **One command handles both installation and updates:**
 
 ```bash
-./.template/scripts/init-project.sh
+./.scaffolding/scripts/init-project.sh
 ```
 
 **The script automatically detects:**
@@ -73,7 +73,7 @@ MCP (Model Context Protocol) enhances AI capabilities with filesystem, git, and 
 
 **Test MCP Setup:**
 ```bash
-./.template/scripts/test-mcp-setup.sh
+./.scaffolding/scripts/test-mcp-setup.sh
 ```
 
 ---
@@ -90,7 +90,7 @@ MCP (Model Context Protocol) enhances AI capabilities with filesystem, git, and 
 2. **Initialize**:
    ```bash
    cd your-project-name
-   ./.template/scripts/init-project.sh
+   ./.scaffolding/scripts/init-project.sh
    ```
 
 3. **Done!** Start building your project.
@@ -102,13 +102,13 @@ MCP (Model Context Protocol) enhances AI capabilities with filesystem, git, and 
 If you previously used this scaffolding and want to update:
 
 ```bash
-./.template/scripts/init-project.sh
+./.scaffolding/scripts/init-project.sh
 ```
 
 The script detects you have `.template-version` and runs update mode automatically.
 
 **What gets updated:**
-- `.template/` directory (framework files)
+- `.scaffolding/` directory (framework files)
 - OpenCode configuration
 - Git hooks
 - Agent configs consolidated to `.agents/`
@@ -133,7 +133,7 @@ Paste this in OpenCode/Cursor/Claude:
 I'm integrating my-vibe-scaffolding into an existing project.
 Please follow these steps:
 
-1. Run: ./.template/scripts/analyze-conflicts.sh
+1. Run: ./.scaffolding/scripts/analyze-conflicts.sh
 2. Read the generated conflict report (.scaffolding-analysis/conflict-report.md)
 3. Help me resolve conflicts based on the report categories:
    - Category 1 (🔄 Must Rewrite): Rewrite following scaffolding guides
@@ -153,7 +153,7 @@ Please follow these steps:
 
 2. **Run Conflict Analysis**:
    ```bash
-   ./.template/scripts/analyze-conflicts.sh
+   ./.scaffolding/scripts/analyze-conflicts.sh
    ```
 
 3. **Merge**:
@@ -172,7 +172,7 @@ Only want specific features? Pick what you need:
 
 #### Version Management + Git Hooks
 ```bash
-curl -o .git/hooks/pre-push https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.template/hooks/pre-push
+curl -o .git/hooks/pre-push https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/.scaffolding/hooks/pre-push
 chmod +x .git/hooks/pre-push
 echo "1.0.0" > VERSION
 ```
@@ -185,7 +185,7 @@ curl -o AGENTS.md https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaff
 
 #### i18n System
 ```bash
-mkdir -p .template/i18n/locales/en-US .template/i18n/locales/zh-TW
+mkdir -p .scaffolding/i18n/locales/en-US .scaffolding/i18n/locales/zh-TW
 curl -o config.toml.example https://raw.githubusercontent.com/matheme-justyn/my-vibe-scaffolding/main/config.toml.example
 ```
 
@@ -218,7 +218,7 @@ Edit `README.md`, `AGENTS.md` with your project details.
 
 ### 4. Choose License
 
-See `.template/docs/PROJECT_LICENSE_GUIDE.md` for guidance.
+See `.scaffolding/docs/PROJECT_LICENSE_GUIDE.md` for guidance.
 
 ---
 
@@ -242,21 +242,21 @@ This is the version enforcement hook working correctly!
 
 Fix:
 ```bash
-./.template/scripts/bump-version.sh patch  # or minor/major
+./.scaffolding/scripts/bump-version.sh patch  # or minor/major
 git push && git push --tags
 ```
 
 ### Language not switching
 
 1. Check `config.toml` exists (copy from `.example`)
-2. Verify locale directory: `.template/i18n/locales/{your-lang}/`
+2. Verify locale directory: `.scaffolding/i18n/locales/{your-lang}/`
 3. Ensure OpenCode reads `AGENTS.md` (it should by default)
 
 ### MCP not working
 
 Run the test script:
 ```bash
-./.template/scripts/test-mcp-setup.sh
+./.scaffolding/scripts/test-mcp-setup.sh
 ```
 
 This will diagnose Bun, uv, and MCP configuration issues.
@@ -266,15 +266,15 @@ This will diagnose Bun, uv, and MCP configuration issues.
 ## Support
 
 - Issues: https://github.com/matheme-justyn/my-vibe-scaffolding/issues
-- Documentation: See `.template/docs/` directory
-- Changelog: `.template/CHANGELOG.md`
+- Documentation: See `.scaffolding/docs/` directory
+- Changelog: `.scaffolding/CHANGELOG.md`
 
 ---
 
 ## Learn More
 
-- [README Guide](./.template/docs/README_GUIDE.md) - How to write project README
-- [Documentation Guidelines](./.template/docs/DOCUMENTATION_GUIDELINES.md) - File organization
-- [Skills Usage Guide](./.template/docs/SKILLS_USAGE_GUIDE.md) - Using AI skills system
-- [License Guide](./.template/docs/PROJECT_LICENSE_GUIDE.md) - Choosing a license
-- [Contributing Guide](./.template/docs/PROJECT_CONTRIBUTING_GUIDE.md) - Setting contribution policy
+- [README Guide](./.scaffolding/docs/README_GUIDE.md) - How to write project README
+- [Documentation Guidelines](./.scaffolding/docs/DOCUMENTATION_GUIDELINES.md) - File organization
+- [Skills Usage Guide](./.scaffolding/docs/SKILLS_USAGE_GUIDE.md) - Using AI skills system
+- [License Guide](./.scaffolding/docs/PROJECT_LICENSE_GUIDE.md) - Choosing a license
+- [Contributing Guide](./.scaffolding/docs/PROJECT_CONTRIBUTING_GUIDE.md) - Setting contribution policy

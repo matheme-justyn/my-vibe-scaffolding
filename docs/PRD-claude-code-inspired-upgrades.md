@@ -590,7 +590,7 @@ Week 3:
 │       └── command-injection.json
 └── ...
 
-.template/scripts/
+.scaffolding/scripts/
 └── security-scan.sh   # 包裝 AgentShield CLI
 ```
 
@@ -810,7 +810,7 @@ my-vibe-scaffolding/
 │   # - Skills System
 │   # - Agent Workflow Commands
 │
-├── .template/scripts/
+├── .scaffolding/scripts/
 │   ├── security-scan.sh           # Phase 1.5
 │   └── agent-health-check.sh      # 監控 agents 使用情況
 │

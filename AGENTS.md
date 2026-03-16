@@ -56,7 +56,7 @@ has_apt = false
 System information is automatically detected and updated by:
 
 ```bash
-./.template/scripts/detect-os.sh
+./.scaffolding/scripts/detect-os.sh
 ```
 
 This script is run during project initialization. Re-run it if:
@@ -79,8 +79,8 @@ This document serves as the primary instruction set for AI agents (like OpenCode
 
 - **Location**: `docs/PRD.md` (recommended) or `docs/specs/PRD.md`
 - **Purpose**: Define features, technical requirements, user flows for AI-assisted development
-- **Template**: See [.template/docs/templates/PRD_TEMPLATE.md](./.template/docs/templates/PRD_TEMPLATE.md)
-- **Guide**: See [.template/docs/PRD_GUIDE.md](./.template/docs/PRD_GUIDE.md)
+- **Template**: See [.scaffolding/docs/templates/PRD_TEMPLATE.md](./.scaffolding/docs/templates/PRD_TEMPLATE.md)
+- **Guide**: See [.scaffolding/docs/PRD_GUIDE.md](./.scaffolding/docs/PRD_GUIDE.md)
 
 **Example PRD reference**:
 ## Project Overview
@@ -115,7 +115,7 @@ YourProject is a [brief project description].
 **Single command handles both first-time setup and updates:**
 
 ```bash
-./.template/scripts/init-project.sh
+./.scaffolding/scripts/init-project.sh
 ```
 
 **The script auto-detects mode:**
@@ -142,7 +142,7 @@ YourProject is a [brief project description].
 
 ### Template Development (Scaffolding Mode)
 
-When developing the template itself, modifications go to `.template/` directory:
+When developing the template itself, modifications go to `.scaffolding/` directory:
 
 ```bash
 # Template mode doesn't need init script
@@ -150,7 +150,7 @@ When developing the template itself, modifications go to `.template/` directory:
 ```
 
 **Key differences:**
-- Edit `.template/docs/`, `.template/scripts/`, etc.
+- Edit `.scaffolding/docs/`, `.scaffolding/scripts/`, etc.
 - Changes apply to the template, not a specific project
 - Commit to template repository
 
@@ -164,18 +164,18 @@ When developing the template itself, modifications go to `.template/` directory:
 
 You're developing this scaffolding itself. File organization:
 
-- **Scaffolding ADRs**: `.template/docs/adr/`
-- **Scaffolding scripts**: `.template/scripts/`
-- **Scaffolding assets**: `.template/assets/`
+- **Scaffolding ADRs**: `.scaffolding/docs/adr/`
+- **Scaffolding scripts**: `.scaffolding/scripts/`
+- **Scaffolding assets**: `.scaffolding/assets/`
 - **Root directories**: Keep `docs/`, `scripts/`, `assets/` empty or minimal
 
 **AI Agent behavior:**
-- Create new ADRs in `.template/docs/adr/`
-- Reference scaffolding scripts from `.template/scripts/`
-- Reference scaffolding assets from `.template/assets/`
-- **Generate bilingual README** following [README_BILINGUAL_FORMAT.md](./.template/docs/README_BILINGUAL_FORMAT.md)
-- **CHANGELOG**: Update `.template/CHANGELOG.md` (template changes)
-- **README sync**: If `sync_readme = true`, **all** `README*.md` files (all locales) auto-sync: root → `.template/`
+- Create new ADRs in `.scaffolding/docs/adr/`
+- Reference scaffolding scripts from `.scaffolding/scripts/`
+- Reference scaffolding assets from `.scaffolding/assets/`
+- **Generate bilingual README** following [README_BILINGUAL_FORMAT.md](./.scaffolding/docs/README_BILINGUAL_FORMAT.md)
+- **CHANGELOG**: Update `.scaffolding/CHANGELOG.md` (template changes)
+- **README sync**: If `sync_readme = true`, **all** `README*.md` files (all locales) auto-sync: root → `.scaffolding/`
 
 ### Project Mode (`mode = "project"`)
 
@@ -184,13 +184,13 @@ You're using this scaffolding for your project. File organization:
 - **Project ADRs**: `docs/adr/`
 - **Project scripts**: `scripts/`
 - **Project assets**: `assets/`
-- **.template/ directory**: Contains reference examples only
+- **.scaffolding/ directory**: Contains reference examples only
 
 **AI Agent behavior:**
 - Create new ADRs in `docs/adr/`
 - Place project-specific scripts in `scripts/`
 - Place project-specific assets in `assets/`
-- Reference `.template/` examples but don't modify them
+- Reference `.scaffolding/` examples but don't modify them
 - **CHANGELOG**: Update root `CHANGELOG.md` (your project changes)
 - **README**: Edit root `README.md` for your project (independent from template)
 
@@ -213,7 +213,7 @@ You're using this scaffolding for your project. File organization:
 
 ```bash
 # 在專案根目錄執行
-./.template/scripts/init-opencode.sh
+./.scaffolding/scripts/init-opencode.sh
 ```
 
 **2. 手動設定**
@@ -242,9 +242,9 @@ echo ".opencode-data/" >> .gitignore
 
 ### 詳細文件
 
-- [ADR 0005 - 技術調查](./.template/docs/adr/0005-single-instance-opencode-workflow.md)
-- [設定指南](./.template/docs/OPENCODE_SETUP_GUIDE.md)
-- [批次部署腳本](./.template/scripts/init-opencode.sh)
+- [ADR 0005 - 技術調查](./.scaffolding/docs/adr/0005-single-instance-opencode-workflow.md)
+- [設定指南](./.scaffolding/docs/OPENCODE_SETUP_GUIDE.md)
+- [批次部署腳本](./.scaffolding/scripts/init-opencode.sh)
 
 ---
 
@@ -605,7 +605,7 @@ When performing GitHub operations (issues, PRs, releases):
 - **github**: GitHub API (issues, PRs, releases, workflows)
 
 Configuration: `opencode.json`  
-Setup guide: [.template/docs/MCP_SETUP_GUIDE.md](./.template/docs/MCP_SETUP_GUIDE.md)
+Setup guide: [.scaffolding/docs/MCP_SETUP_GUIDE.md](./.scaffolding/docs/MCP_SETUP_GUIDE.md)
 
 ## Commands
 
@@ -667,33 +667,33 @@ These commands provide task-specific workflows combining agents and skills:
 
 These commands manage the scaffolding template itself:
 
-- **Init project**: `./.template/scripts/init-project.sh`
+- **Init project**: `./.scaffolding/scripts/init-project.sh`
   - First-time project setup or template updates
   - Auto-detects: first-time mode (no `.template-version`) vs update mode (existing `.template-version`)
   - Creates project files, sets up git hooks, initializes OpenCode config
 
-- **Bump version**: `./.template/scripts/bump-version.sh [patch|minor|major]`
-  - Update `.template/VERSION` and `VERSION` files
+- **Bump version**: `./.scaffolding/scripts/bump-version.sh [patch|minor|major]`
+  - Update `.scaffolding/VERSION` and `VERSION` files
   - Create git commit and tag
   - Update `CHANGELOG.md` and `README.md` badges
   - Usage:
     - `./template/scripts/bump-version.sh patch` - Bug fixes (1.0.0 → 1.0.1)
-    - `./.template/scripts/bump-version.sh minor` - New features (1.0.0 → 1.1.0)
-    - `./.template/scripts/bump-version.sh major` - Breaking changes (1.0.0 → 2.0.0)
+    - `./.scaffolding/scripts/bump-version.sh minor` - New features (1.0.0 → 1.1.0)
+    - `./.scaffolding/scripts/bump-version.sh major` - Breaking changes (1.0.0 → 2.0.0)
 
-- **Generate README**: `./.template/scripts/generate-readme.sh`
+- **Generate README**: `./.scaffolding/scripts/generate-readme.sh`
   - Generate `README.md` and `README.{lang}.md` from `i18n/locales/{lang}/readme.toml`
-  - Sync to `.template/README.md` and `.template/README.{lang}.md`
+  - Sync to `.scaffolding/README.md` and `.scaffolding/README.{lang}.md`
   - Add language switcher links automatically
   - **CRITICAL**: Always use this script to update README, never edit README.md directly
 
-- **Sync README**: `./.template/scripts/sync-readme.sh`
-  - Sync root README files to `.template/` directory (if `sync_readme = true` in scaffolding mode)
+- **Sync README**: `./.scaffolding/scripts/sync-readme.sh`
+  - Sync root README files to `.scaffolding/` directory (if `sync_readme = true` in scaffolding mode)
   - Used in scaffolding mode when developing the template itself
 
-- **Sync template**: `./.template/scripts/sync-template.sh`
-  - Sync template changes from `.template/` to project root
-  - Version comparison (.template-version vs .template/VERSION)
+- **Sync template**: `./.scaffolding/scripts/sync-template.sh`
+  - Sync template changes from `.scaffolding/` to project root
+  - Version comparison (.template-version vs .scaffolding/VERSION)
   - Change summary display (git-style diff)
   - Selective file sync with exclude patterns (--exclude)
   - Conflict detection and resolution guidance
@@ -705,7 +705,7 @@ These commands manage the scaffolding template itself:
 
 ### Git Hooks
 
-- **Install hooks**: `./.template/scripts/install-hooks.sh`
+- **Install hooks**: `./.scaffolding/scripts/install-hooks.sh`
   - Install pre-commit and pre-push git hooks
   - Pre-push hook: Enforce version bump before pushing to main
   - Location: `.git/hooks/`
@@ -714,40 +714,40 @@ These commands manage the scaffolding template itself:
 
 These commands help manage OpenCode stability and workflow:
 
-- **Health check**: `./.template/scripts/health-check.sh`
+- **Health check**: `./.scaffolding/scripts/health-check.sh`
   - Check OpenCode database size, session count, startup time
   - Recommend cleanup if thresholds exceeded
   - Run manually or via cron job
 
-- **Clean sessions**: `./.template/scripts/smart-cleanup.sh`
+- **Clean sessions**: `./.scaffolding/scripts/smart-cleanup.sh`
   - Smart session cleanup (keeps recent/active sessions)
   - Triggered by health check or run manually
   - Archives old sessions to `.opencode-data/archive/`
 
-- **Monitor stability**: `./.template/scripts/monitor-stability.sh`
+- **Monitor stability**: `./.scaffolding/scripts/monitor-stability.sh`
   - Monitor OpenCode crashes and performance
   - Generate daily stability reports
   - Track memory usage and session duration
 
-- **Init OpenCode**: `./.template/scripts/init-opencode.sh`
+- **Init OpenCode**: `./.scaffolding/scripts/init-opencode.sh`
   - Set up project-specific OpenCode database
   - Configure `.vscode/settings.json` for isolated data directory
   - Prevents multi-project database conflicts
 
-- **Detect OS**: `./.template/scripts/detect-os.sh`
+- **Detect OS**: `./.scaffolding/scripts/detect-os.sh`
   - Auto-detect operating system and available commands
   - Update `config.toml` [system] section
   - Run during project initialization or when environment changes
 
 ### Utility Scripts
 
-- **Verify setup**: `./.template/scripts/verify-setup.sh`
+- **Verify setup**: `./.scaffolding/scripts/verify-setup.sh`
   - Verify project configuration integrity
   - Check required files exist
   - Validate configuration format
 
-- **Check version sync**: `./.template/scripts/check-version-sync.sh`
-  - Ensure `.template/VERSION` and `VERSION` are in sync
+- **Check version sync**: `./.scaffolding/scripts/check-version-sync.sh`
+  - Ensure `.scaffolding/VERSION` and `VERSION` are in sync
   - Used by pre-push git hook
 
 ### Usage Tips
@@ -755,7 +755,7 @@ These commands help manage OpenCode stability and workflow:
 **For template maintainers** (scaffolding mode):
 - Use `bump-version.sh` before every commit to main
 - Run `generate-readme.sh` after updating i18n translation files
-- Use `sync-readme.sh` to keep `.template/` README in sync
+- Use `sync-readme.sh` to keep `.scaffolding/` README in sync
 
 **For template users** (project mode):
 - Run `init-project.sh` once after creating project from template
@@ -772,7 +772,7 @@ These commands help manage OpenCode stability and workflow:
 **CRITICAL: AI agents MUST check service availability BEFORE calling external services.**
 
 **Reference**: [`.agents/service-detection.md`](./.agents/service-detection.md) | **ADR**: [0008](./
-.template/docs/adr/0008-opencode-config-claude-code-reference.md)
+.scaffolding/docs/adr/0008-opencode-config-claude-code-reference.md)
 
 ### Quick Protocol
 
@@ -853,11 +853,271 @@ Using: {chosen_alternative}
 **Full details**: See [`.agents/service-detection.md`](./.agents/service-detection.md)
 
 
+## Module Loading Protocol
+
+**Version**: 2.0.0  
+**Purpose**: Conditional loading of documentation modules based on project type and task context
+
+### Overview
+
+This scaffolding uses a **config-driven module system**. Instead of loading all documentation at once:
+
+1. AI agent reads `config.toml` to understand project type
+2. AI agent detects task keywords to determine needed modules
+3. AI agent loads ONLY relevant modules for the current task
+4. Token usage reduced by 70%+ compared to full-inline approach
+
+### Module Categories
+
+**31 total modules** organized in 7 categories:
+
+| Category | Count | Modules |
+|----------|-------|---------|
+| **Core** | 5 | STYLE_GUIDE, TERMINOLOGY, GIT_WORKFLOW, TESTING_STRATEGY, SECURITY_CHECKLIST |
+| **Software Dev** | 6 | FRONTEND_PATTERNS, BACKEND_PATTERNS, API_DESIGN, DATABASE_CONVENTIONS, CLI_DESIGN, LIBRARY_DESIGN |
+| **Academic** | 6 | ACADEMIC_WRITING, CITATION_MANAGEMENT, TRANSLATION_GUIDE, LITERATURE_REVIEW, RESEARCH_ORGANIZATION, DOCUMENT_STRUCTURE |
+| **Feature** | 4 | I18N_GUIDE, AUTH_IMPLEMENTATION, REALTIME_PATTERNS, FILE_HANDLING |
+| **Quality** | 4 | PERFORMANCE_OPTIMIZATION, TROUBLESHOOTING, PRODUCTION_READINESS, ACCESSIBILITY |
+| **Collaboration** | 4 | README_STRUCTURE, ADR_TEMPLATE, RELEASE_PROCESS, ONBOARDING_GUIDE |
+| **Scaffolding** | 2 | SCAFFOLDING_DEV_GUIDE, MODE_GUIDE |
+
+### Configuration-Driven Loading
+
+**config.toml structure**:
+
+```toml
+[project]
+type = "fullstack"  # frontend | backend | fullstack | cli | library | academic | documentation
+features = ["api", "database", "auth", "i18n"]
+quality = ["performance", "accessibility"]
+
+[academic]
+citation_style = "APA"  # APA | MLA | Chicago | IEEE
+field = "computer_science"
+
+[modules]
+always_enabled = ["STYLE_GUIDE", "TERMINOLOGY", "GIT_WORKFLOW"]
+manual_enabled = []
+manual_disabled = []
+```
+
+### Module Loading Table
+
+**When to load each module** (AI agents follow this table):
+
+| Module | Load When | Trigger Keywords | Location |
+|--------|-----------|------------------|----------|
+| **STYLE_GUIDE** | Always | (all tasks) | `.scaffolding/docs/STYLE_GUIDE.md` |
+| **TERMINOLOGY** | Always | (all tasks) | `.scaffolding/docs/terminology/` |
+| **GIT_WORKFLOW** | Always | git, commit, branch | `.scaffolding/docs/GIT_WORKFLOW.md` |
+| **FRONTEND_PATTERNS** | `type = "frontend"` or `"fullstack"` | React, component, UI, frontend | `.scaffolding/docs/FRONTEND_PATTERNS.md` |
+| **BACKEND_PATTERNS** | `type = "backend"` or `"fullstack"` | API, server, backend, Node.js | `.scaffolding/docs/BACKEND_PATTERNS.md` |
+| **API_DESIGN** | `features` contains `"api"` | API, endpoint, REST, GraphQL | `.scaffolding/docs/API_DESIGN.md` |
+| **DATABASE_CONVENTIONS** | `features` contains `"database"` | database, SQL, query, schema | `.scaffolding/docs/DATABASE_CONVENTIONS.md` |
+| **AUTH_IMPLEMENTATION** | `features` contains `"auth"` | authentication, login, JWT, OAuth | `.scaffolding/docs/AUTH_IMPLEMENTATION.md` |
+| **I18N_GUIDE** | `features` contains `"i18n"` | i18n, translation, locale, multilingual | `.scaffolding/docs/I18N_GUIDE.md` |
+| **ACADEMIC_WRITING** | `type = "academic"` | paper, thesis, research, citation | `.scaffolding/docs/ACADEMIC_WRITING.md` |
+| **CITATION_MANAGEMENT** | `type = "academic"` | reference, bibliography, APA, MLA | `.scaffolding/docs/CITATION_MANAGEMENT.md` |
+| **PERFORMANCE_OPTIMIZATION** | `quality` contains `"performance"` | slow, optimize, performance, speed | `.scaffolding/docs/PERFORMANCE_OPTIMIZATION.md` |
+| **ACCESSIBILITY** | `quality` contains `"accessibility"` | a11y, WCAG, screen reader, keyboard | `.scaffolding/docs/ACCESSIBILITY.md` |
+
+**Full module list**: See [ADR 0012](./docs/adr/0012-module-system-and-conditional-loading.md)
+
+### TERMINOLOGY Loading Logic
+
+Terminology files are loaded hierarchically based on project configuration:
+
+**1. Always Load**:
+- `.scaffolding/docs/terminology/terminology.md` (universal terms)
+
+**2. Domain-Specific** (based on `[project].type`):
+
+```
+type = "frontend" or "fullstack":
+  → software/common.md
+  → software/frontend.md
+
+type = "backend" or "fullstack":
+  → software/common.md
+  → software/backend.md
+
+features contains "database":
+  → software/database.md
+
+type = "academic":
+  → academic/common.md
+  → academic/{field}.md  (e.g., computer-science.md)
+```
+
+**3. Custom Terminology** (highest priority):
+- `.agents/terminology/custom.md` (user overrides)
+
+**Priority Order**: Custom > Domain-Specific > Common > Universal
+
+### Conditional Loading Examples
+
+**Example 1: Fullstack Project with Auth**
+
+```toml
+[project]
+type = "fullstack"
+features = ["api", "database", "auth"]
+```
+
+**AI Agent loads**:
+- Always: STYLE_GUIDE, TERMINOLOGY, GIT_WORKFLOW
+- Type-based: FRONTEND_PATTERNS, BACKEND_PATTERNS
+- Feature-based: API_DESIGN, DATABASE_CONVENTIONS, AUTH_IMPLEMENTATION
+- Terminology: terminology.md, software/common.md, software/frontend.md, software/backend.md, software/database.md
+
+**Example 2: Academic Research Project**
+
+```toml
+[project]
+type = "academic"
+
+[academic]
+citation_style = "APA"
+field = "computer_science"
+```
+
+**AI Agent loads**:
+- Always: STYLE_GUIDE, TERMINOLOGY, GIT_WORKFLOW
+- Type-based: ACADEMIC_WRITING, CITATION_MANAGEMENT
+- Terminology: terminology.md, academic/common.md, academic/computer-science.md
+
+### Manual Module Control
+
+Override automatic loading in `config.toml`:
+
+```toml
+[modules]
+# These modules ALWAYS load regardless of project type
+always_enabled = ["STYLE_GUIDE", "TERMINOLOGY", "GIT_WORKFLOW", "SECURITY_CHECKLIST"]
+
+# Force-load additional modules
+manual_enabled = ["PERFORMANCE_OPTIMIZATION", "ACCESSIBILITY"]
+
+# Disable modules even if project type suggests them
+manual_disabled = ["FRONTEND_PATTERNS"]
+```
+
+**Priority**: `manual_disabled` > `manual_enabled` > auto-detection > `always_enabled`
+
+### AI Agent Protocol
+
+**On session start**:
+
+1. Read `config.toml` → identify project type, features, quality requirements
+2. Check for manual module overrides (`manual_enabled`, `manual_disabled`)
+3. Load `always_enabled` modules
+4. Load type-based modules (e.g., FRONTEND_PATTERNS if type=frontend)
+5. Load feature-based modules (e.g., API_DESIGN if features contains "api")
+6. Load quality-based modules (e.g., ACCESSIBILITY if quality contains "accessibility")
+7. Load terminology files hierarchically
+
+**During task execution**:
+
+1. Detect task keywords (e.g., "API", "authentication", "performance")
+2. If module not yet loaded → load on-demand
+3. Reference loaded modules when providing guidance
+
+**When in doubt**: Load the module. Token cost is minimal compared to incorrect guidance.
+
+### Module File Locations
+
+**Current Status** (v2.0.0):
+
+| Status | Modules | Note |
+|--------|---------|------|
+| ✅ **Exists** | TERMINOLOGY (7 files) | Fully implemented terminology system |
+| ⏸️ **Planned** | 30 other modules | Will be created in future versions |
+
+**Terminology System** (Complete):
+```
+.scaffolding/docs/terminology/
+├── README.md
+├── terminology.md                    # Universal terms (Git, naming, etc.)
+├── software/
+│   ├── common.md                     # SDLC, patterns, testing
+│   ├── frontend.md                   # React, CSS, performance
+│   ├── backend.md                    # Node.js, API, security
+│   └── database.md                   # SQL, ORM, optimization
+├── academic/
+│   ├── common.md                     # Research, writing, ethics
+│   └── computer-science.md           # AI/ML, algorithms, HCI
+└── project/
+    └── custom.md.example             # User overrides
+```
+
+**Module files will be created at** (Future):
+```
+.scaffolding/docs/
+├── STYLE_GUIDE.md
+├── GIT_WORKFLOW.md
+├── FRONTEND_PATTERNS.md
+├── BACKEND_PATTERNS.md
+├── API_DESIGN.md
+├── DATABASE_CONVENTIONS.md
+├── AUTH_IMPLEMENTATION.md
+├── I18N_GUIDE.md
+├── ACADEMIC_WRITING.md
+├── CITATION_MANAGEMENT.md
+├── PERFORMANCE_OPTIMIZATION.md
+├── ACCESSIBILITY.md
+└── ... (18 more modules)
+```
+
+### Version & Maintenance
+
+- **Module system version**: 2.0.0
+- **Terminology system version**: 2.0.0 (Complete)
+- **Future module files**: Will align with scaffolding versions
+- **Updates**: Documented in `.scaffolding/CHANGELOG.md`
+
+### Related Documentation
+
+- **[ADR 0012 - Module System & Conditional Loading](./docs/adr/0012-module-system-and-conditional-loading.md)** - Complete design decisions
+- **[config.toml.example](./config.toml.example)** - Configuration reference
+- **[Terminology README](./.scaffolding/docs/terminology/README.md)** - Terminology system guide
+
+
 ## Coding Conventions
 
-- **永遠先寫測試**：所有新功能和 bug 修復都必須先寫測試
-- **所有函數要有 docstring 和型別標注**：確保程式碼可讀性和可維護性
-- **避免過度工程化**：保持簡單，只實作當前需要的功能
+**Core Principles** (For full details, see `.scaffolding/docs/STYLE_GUIDE.md` when available):
+
+- **永遠先寫測試** (Test-First): 所有新功能和 bug 修復都必須先寫測試
+  - Use TDD workflow (Red-Green-Refactor)
+  - 80%+ code coverage target
+  - See `tdd-workflow` skill for detailed guidance
+
+- **型別安全** (Type Safety): 所有函數要有型別標注
+  - TypeScript: Explicit types for function parameters and return values
+  - Python: Use type hints (`def func(param: str) -> int:`)
+  - 避免 `any` / `@ts-ignore` unless absolutely necessary
+
+- **簡單優先** (Simplicity First): 避免過度工程化
+  - YAGNI (You Aren't Gonna Need It)
+  - 只實作當前需要的功能
+  - Defer optimization until proven bottleneck
+
+- **程式碼可讀性** (Readability):
+  - 使用清晰的命名（變數、函數、類別）
+  - 適當的註解（why, not what）
+  - 一致的程式碼風格（遵循專案 linter）
+
+- **不可違反** (Never Do):
+  - ❌ 刪除或跳過失敗的測試
+  - ❌ 使用 `as any` / `@ts-ignore` 來繞過型別錯誤
+  - ❌ Commit 包含 secrets 的檔案（.env, API keys）
+  - ❌ 在沒被要求的情況下重構既有程式碼
+
+**詳細規範**: 當 STYLE_GUIDE.md 模組可用時，將包含：
+- 命名規範（Naming conventions）
+- 函數長度與複雜度限制
+- 錯誤處理模式
+- 註解與文件規範
+- 專案特定風格指南
 
 ## Commit Message
 
@@ -945,7 +1205,7 @@ Skills are loaded from these directories (in order):
 
 ```
 .agents/skills/           # Project-specific skills (your custom skills)
-.template/docs/examples/skills/  # Template-provided examples
+.scaffolding/docs/examples/skills/  # Template-provided examples
 ~/.config/opencode/skills/       # User-installed skills (superpowers)
 ```
 
@@ -955,7 +1215,7 @@ Skills are loaded from these directories (in order):
 - Place project-specific skills here
 - These override template and user skills
 
-**Template Skills** (`.template/docs/examples/skills/`):
+**Template Skills** (`.scaffolding/docs/examples/skills/`):
 - `template-skill/` - Template for creating new skills
 
 **User Skills** (`~/.config/opencode/skills/superpowers/`):
@@ -1012,7 +1272,7 @@ User: "Add user profile editing"
 
 1. **Copy template:**
    ```bash
-   cp -r .template/docs/examples/skills/template-skill .agents/skills/my-skill
+   cp -r .scaffolding/docs/examples/skills/template-skill .agents/skills/my-skill
    ```
 
 2. **Edit SKILL.md:**
@@ -1029,9 +1289,9 @@ User: "Add user profile editing"
 
 ### Documentation
 
-- **[SKILL_FORMAT_GUIDE.md](./.template/docs/SKILL_FORMAT_GUIDE.md)** - Complete skill format guide
-- **[AGENTS_MD_GUIDE.md](./.template/docs/AGENTS_MD_GUIDE.md)** - AGENTS.md standard
-- **[ADR 0007](./.template/docs/adr/0007-agent-skills-ecosystem-integration.md)** - Integration decisions
+- **[SKILL_FORMAT_GUIDE.md](./.scaffolding/docs/SKILL_FORMAT_GUIDE.md)** - Complete skill format guide
+- **[AGENTS_MD_GUIDE.md](./.scaffolding/docs/AGENTS_MD_GUIDE.md)** - AGENTS.md standard
+- **[ADR 0007](./.scaffolding/docs/adr/0007-agent-skills-ecosystem-integration.md)** - Integration decisions
 
 ### Architecture
 
@@ -1039,7 +1299,7 @@ User: "Add user profile editing"
 my-vibe-scaffolding/
 ├── .agents/                    # Project skills & config
 │   └── skills/                 # Custom skills
-├── .template/
+├── .scaffolding/
 │   ├── docs/
 │   │   ├── SKILL_FORMAT_GUIDE.md   # Skill creation guide
 │   │   └── examples/
@@ -1157,7 +1417,7 @@ fallback_locale = "en-US"
 
 ### 2. Load Translation Files
 
-Load translations from `.template/i18n/locales/{primary_locale}/`:
+Load translations from `.scaffolding/i18n/locales/{primary_locale}/`:
 
 - `agents.toml` - Coding conventions, commit format, PR guidelines
 - `readme.toml` - Project documentation phrases
@@ -1167,7 +1427,7 @@ Load translations from `.template/i18n/locales/{primary_locale}/`:
 **Example (zh-TW):**
 ```bash
 # Load coding conventions
-.template/i18n/locales/zh-TW/agents.toml
+.scaffolding/i18n/locales/zh-TW/agents.toml
 
 [coding_conventions]
 title = "編碼規範"
@@ -1195,12 +1455,12 @@ test_first = "**永遠先寫測試**：所有新功能和 bug 修復都必須先
 | File/Directory | Language | Reason |
 |----------------|----------|--------|
 | Root `README.md` | 🌐 Multi-language (i18n) | User-facing, needs language support |
-| `.template/*` files | 🇬🇧 English only | AI-facing, English is most direct |
+| `.scaffolding/*` files | 🇬🇧 English only | AI-facing, English is most direct |
 | `AGENTS.md` | 🌐 Multi-language | AI reads, but users also reference |
 | `docs/adr/*.md` | 🇬🇧 English only | Technical decisions, for AI and developers |
 | `scripts/*` | 🇬🇧 English only | Tool documentation |
 
-**Why English for `.template/` files:**
+**Why English for `.scaffolding/` files:**
 1. AI models are primarily trained on English
 2. International accessibility for technical content
 3. Reduces translation maintenance cost
@@ -1223,7 +1483,7 @@ If a translation key is missing:
 **Before responding to ANY user message:**
 
 - [ ] Read `config.toml` and identify `primary_locale`
-- [ ] Load translation files from `.template/i18n/locales/{primary_locale}/`
+- [ ] Load translation files from `.scaffolding/i18n/locales/{primary_locale}/`
 - [ ] Set communication language to match `primary_locale`
 - [ ] Verify fallback locale is available
 
@@ -1235,27 +1495,27 @@ If a translation key is missing:
 
 1. **Edit translation files:**
    ```bash
-   .template/i18n/locales/en-US/readme.toml
-   .template/i18n/locales/zh-TW/readme.toml
+   .scaffolding/i18n/locales/en-US/readme.toml
+   .scaffolding/i18n/locales/zh-TW/readme.toml
    ```
 
 2. **Generate README files:**
    ```bash
-   ./.template/scripts/generate-readme.sh
+   ./.scaffolding/scripts/generate-readme.sh
    ```
 
    This script:
    - Reads content from `i18n/locales/{lang}/readme.toml`
    - Generates `README.md` (English) and `README.zh-TW.md` (中文)
-   - Syncs to `.template/README.md` and `.template/README.zh-TW.md`
+   - Syncs to `.scaffolding/README.md` and `.scaffolding/README.zh-TW.md`
    - Adds language switcher links automatically
    - **NO markdown code fences** around content (README is already markdown)
 
 3. **MANDATORY Verification (ALWAYS do this before committing):**
    ```bash
    # Verify all 4 files exist and are in sync
-   diff README.md .template/README.md
-   diff README.zh-TW.md .template/README.zh-TW.md
+   diff README.md .scaffolding/README.md
+   diff README.zh-TW.md .scaffolding/README.zh-TW.md
    ```
    
    **Success criteria:**
@@ -1269,7 +1529,7 @@ If a translation key is missing:
    - Do NOT commit until all checks pass
    - Reads content from `i18n/locales/{lang}/readme.toml`
    - Generates `README.md` (English) and `README.zh-TW.md` (中文)
-   - Syncs to `.template/README.md` and `.template/README.zh-TW.md`
+   - Syncs to `.scaffolding/README.md` and `.scaffolding/README.zh-TW.md`
    - Adds language switcher links automatically
    - **NO markdown code fences** around content (README is already markdown)
 
@@ -1296,7 +1556,7 @@ This template uses **`separate` strategy**:
    - Bilingual: Single README.md follows bilingual formatting rules
    - Primary only: Only README.md exists
 
-**Reference:** [`.template/docs/README_BILINGUAL_FORMAT.md`](./.template/docs/README_BILINGUAL_FORMAT.md)
+**Reference:** [`.scaffolding/docs/README_BILINGUAL_FORMAT.md`](./.scaffolding/docs/README_BILINGUAL_FORMAT.md)
 
 **This is MANDATORY. No exceptions.**
 
@@ -1307,16 +1567,16 @@ This template uses **`separate` strategy**:
 
 ### Core Principles
 
-1. **Read First**: Before creating ANY new document, check [`.template/docs/DOCUMENTATION_GUIDELINES.md`](./.template/docs/DOCUMENTATION_GUIDELINES.md)
+1. **Read First**: Before creating ANY new document, check [`.scaffolding/docs/DOCUMENTATION_GUIDELINES.md`](./.scaffolding/docs/DOCUMENTATION_GUIDELINES.md)
 2. **Root Level Simplicity**: Keep root directory minimal (only core files)
 3. **No Intermediate Files**: No `GET_STARTED.md`, `TASK_*.md`, etc.
 4. **Template vs Project**: Distinguish framework docs from project-specific docs
 
 ### Required Reading
 
-- **[`.template/docs/DOCUMENTATION_GUIDELINES.md`](./.template/docs/DOCUMENTATION_GUIDELINES.md)** - File organization standards (MUST READ)
-- **[`.template/docs/README_GUIDE.md`](./.template/docs/README_GUIDE.md)** - How to write project README when using this template
-- **[`.template/docs/TEMPLATE_SYNC.md`](./.template/docs/TEMPLATE_SYNC.md)** - How to sync template updates
+- **[`.scaffolding/docs/DOCUMENTATION_GUIDELINES.md`](./.scaffolding/docs/DOCUMENTATION_GUIDELINES.md)** - File organization standards (MUST READ)
+- **[`.scaffolding/docs/README_GUIDE.md`](./.scaffolding/docs/README_GUIDE.md)** - How to write project README when using this template
+- **[`.scaffolding/docs/TEMPLATE_SYNC.md`](./.scaffolding/docs/TEMPLATE_SYNC.md)** - How to sync template updates
 
 ### When Creating Documents
 
@@ -1349,19 +1609,19 @@ This template uses **`separate` strategy**:
 **Enforcement:**
 - Pre-push git hook automatically checks if VERSION has been updated
 - Push will be blocked if version hasn't changed since last tag
-- Install hooks: `./.template/scripts/install-hooks.sh`
+- Install hooks: `./.scaffolding/scripts/install-hooks.sh`
 
 **Workflow:**
 1. Make your changes
 2. **Before committing**, bump version:
    ```bash
-   ./.template/scripts/bump-version.sh patch  # Bug fixes
-   ./.template/scripts/bump-version.sh minor  # New features
-   ./.template/scripts/bump-version.sh major  # Breaking changes
+   ./.scaffolding/scripts/bump-version.sh patch  # Bug fixes
+   ./.scaffolding/scripts/bump-version.sh minor  # New features
+   ./.scaffolding/scripts/bump-version.sh major  # Breaking changes
    ```
 3. The script will:
-   - Update `.template/VERSION` and `VERSION`
-   - Update `.template/CHANGELOG.md` and `README.md` badges
+   - Update `.scaffolding/VERSION` and `VERSION`
+   - Update `.scaffolding/CHANGELOG.md` and `README.md` badges
    - Create commit with version bump
    - Create git tag
 4. Push (hook will verify version changed):
@@ -1370,8 +1630,8 @@ This template uses **`separate` strategy**:
    ```
 
 **For template maintainers:**
-- Version file: `.template/VERSION`
-- Always update `.template/CHANGELOG.md` when bumping version
+- Version file: `.scaffolding/VERSION`
+- Always update `.scaffolding/CHANGELOG.md` when bumping version
 - Create meaningful release notes
 
 **Semantic Versioning Rules (MAJOR.MINOR.PATCH):**
@@ -1402,7 +1662,7 @@ Given a version number MAJOR.MINOR.PATCH (e.g., 1.3.0):
    - ❌ DELETE: `scripts/my-tool.sh` (if users run it)
    - ❌ RENAME: `AGENTS.md` → `AI_AGENTS.md`
    - ✅ OK: Add new files (not breaking)
-   - ✅ OK: Rename internal `.template/` files (users don't directly use)
+   - ✅ OK: Rename internal `.scaffolding/` files (users don't directly use)
 
 2. **Change required configuration format**
    - ❌ CHANGE: `config.toml` structure requires migration
@@ -1423,7 +1683,7 @@ Given a version number MAJOR.MINOR.PATCH (e.g., 1.3.0):
    - ✅ OK: Improve error messages
 
 **Common misconceptions (NOT breaking):**
-- ❌ Moving files within `.template/` (internal structure)
+- ❌ Moving files within `.scaffolding/` (internal structure)
 - ❌ Refactoring code (if API unchanged)
 - ❌ Improving documentation
 - ❌ Adding new features alongside old ones
@@ -1436,6 +1696,6 @@ Breaking changes require users to modify their code/config. If they don't need t
 
 
 **For template users:**
-- After "Use this template": run `./.template/scripts/init-project.sh`
+- After "Use this template": run `./.scaffolding/scripts/init-project.sh`
 - This creates `.template-version` to track which template version you're using
-- See [`.template/docs/README_GUIDE.md`](./.template/docs/README_GUIDE.md) for project README guidance
+- See [`.scaffolding/docs/README_GUIDE.md`](./.scaffolding/docs/README_GUIDE.md) for project README guidance

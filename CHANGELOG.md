@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **📌 注意 | Note**:
 - 這是**專案層級**的 CHANGELOG（紀錄你專案的變更）
-- 模板自身的變更歷史請查看：[.template/CHANGELOG.md](./.template/CHANGELOG.md)
+- 模板自身的變更歷史請查看：[.scaffolding/CHANGELOG.md](./.scaffolding/CHANGELOG.md)
 
 - This is the **project-level** CHANGELOG (tracks YOUR project changes)
-- For template's own change history, see: [.template/CHANGELOG.md](./.template/CHANGELOG.md)
+- For template's own change history, see: [.scaffolding/CHANGELOG.md](./.scaffolding/CHANGELOG.md)

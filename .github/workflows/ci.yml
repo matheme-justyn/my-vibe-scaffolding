@@ -1,0 +1,229 @@
+name: CI - Scaffolding Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validation:
+    name: Comprehensive Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install toml pyyaml
+      
+      - name: Run all validation scripts
+        run: |
+          echo "Running comprehensive scaffolding validation..."
+          echo ""
+          
+          # Track overall status
+          VALIDATION_PASSED=true
+          
+          # 1. Script syntax validation
+          echo "================================================"
+          echo "  1. Script Syntax Validation"
+          echo "================================================"
+          
+          SCRIPTS=(
+            ".scaffolding/scripts/init-project.sh"
+            ".scaffolding/scripts/configure-project-type.sh"
+            ".scaffolding/scripts/generate-pr-template.sh"
+            ".scaffolding/scripts/generate-readme.sh"
+            ".scaffolding/scripts/bump-version.sh"
+            ".scaffolding/scripts/install-hooks.sh"
+          )
+          
+          for script in "${SCRIPTS[@]}"; do
+            if [ -f "$script" ]; then
+              if bash -n "$script" 2>/dev/null; then
+                echo "✓ $script"
+              else
+                echo "✗ $script (syntax error)"
+                VALIDATION_PASSED=false
+              fi
+            else
+              echo "⚠ $script (not found - may not exist yet)"
+            fi
+          done
+          
+          echo ""
+          
+          # 2. Configuration validation
+          echo "================================================"
+          echo "  2. Configuration Validation"
+          echo "================================================"
+          
+          if [ -f "config.toml.example" ]; then
+            if python3 -c "import toml; toml.load(open('config.toml.example'))" 2>/dev/null; then
+              echo "✓ config.toml.example is valid TOML"
+            else
+              echo "✗ config.toml.example has syntax errors"
+              VALIDATION_PASSED=false
+            fi
+          else
+            echo "✗ config.toml.example not found"
+            VALIDATION_PASSED=false
+          fi
+          
+          echo ""
+          
+          # 3. Module files validation
+          echo "================================================"
+          echo "  3. Module Files Validation"
+          echo "================================================"
+          
+          CORE_MODULES=(
+            ".scaffolding/docs/modules/STYLE_GUIDE.md"
+            ".scaffolding/docs/modules/GIT_WORKFLOW.md"
+            ".scaffolding/docs/modules/ACADEMIC_WRITING.md"
+            ".scaffolding/docs/modules/CITATION_MANAGEMENT.md"
+          )
+          
+          MISSING_MODULES=0
+          for module in "${CORE_MODULES[@]}"; do
+            if [ -f "$module" ]; then
+              echo "✓ $(basename $module)"
+            else
+              echo "✗ $(basename $module) missing"
+              MISSING_MODULES=$((MISSING_MODULES + 1))
+            fi
+          done
+          
+          if [ $MISSING_MODULES -gt 0 ]; then
+            echo "⚠ $MISSING_MODULES core module(s) missing (expected in v2.0.0)"
+            # Don't fail - modules may not all exist yet
+          fi
+          
+          echo ""
+          
+          # 4. Terminology files validation
+          echo "================================================"
+          echo "  4. Terminology Files Validation"
+          echo "================================================"
+          
+          TERM_FILES=(
+            ".scaffolding/docs/terminology/README.md"
+            ".scaffolding/docs/terminology/terminology.md"
+            ".scaffolding/docs/terminology/software/common.md"
+            ".scaffolding/docs/terminology/academic/common.md"
+          )
+          
+          MISSING_TERMS=0
+          for file in "${TERM_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✓ $(basename $(dirname $file))/$(basename $file)"
+            else
+              echo "✗ $(basename $(dirname $file))/$(basename $file) missing"
+              MISSING_TERMS=$((MISSING_TERMS + 1))
+            fi
+          done
+          
+          if [ $MISSING_TERMS -gt 0 ]; then
+            echo "✗ $MISSING_TERMS terminology file(s) missing"
+            VALIDATION_PASSED=false
+          fi
+          
+          echo ""
+          
+          # 5. PR template validation
+          echo "================================================"
+          echo "  5. PR Template Validation"
+          echo "================================================"
+          
+          PR_TEMPLATES=(
+            ".scaffolding/templates/pr/template.en-US.md"
+            ".scaffolding/templates/pr/template.zh-TW.md"
+            ".scaffolding/templates/pr/template.zh-CN.md"
+            ".scaffolding/templates/pr/template.ja-JP.md"
+          )
+          
+          MISSING_PR=0
+          for template in "${PR_TEMPLATES[@]}"; do
+            if [ -f "$template" ]; then
+              echo "✓ $(basename $template)"
+            else
+              echo "✗ $(basename $template) missing"
+              MISSING_PR=$((MISSING_PR + 1))
+            fi
+          done
+          
+          if [ $MISSING_PR -gt 0 ]; then
+            echo "✗ $MISSING_PR PR template(s) missing"
+            VALIDATION_PASSED=false
+          fi
+          
+          echo ""
+          
+          # 6. Documentation validation
+          echo "================================================"
+          echo "  6. Documentation Validation"
+          echo "================================================"
+          
+          REQUIRED_DOCS=(
+            "README.md"
+            "CHANGELOG.md"
+            ".scaffolding/CHANGELOG.md"
+            "docs/adr/0012-module-system-and-conditional-loading.md"
+            "MIGRATION_GUIDE.md"
+          )
+          
+          MISSING_DOCS=0
+          for doc in "${REQUIRED_DOCS[@]}"; do
+            if [ -f "$doc" ]; then
+              echo "✓ $doc"
+            else
+              echo "✗ $doc missing"
+              MISSING_DOCS=$((MISSING_DOCS + 1))
+            fi
+          done
+          
+          if [ $MISSING_DOCS -gt 0 ]; then
+            echo "✗ $MISSING_DOCS required document(s) missing"
+            VALIDATION_PASSED=false
+          fi
+          
+          echo ""
+          
+          # Final summary
+          echo "================================================"
+          echo "  Validation Summary"
+          echo "================================================"
+          echo ""
+          
+          if [ "$VALIDATION_PASSED" = true ]; then
+            echo "✅ All validations passed!"
+            echo ""
+            echo "Scaffolding is in good health 🎉"
+            exit 0
+          else
+            echo "❌ Some validations failed"
+            echo ""
+            echo "Please review the errors above and fix them."
+            exit 1
+          fi
+      
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: |
+            **/*.log
+            **/test-results/**
+          retention-days: 30

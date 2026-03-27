@@ -5,6 +5,139 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-03-27
+
+### Added - Superpowers × ECC Skills Integration (Phase 1A + 1B Complete)
+
+#### Iron Laws v2.0 Skills (10 skills, 50 Iron Laws, ~8,000 lines)
+
+**Philosophy**: Superpowers strictness × ECC domain breadth
+
+**Phase 1A - High Priority** (5 skills, 25 Iron Laws):
+- **backend-patterns-v2.md** (800 lines): NO SYNC CODE IN ASYNC PATHS, NO NAKED PROMISES, NO UNHANDLED ASYNC ERRORS, NO CALLBACK HELL, NO BLOCKING OPERATIONS IN EVENT LOOP
+- **frontend-patterns-v2.md** (920 lines): NO PROP DRILLING BEYOND 2 LEVELS, NO INLINE EVENT HANDLERS IN LOOPS, NO UNKEYED LISTS, NO USEEFFECT DEPENDENCY VIOLATIONS, NO DIRECT STATE MUTATIONS
+- **api-design-v2.md** (620 lines): NO MISMATCHED HTTP METHODS/STATUS CODES, NO NAKED 500 ERRORS, NO PAGINATION WITHOUT HYPERMEDIA, NO VERBS IN URLS, NO UNVERSIONED APIS
+- **security-review-v2.md** (740 lines): NO SECRETS IN CODE/LOGS, NO SQL CONCATENATION, NO EVAL, NO AUTH IN LOCALSTORAGE, NO MISSING INPUT VALIDATION
+- **error-handling-v2.md** (650 lines): NO EMPTY CATCH BLOCKS, NO SWALLOWED ERRORS, NO STRING ERRORS, NO 200 OK WITH ERROR IN BODY, NO UNHANDLED ASYNC REJECTIONS
+
+**Phase 1B - Medium Priority** (5 skills, 25 Iron Laws):
+- **react-hooks-v2.md** (809 lines): NO CONDITIONAL HOOKS, NO STALE CLOSURES IN USEEFFECT, NO MISSING DEPENDENCIES, NO USEEFFECT FOR DERIVED STATE, NO INLINE OBJECT/ARRAY DEPS
+- **database-optimization-v2.md** (841 lines): NO MISSING INDEXES, NO N+1 QUERIES, NO SELECT *, NO TRANSACTIONS WITHOUT ROLLBACK, NO UNBOUNDED QUERIES
+- **component-design-v2.md** (1,011 lines): NO GOD COMPONENTS (>300 lines), NO PROP DRILLING >2 LEVELS, NO MULTIPLE RESPONSIBILITIES, NO MISSING PROPTYPES/TYPES, NO UNCONTROLLED INPUTS
+- **e2e-testing-v2.md** (730 lines): NO HARDCODED WAITS, NO TESTING IMPLEMENTATION DETAILS, NO SHARED STATE BETWEEN TESTS, NO MISSING TEST DATA CLEANUP, NO FLAKY SELECTORS
+- **unit-testing-v2.md** (930 lines): NO TESTING PRIVATE METHODS, NO MOCKING WHAT YOU DON'T OWN, NO ASSERTION ROULETTE, NO TEST INTERDEPENDENCE, NO MISSING EDGE CASES
+
+**Iron Laws Format** (standardized across all skills):
+```markdown
+### N. NO [VIOLATION_PATTERN]
+❌ BAD: [code example]
+✅ GOOD: [code example]
+Violation Handling: [action]
+No Excuses: [3 common rationalizations]
+Enforcement: [mechanism]
+```
+
+#### Documentation & Architecture
+
+- **ADR 0013**: Skills Architecture - Superpowers Strictness × ECC Domain Coverage
+  - Decision rationale: TDD conflict resolution, verification strategy, directory structure
+  - Integration strategy: Delete ECC tdd-workflow, keep Superpowers test-driven-development
+  - Implementation phases: Phase 1A (high-priority), Phase 1B (medium-priority), Phase 2 (low-priority + SDD)
+  
+- **Phase Completion Reports**:
+  - `PHASE_1A_COMPLETION.md` (222 lines): 5 high-priority skills summary
+  - `PHASE_1B_COMPLETION.md` (8,426 lines): 5 medium-priority skills summary
+  
+- **Integration Documentation**:
+  - `MIGRATION_GUIDE_V3.md` (16,221 lines): Complete upgrade guide with backup/rollback
+  - `SKILLS_CONFLICT_ANALYSIS.md` (18,082 lines): TDD and verification conflicts analysis
+  - `V3_INTEGRATION_SUMMARY.md` (11,892 lines): Overall integration strategy
+
+### Changed - Directory Structure Reorganization (Breaking Change)
+
+**Agent Infrastructure**: `.agents/` → `.scaffolding/agents/`
+- Moved all template agent infrastructure (agents/, commands/, skills/, bundles.yaml, workflows.yaml)
+- Kept `.agents/` empty for project-specific agents (only README.md)
+- **Skill Loading Priority**: 1) `.agents/skills/` (project), 2) `.scaffolding/agents/skills/` (template), 3) `~/.config/opencode/skills/` (user)
+
+**Documentation**: `docs/` → `.scaffolding/docs/`
+- Moved all template documentation (PRDs, ADRs, completion reports)
+- Moved all template ADRs (0001-0013) to `.scaffolding/docs/adr/`
+- Kept `docs/` empty for project documentation (README + adr/README)
+- **ADR Numbering**: Template ADRs 0001-0099, Project ADRs 0100+
+
+**AGENTS.md Updates**:
+- Updated all `.agents/` paths to `.scaffolding/agents/` (8 occurrences)
+- Corrected Skill Discovery Paths section (priority order)
+- Updated Available Skills section (template vs project distinction)
+
+**Documentation Added**:
+- `.agents/README.md` - Project agent usage guide
+- `docs/README.md` - Project documentation guide
+- `docs/adr/README.md` - ADR usage guide (numbering rules)
+- `.scaffolding/docs/DIRECTORY_RESTRUCTURE_2026-03-27.md` - Complete change summary
+
+**Rationale** (from ADR 0013):
+- Avoid conflicts when project itself uses AI agents
+- Clear separation: template infrastructure vs project-specific code
+- Consistent with `.scaffolding/` philosophy (all template assets in one place)
+
+### Fixed
+
+- **backend-patterns.md** renamed to **backend-patterns-v2.md** (naming consistency)
+- Skill loading priority order corrected in AGENTS.md (project > template > user)
+- All path references in AGENTS.md updated to reflect new structure
+
+### Migration Guide
+
+**For existing users upgrading from v2.x**:
+
+1. **Backup first**: `cp -r .agents .agents.backup && cp -r docs docs.backup`
+
+2. **Run upgrade script**: `./.scaffolding/scripts/upgrade-to-v3.sh` (will be available)
+
+3. **Manual steps if needed**:
+   ```bash
+   # Move template infrastructure
+   mv .agents/* .scaffolding/agents/
+   rm -rf .agents && mkdir .agents
+   echo "README content" > .agents/README.md
+   
+   # Move template docs
+   mv docs/adr/*.md .scaffolding/docs/adr/
+   # Keep docs/ for project use
+   ```
+
+4. **Verify**: All skills still load correctly (check with `@use skill-name`)
+
+**No breaking changes for**:
+- Skill invocation (same `@use skill-name` syntax)
+- Skill content (all original ECC content preserved in "Implementation Details" sections)
+- OpenCode integration (skills auto-load based on keywords)
+
+**Breaking changes**:
+- Direct file path references to `.agents/` will break (update to `.scaffolding/agents/`)
+- Custom scripts referencing old paths need updates
+
+**See**: `.scaffolding/docs/MIGRATION_GUIDE_V3.md` for complete upgrade instructions
+
+### Metrics
+
+- **Total Skills**: 10 v2.0 skills (100% Phase 1A+1B complete)
+- **Total Iron Laws**: 50 rules (5 per skill)
+- **Total Lines**: ~8,000 lines of transformed skills
+- **Domain Coverage**: Backend (3), Frontend (3), Universal (2), Testing (2)
+- **Documentation**: 5 ADRs, 3 completion reports, 1 migration guide, 4 PRDs
+
+### References
+
+- **ADR 0013**: `.scaffolding/docs/adr/0013-skills-architecture-superpowers-strictness-ecc-coverage.md`
+- **Superpowers**: https://github.com/obra/superpowers (author: Jesse Vincent @obra)
+- **ECC**: https://github.com/affaan-m/everything-claude-code (Anthropic Hackathon 2025 Winner)
+- **OpenSpec**: https://kaochenlong.com/openspec
+
+---
+
 ## [2.2.0] - 2026-03-16
 
 ### Added - Complete Module System Documentation (31/31 Modules, 22,064 Lines)

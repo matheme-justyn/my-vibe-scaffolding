@@ -1,8 +1,11 @@
 ---
 name: backend-patterns
-description: Node.js backend patterns including async patterns, error handling, middleware, database queries, API design, and microservices architecture.
+description: Node.js backend patterns with Iron Laws enforcement - async patterns, error handling, middleware, database queries, API design, and microservices architecture
+version: 2.0.0
 origin: ECC (everything-claude-code)
 adapted_for: OpenCode
+enhanced_with: Superpowers Iron Laws
+last_updated: 2026-03-27
 ---
 
 # Backend Patterns
@@ -33,14 +36,198 @@ User: "Design a scalable backend API"
 **Combines well with**:
 - `api-design` - REST API design patterns
 - `security-review` - Backend security
+- `test-driven-development` - TDD workflow
 
 ---
 
-## Overview
+## Iron Laws (Superpowers 風格)
+
+### 1. NO SYNC CODE IN ASYNC PATHS
+
+```javascript
+// ❌ BAD: Blocks event loop - kills server performance
+async function handler(req, res) {
+  const data = fs.readFileSync('file.txt')  // BLOCKS all other requests
+  res.json({ data })
+}
+
+// ❌ BAD: Sync crypto in async handler
+async function hashPassword(password: string) {
+  return crypto.pbkdf2Sync(password, 'salt', 100000, 64, 'sha512')  // BLOCKS
+}
+
+// ✅ GOOD: Non-blocking async operations
+async function handler(req, res) {
+  const data = await fs.promises.readFile('file.txt', 'utf-8')
+  res.json({ data })
+}
+
+// ✅ GOOD: Async crypto
+async function hashPassword(password: string) {
+  return new Promise((resolve, reject) => {
+    crypto.pbkdf2(password, 'salt', 100000, 64, 'sha512', (err, key) => {
+      if (err) reject(err)
+      else resolve(key.toString('hex'))
+    })
+  })
+}
+```
+
+**違反處理**:
+- 在 code review 階段拒絕 PR
+- 要求刪除同步呼叫，改用 async 版本
+- Build 階段執行 linter 檢查，失敗則阻擋
+
+**不接受藉口**:
+- ❌ "這只是小檔案，很快" → 仍會阻塞 event loop
+- ❌ "只在 startup 執行一次" → 用 dynamic import
+- ❌ "效能差異不大" → 一個請求阻塞，所有請求等待
+- ❌ "這是內部 API" → 內部也要遵守規則
+
+**強制執行**:
+- ESLint: `no-sync` rule（所有 `*Sync` 方法報錯）
+- TypeScript: 標註 async handler type
+- CI: 執行 `eslint --max-warnings 0`
+
+---
+
+### 2. NO NAKED PROMISES (所有 Promise 必須有錯誤處理)
+
+```javascript
+// ❌ BAD: Unhandled promise rejection - 靜默失敗
+async function handler(req, res) {
+  const data = await fetchFromAPI()  // 如果 throw，整個 process 可能 crash
+  res.json({ data })
+}
+
+// ❌ BAD: Promise without await in async function
+async function processData() {
+  saveToDatabase(data)  // 忘記 await，不知道成功與否
+  return "done"
+}
+
+// ✅ GOOD: Try-catch 包裹
+async function handler(req, res) {
+  try {
+    const data = await fetchFromAPI()
+    res.json({ data })
+  } catch (error) {
+    console.error('API fetch failed:', error)
+    res.status(500).json({ error: 'Internal error' })
+  }
+}
+
+// ✅ GOOD: Centralized error handler
+async function handler(req, res) {
+  const data = await fetchFromAPI()  // Throw 會被 middleware 捕捉
+  res.json({ data })
+}
+
+// Error middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ error: 'Internal error' })
+})
+```
+
+**違反處理**:
+- Code review 發現 naked await → 要求加 try-catch
+- 或使用 centralized error middleware（推薦）
+- Runtime: 啟用 `process.on('unhandledRejection')` 監控
+
+**不接受藉口**:
+- ❌ "這個 API 很穩定" → 網路永遠不穩定
+- ❌ "錯誤會往上拋" → 拋到哪？有人捕捉嗎？
+- ❌ "有 global error handler" → 那也要確認每個 promise chain 連接正確
+- ❌ "測試都過了" → 測試不會模擬所有 network failures
+
+**強制執行**:
+- ESLint: `no-floating-promises` (TypeScript ESLint)
+- Runtime監控: 
+  ```javascript
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection:', reason)
+    // 在開發環境 crash，production 記錄
+  })
+  ```
+- CI: 檢查是否有 error middleware
+
+---
+
+### 3. NO UNHANDLED ERRORS (Empty Catch 絕對禁止)
+
+```javascript
+// ❌ BAD: Silent failure - 吞掉錯誤
+try {
+  await updateDatabase(data)
+} catch (error) {
+  // 什麼都不做 - BUG 永遠找不到
+}
+
+// ❌ BAD: Console.log 不是錯誤處理
+try {
+  await criticalOperation()
+} catch (error) {
+  console.log(error)  // 不夠！沒有回應使用者，沒有 alert
+}
+
+// ❌ BAD: Generic error message
+try {
+  await paymentProcess(amount)
+} catch (error) {
+  throw new Error('Something went wrong')  // 沒幫助
+}
+
+// ✅ GOOD: Log + re-throw with context
+try {
+  await updateDatabase(data)
+} catch (error) {
+  console.error('Database update failed:', error)
+  throw new ApiError(500, 'Failed to update database', error)
+}
+
+// ✅ GOOD: Handle specific errors, re-throw unknown
+try {
+  await paymentProcess(amount)
+} catch (error) {
+  if (error.code === 'INSUFFICIENT_FUNDS') {
+    throw new ApiError(400, 'Insufficient funds')
+  }
+  if (error.code === 'CARD_DECLINED') {
+    throw new ApiError(400, 'Card declined')
+  }
+  // Unknown error - log and re-throw
+  console.error('Unexpected payment error:', error)
+  throw new ApiError(500, 'Payment processing failed')
+}
+```
+
+**違反處理**:
+- Code review 發現 empty catch → 立刻拒絕 PR
+- 要求至少: log error + throw or return error response
+- 對於 critical operations: 必須 alert/notify
+
+**不接受藉口**:
+- ❌ "這個錯誤不重要" → 如果不重要，為什麼寫 try-catch？
+- ❌ "只是測試程式碼" → 測試也要 fail loudly
+- ❌ "我知道不會出錯" → 那更不該 try-catch
+- ❌ "會在 logs 裡" → Console.log 不夠，要 proper logging
+
+**強制執行**:
+- ESLint: `no-empty` rule
+- Custom ESLint rule: 檢查 catch block 是否只有 console.log
+- Code review checklist: ✓ All errors handled properly
+- Sentry/監控工具: 設定 alert threshold
+
+---
+
+## Implementation Details (原 ECC 內容)
+
+### Overview
 
 Node.js backend patterns for production-grade server applications.
 
-## When to Activate
+### When to Activate
 
 - Designing REST or GraphQL API endpoints
 - Implementing repository, service, or controller layers
@@ -50,9 +237,9 @@ Node.js backend patterns for production-grade server applications.
 - Structuring error handling and validation for APIs
 - Building middleware (auth, logging, rate limiting)
 
-## API Design Patterns
+### API Design Patterns
 
-### RESTful API Structure
+#### RESTful API Structure
 
 ```typescript
 // ✅ Resource-based URLs
@@ -67,7 +254,7 @@ DELETE /api/markets/:id             # Delete resource
 GET /api/markets?status=active&sort=volume&limit=20&offset=0
 ```
 
-### Repository Pattern
+#### Repository Pattern
 
 ```typescript
 // Abstract data access logic
@@ -101,7 +288,7 @@ class SupabaseMarketRepository implements MarketRepository {
 }
 ```
 
-### Service Layer Pattern
+#### Service Layer Pattern
 
 ```typescript
 // Business logic separated from data access
@@ -130,7 +317,7 @@ class MarketService {
 }
 ```
 
-### Middleware Pattern
+#### Middleware Pattern
 
 ```typescript
 // Request/response processing pipeline
@@ -158,9 +345,9 @@ export default withAuth(async (req, res) => {
 })
 ```
 
-## Database Patterns
+### Database Patterns
 
-### Query Optimization
+#### Query Optimization
 
 ```typescript
 // ✅ GOOD: Select only needed columns
@@ -177,7 +364,7 @@ const { data } = await supabase
   .select('*')
 ```
 
-### N+1 Query Prevention
+#### N+1 Query Prevention
 
 ```typescript
 // ❌ BAD: N+1 query problem
@@ -197,7 +384,7 @@ markets.forEach(market => {
 })
 ```
 
-### Transaction Pattern
+#### Transaction Pattern
 
 ```typescript
 async function createMarketWithPosition(
@@ -235,9 +422,9 @@ END;
 $$;
 ```
 
-## Caching Strategies
+### Caching Strategies
 
-### Redis Caching Layer
+#### Redis Caching Layer
 
 ```typescript
 class CachedMarketRepository implements MarketRepository {
@@ -271,7 +458,7 @@ class CachedMarketRepository implements MarketRepository {
 }
 ```
 
-### Cache-Aside Pattern
+#### Cache-Aside Pattern
 
 ```typescript
 async function getMarketWithCache(id: string): Promise<Market> {
@@ -293,9 +480,9 @@ async function getMarketWithCache(id: string): Promise<Market> {
 }
 ```
 
-## Error Handling Patterns
+### Error Handling Patterns
 
-### Centralized Error Handler
+#### Centralized Error Handler
 
 ```typescript
 class ApiError extends Error {
@@ -345,7 +532,7 @@ export async function GET(request: Request) {
 }
 ```
 
-### Retry with Exponential Backoff
+#### Retry with Exponential Backoff
 
 ```typescript
 async function fetchWithRetry<T>(
@@ -375,9 +562,9 @@ async function fetchWithRetry<T>(
 const data = await fetchWithRetry(() => fetchFromAPI())
 ```
 
-## Authentication & Authorization
+### Authentication & Authorization
 
-### JWT Token Validation
+#### JWT Token Validation
 
 ```typescript
 import jwt from 'jsonwebtoken'
@@ -417,7 +604,7 @@ export async function GET(request: Request) {
 }
 ```
 
-### Role-Based Access Control
+#### Role-Based Access Control
 
 ```typescript
 type Permission = 'read' | 'write' | 'delete' | 'admin'
@@ -460,9 +647,9 @@ export const DELETE = requirePermission('delete')(
 )
 ```
 
-## Rate Limiting
+### Rate Limiting
 
-### Simple In-Memory Rate Limiter
+#### Simple In-Memory Rate Limiter
 
 ```typescript
 class RateLimiter {
@@ -508,9 +695,9 @@ export async function GET(request: Request) {
 }
 ```
 
-## Background Jobs & Queues
+### Background Jobs & Queues
 
-### Simple Queue Pattern
+#### Simple Queue Pattern
 
 ```typescript
 class JobQueue<T> {
@@ -563,9 +750,9 @@ export async function POST(request: Request) {
 }
 ```
 
-## Logging & Monitoring
+### Logging & Monitoring
 
-### Structured Logging
+#### Structured Logging
 
 ```typescript
 interface LogContext {
@@ -627,4 +814,70 @@ export async function GET(request: Request) {
 }
 ```
 
-**Remember**: Backend patterns enable scalable, maintainable server-side applications. Choose patterns that fit your complexity level.
+---
+
+## Anti-Patterns
+
+### Anti-Pattern 1: Callback Hell
+
+**問題**: Nested callbacks 難以閱讀和維護
+
+**範例**:
+```javascript
+// ❌ BAD
+fetchUser(userId, (user) => {
+  fetchPosts(user.id, (posts) => {
+    fetchComments(posts[0].id, (comments) => {
+      // ...
+    })
+  })
+})
+```
+
+**正確做法**: 使用 async/await（Iron Law #1）
+
+### Anti-Pattern 2: Silent Failures
+
+**問題**: 錯誤被吞掉，無法 debug
+
+**範例**: 見 Iron Law #3
+
+### Anti-Pattern 3: Memory Leaks
+
+**問題**: Event listeners 沒清理，timers 沒 clear
+
+**範例**:
+```javascript
+// ❌ BAD
+app.get('/stream', (req, res) => {
+  const interval = setInterval(() => {
+    res.write('data\n')
+  }, 1000)
+  // 沒有 cleanup - connection 斷了也繼續執行
+})
+
+// ✅ GOOD
+app.get('/stream', (req, res) => {
+  const interval = setInterval(() => {
+    res.write('data\n')
+  }, 1000)
+  
+  req.on('close', () => {
+    clearInterval(interval)
+  })
+})
+```
+
+---
+
+## References
+
+- **Origin**: ECC (everything-claude-code) by affaan-m
+- **Enhanced**: Superpowers Iron Laws by Jesse Vincent (@obra)
+- **ADR**: docs/adr/0013-skills-architecture-superpowers-strictness-ecc-coverage.md
+- **Node.js Best Practices**: https://github.com/goldbergyoni/nodebestpractices
+- **ESLint Rules**: https://eslint.org/docs/latest/rules/
+
+---
+
+**Remember**: Backend patterns + Iron Laws = Scalable, maintainable, production-ready server applications. Iron Laws are non-negotiable. ✅

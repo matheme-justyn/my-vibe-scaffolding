@@ -255,7 +255,7 @@ echo ".opencode-data/" >> .gitignore
 
 **版本**: 1.0.0  
 **來源**: [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (Anthropic Hackathon Winner)  
-**文件**: [`.agents/agents/README.md`](./.agents/agents/README.md)
+**文件**: [`.scaffolding/agents/agents/README.md`](./.scaffolding/agents/agents/README.md)
 
 ### 為什麼需要專業化 Agents？
 
@@ -420,7 +420,7 @@ task(subagent_type="security-reviewer", ..., run_in_background=true)
 - 缺乏上下文的提示（"選個資料庫"）
 - 跳過必要審查步驟
 
-**完整指南**: [`.agents/agents/README.md`](./.agents/agents/README.md)
+**完整指南**: [`.scaffolding/agents/agents/README.md`](./.scaffolding/agents/agents/README.md)
 
 ---
 
@@ -428,7 +428,7 @@ task(subagent_type="security-reviewer", ..., run_in_background=true)
 
 **Version**: 1.0.0  
 **Source**: [everything-claude-code](https://github.com/affaan-m/everything-claude-code) (Anthropic Hackathon Winner)  
-**Documentation**: [`.agents/skills/README.md`](./.agents/skills/README.md)
+**Documentation**: [`.scaffolding/agents/skills/README.md`](./.scaffolding/agents/skills/README.md)
 
 ### Why Core Skills?
 
@@ -563,7 +563,7 @@ AGENTS.md automatically loads skills based on these keywords:
 ### Complete Documentation
 
 **Full guides available**:
-- [`.agents/skills/README.md`](./.agents/skills/README.md) - Complete skill documentation
+- [`.scaffolding/agents/skills/README.md`](./.scaffolding/agents/skills/README.md) - Complete skill documentation
 - [`docs/PRD-claude-code-inspired-upgrades.md`](./docs/PRD-claude-code-inspired-upgrades.md) - Integration PRD
 - [`docs/adr/0009-reference-claude-code-architecture.md`](./docs/adr/0009-reference-claude-code-architecture.md) - Architecture decisions
 
@@ -614,7 +614,7 @@ Setup guide: [.scaffolding/docs/MCP_SETUP_GUIDE.md](./.scaffolding/docs/MCP_SETU
 ### AI Development Commands
 
 **Source**: [everything-claude-code](https://github.com/affaan-m/everything-claude-code)  
-**Documentation**: [`.agents/commands/README.md`](./.agents/commands/README.md)
+**Documentation**: [`.scaffolding/agents/commands/README.md`](./.scaffolding/agents/commands/README.md)
 
 These commands provide task-specific workflows combining agents and skills:
 
@@ -771,7 +771,7 @@ These commands help manage OpenCode stability and workflow:
 
 **CRITICAL: AI agents MUST check service availability BEFORE calling external services.**
 
-**Reference**: [`.agents/service-detection.md`](./.agents/service-detection.md) | **ADR**: [0008](./
+**Reference**: [`.scaffolding/agents/service-detection.md`](./.scaffolding/agents/service-detection.md) | **ADR**: [0008](./
 .scaffolding/docs/adr/0008-opencode-config-claude-code-reference.md)
 
 ### Quick Protocol
@@ -850,7 +850,7 @@ Using: {chosen_alternative}
 | **Documentation** | — | `context7_query-docs`, `context7_resolve-library-id` | `context7_query-docs` |
 | **Web Fetch** | — | `webfetch` | `webfetch` (direct URL) |
 
-**Full details**: See [`.agents/service-detection.md`](./.agents/service-detection.md)
+**Full details**: See [`.scaffolding/agents/service-detection.md`](./.scaffolding/agents/service-detection.md)
 
 
 ## Module Loading Protocol
@@ -1201,22 +1201,29 @@ This scaffolding supports the **SKILL.md format** for reusable AI behavior patte
 
 ### Skill Discovery Paths
 
-Skills are loaded from these directories (in order):
+Skills are loaded from these directories (in priority order):
 
 ```
-.agents/skills/           # Project-specific skills (your custom skills)
-.scaffolding/docs/examples/skills/  # Template-provided examples
-~/.config/opencode/skills/       # User-installed skills (superpowers)
+1. .agents/skills/                      # Project-specific skills (highest priority)
+2. .scaffolding/agents/skills/          # Template-provided skills
+3. ~/.config/opencode/skills/           # User-installed skills (superpowers)
 ```
+
+**Priority rule**: Project skills override template skills, template skills override user skills.
 
 ### Available Skills
 
 **Project Skills** (`.agents/skills/`):
+- Empty by default
 - Place project-specific skills here
-- These override template and user skills
+- These override template and user skills with same name
 
-**Template Skills** (`.scaffolding/docs/examples/skills/`):
-- `template-skill/` - Template for creating new skills
+**Template Skills** (`.scaffolding/agents/skills/`):
+- 10 domain-specific skills with Iron Laws (v2.0)
+- Backend: backend-patterns, database-optimization, error-handling
+- Frontend: frontend-patterns, react-hooks, component-design
+- Universal: api-design, security-review
+- Testing: e2e-testing, unit-testing
 
 **User Skills** (`~/.config/opencode/skills/superpowers/`):
 - `brainstorming` - Feature ideation and planning
@@ -1272,7 +1279,7 @@ User: "Add user profile editing"
 
 1. **Copy template:**
    ```bash
-   cp -r .scaffolding/docs/examples/skills/template-skill .agents/skills/my-skill
+   cp -r .scaffolding/docs/examples/skills/template-skill .scaffolding/agents/skills/my-skill
    ```
 
 2. **Edit SKILL.md:**

@@ -1706,3 +1706,124 @@ Breaking changes require users to modify their code/config. If they don't need t
 - After "Use this template": run `./.scaffolding/scripts/init-project.sh`
 - This creates `.template-version` to track which template version you're using
 - See [`.scaffolding/docs/README_GUIDE.md`](./.scaffolding/docs/README_GUIDE.md) for project README guidance
+
+## Spec-Driven Development (SDD) Workflow
+
+**Version**: 1.0.0 (v3.0.0+)  
+**Integration**: OpenSpec + Superpowers TDD
+
+### Overview
+
+SDD provides a structured workflow from ideation to implementation with automatic change tracking.
+
+### Workflow Phases
+
+```
+brainstorming → sdd-propose → sdd-apply → sdd-archive
+```
+
+**Phase 1: Explore** (`brainstorming`)
+- Free-form ideation
+- Requirements gathering
+- Approach discussion
+- **Output**: Informal notes
+
+**Phase 2: Formalize** (`sdd-propose`)
+- Convert brainstorming to OpenSpec format
+- Create proposal.md, design.md, tasks.md
+- **Output**: `.openspec/specs/{feature}/`
+
+**Phase 3: Implement** (`sdd-apply`)
+- Execute spec with **mandatory TDD**
+- Track all changes
+- **Output**: `.openspec/changes/{change-id}/` + production code
+
+**Phase 4: Archive** (`sdd-archive`)
+- Move to archive after PR merge
+- Document completion
+- **Output**: `.openspec/changes/archive/{change-id}/`
+
+### SDD Skills
+
+**sdd-propose** (`.scaffolding/agents/skills/sdd/sdd-propose.md`):
+- Reads brainstorming output
+- Creates OpenSpec structure (proposal, design, tasks)
+- Location: `.openspec/specs/{feature}/`
+
+**sdd-apply** (`.scaffolding/agents/skills/sdd/sdd-apply.md`):
+- **Mandatory TDD**: Always calls `test-driven-development`
+- Tracks changes in `.openspec/changes/{change-id}/`
+- Documents implementation decisions
+
+**sdd-archive** (`.scaffolding/agents/skills/sdd/sdd-archive.md`):
+- Archives after PR merge
+- Creates completion summary
+- Updates spec status
+
+### Configuration
+
+Enable SDD in `config.toml`:
+
+```toml
+[sdd]
+enabled = true  # Default: false (opt-in)
+auto_tracking = true  # Auto-create change tracking
+```
+
+### Usage Example
+
+```
+# Phase 1: Brainstorm
+@use brainstorming
+User: "I want to add user authentication"
+
+# Phase 2: Formalize
+@use sdd-propose
+User: "Create the auth spec"
+# Creates .openspec/specs/user-auth/
+
+# Phase 3: Implement
+@use sdd-apply
+User: "Implement the auth spec"
+# Automatically calls TDD, creates .openspec/changes/20260327-1400-user-auth/
+
+# Phase 4: Archive (after PR merge)
+@use sdd-archive
+User: "PR #123 merged, archive it"
+# Moves to .openspec/changes/archive/
+```
+
+### Key Features
+
+**Change Tracking**: Every implementation tracked in `.openspec/changes/`
+**Mandatory TDD**: `sdd-apply` enforces test-driven development
+**Traceability**: Complete history from idea to deployment
+**Metrics**: Actual vs estimated effort tracking
+
+### Directory Structure
+
+```
+.openspec/
+├── project.md          # Project metadata
+├── specs/              # Formal specifications
+│   └── {feature}/
+│       ├── proposal.md
+│       ├── design.md
+│       ├── tasks.md
+│       └── STATUS.md
+└── changes/            # Implementation tracking
+    ├── {change-id}/    # Active changes
+    └── archive/        # Completed changes
+        └── {change-id}/
+            ├── implementation.md
+            ├── tests.md
+            ├── decisions.md
+            └── COMPLETION.md
+```
+
+### References
+
+- **OpenSpec**: https://kaochenlong.com/openspec
+- **Blog Post**: https://kaochenlong.com/ai-superpowers-skills
+- **Skills Location**: `.scaffolding/agents/skills/sdd/`
+

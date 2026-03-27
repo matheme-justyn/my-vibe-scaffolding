@@ -99,22 +99,68 @@ auto_merge_gitignore = false
 # Working mode: 'scaffolding' or 'project'
 #
 # - scaffolding: You're developing this scaffolding template itself
-#   → Scaffolding ADRs: .template/docs/adr/
-#   → Scaffolding scripts: .template/scripts/
-#   → Scaffolding assets: .template/assets/
+#   → Scaffolding ADRs: .scaffolding/docs/adr/
+#   → Scaffolding scripts: .scaffolding/scripts/
+#   → Scaffolding assets: .scaffolding/assets/
 #   → Keep root docs/, scripts/, assets/ empty or minimal
 #
 # - project: You're using this scaffolding for your project
 #   → Project ADRs: docs/adr/
 #   → Project scripts: scripts/
 #   → Project assets: assets/
-#   → .template/ contains reference examples only
+#   → .scaffolding/ contains reference examples only
 mode = "project"  # Change to 'scaffolding' if developing the scaffolding itself
 
 # Project metadata
 # name = "my-project"
 # description = "Project description"
 # version = "0.1.0"
+
+# Project type determines which domain-specific modules load
+type = "fullstack"  # frontend | backend | fullstack | cli | library | academic | documentation | translation | other
+
+# Project features determine which feature modules load
+features = [
+  # Software Development Features
+  # "api",        # API_DESIGN.md
+  # "database",   # DATABASE_CONVENTIONS.md
+  # "auth",       # AUTH_IMPLEMENTATION.md
+  # "i18n",       # I18N_GUIDE.md
+  # "realtime",   # REALTIME_PATTERNS.md
+  # "upload",     # FILE_HANDLING.md
+  
+  # Academic/Documentation Features
+  # "citation",     # CITATION_MANAGEMENT.md
+  # "literature",   # LITERATURE_REVIEW.md
+  # "translation",  # TRANSLATION_GUIDE.md
+]
+
+# Quality requirements determine which quality modules load
+quality = [
+  # "performance",   # PERFORMANCE_OPTIMIZATION.md
+  # "accessibility", # ACCESSIBILITY.md
+  # "production",    # PRODUCTION_READINESS.md
+]
+
+
+# ==============================================================================
+# Spec-Driven Development (SDD) - OpenSpec Integration (3.0.0+)
+# ==============================================================================
+# Optional workflow: brainstorming → sdd-propose → sdd-apply → sdd-archive
+
+[sdd]
+# Enable SDD workflow (opt-in)
+enabled = false
+
+# Auto-create change tracking when sdd-apply is invoked
+auto_tracking = true
+
+# Change ID format: timestamp-feature-name or uuid
+change_id_format = "timestamp"  # timestamp | uuid
+
+# Archive strategy
+archive_after_merge = true      # Auto-archive when PR merged
+keep_active_changes = 10        # Max active changes before warning
 
 
 # ==============================================================================
@@ -281,33 +327,7 @@ show_reason = true
 # Project Type & Features Configuration (2.0.0+)
 # ==============================================================================
 # Config-driven module system - determines which documentation modules load
-
-[project]
-# Project type determines which domain-specific modules load
-type = "fullstack"  # frontend | backend | fullstack | cli | library | academic | documentation | translation | other
-
-# Project features determine which feature modules load
-features = [
-  # Software Development Features
-  # "api",        # API_DESIGN.md
-  # "database",   # DATABASE_CONVENTIONS.md
-  # "auth",       # AUTH_IMPLEMENTATION.md
-  # "i18n",       # I18N_GUIDE.md
-  # "realtime",   # REALTIME_PATTERNS.md
-  # "upload",     # FILE_HANDLING.md
-  
-  # Academic/Documentation Features
-  # "citation",     # CITATION_MANAGEMENT.md
-  # "literature",   # LITERATURE_REVIEW.md
-  # "translation",  # TRANSLATION_GUIDE.md
-]
-
-# Quality requirements determine which quality modules load
-quality = [
-  # "performance",   # PERFORMANCE_OPTIMIZATION.md
-  # "accessibility", # ACCESSIBILITY.md
-  # "production",    # PRODUCTION_READINESS.md
-]
+# (Moved to [project] section above)
 
 # ==============================================================================
 # Academic Project Settings (2.0.0+)

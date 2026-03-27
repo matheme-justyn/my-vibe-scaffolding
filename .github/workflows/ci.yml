@@ -27,9 +27,9 @@ jobs:
         run: |
           pip install toml pyyaml
       
-      - name: Run all validation scripts
+      - name: Run validation scripts
         run: |
-          echo "Running comprehensive scaffolding validation..."
+          echo "Running v3.0.0 scaffolding validation..."
           echo ""
           
           # Track overall status
@@ -47,6 +47,7 @@ jobs:
             ".scaffolding/scripts/generate-readme.sh"
             ".scaffolding/scripts/bump-version.sh"
             ".scaffolding/scripts/install-hooks.sh"
+            ".scaffolding/scripts/upgrade-to-v3.sh"
           )
           
           for script in "${SCRIPTS[@]}"; do
@@ -58,7 +59,7 @@ jobs:
                 VALIDATION_PASSED=false
               fi
             else
-              echo "⚠ $script (not found - may not exist yet)"
+              echo "⚠ $script (not found)"
             fi
           done
           
@@ -74,6 +75,7 @@ jobs:
               echo "✓ config.toml.example is valid TOML"
             else
               echo "✗ config.toml.example has syntax errors"
+              python3 -c "import toml; toml.load(open('config.toml.example'))" 2>&1
               VALIDATION_PASSED=false
             fi
           else
@@ -83,17 +85,105 @@ jobs:
           
           echo ""
           
-          # 3. Module files validation
+          # 3. v3.0.0 Skills validation
           echo "================================================"
-          echo "  3. Module Files Validation"
+          echo "  3. Skills Validation (v3.0.0)"
           echo "================================================"
           
-          CORE_MODULES=(
-            ".scaffolding/docs/modules/STYLE_GUIDE.md"
-            ".scaffolding/docs/modules/GIT_WORKFLOW.md"
-            ".scaffolding/docs/modules/ACADEMIC_WRITING.md"
-            ".scaffolding/docs/modules/CITATION_MANAGEMENT.md"
+          SKILL_DIRS=(
+            ".scaffolding/agents/skills/backend"
+            ".scaffolding/agents/skills/frontend"
+            ".scaffolding/agents/skills/universal"
+            ".scaffolding/agents/skills/testing"
+            ".scaffolding/agents/skills/sdd"
           )
+          
+          MISSING_SKILLS=0
+          for dir in "${SKILL_DIRS[@]}"; do
+            if [ -d "$dir" ]; then
+              skill_count=$(find "$dir" -name "*.md" -type f | wc -l)
+              echo "✓ $dir ($skill_count skills)"
+            else
+              echo "✗ $dir (not found)"
+              MISSING_SKILLS=$((MISSING_SKILLS + 1))
+            fi
+          done
+          
+          if [ $MISSING_SKILLS -gt 0 ]; then
+            echo "⚠ $MISSING_SKILLS skill directories missing"
+          fi
+          
+          echo ""
+          
+          # 4. Documentation validation
+          echo "================================================"
+          echo "  4. Documentation Validation"
+          echo "================================================"
+          
+          REQUIRED_DOCS=(
+            "README.md"
+            "CHANGELOG.md"
+            ".scaffolding/CHANGELOG.md"
+            ".scaffolding/VERSION"
+            "VERSION"
+            "AGENTS.md"
+            ".scaffolding/docs/MIGRATION_GUIDE_V3.md"
+            ".scaffolding/docs/adr/0013-skills-architecture-superpowers-strictness-ecc-coverage.md"
+          )
+          
+          MISSING_DOCS=0
+          for doc in "${REQUIRED_DOCS[@]}"; do
+            if [ -f "$doc" ]; then
+              echo "✓ $doc"
+            else
+              echo "✗ $doc missing"
+              MISSING_DOCS=$((MISSING_DOCS + 1))
+            fi
+          done
+          
+          if [ $MISSING_DOCS -gt 0 ]; then
+            echo "✗ $MISSING_DOCS required document(s) missing"
+            VALIDATION_PASSED=false
+          fi
+          
+          echo ""
+          
+          # 5. Version sync validation
+          echo "================================================"
+          echo "  5. Version Sync Validation"
+          echo "================================================"
+          
+          if [ -f ".scaffolding/VERSION" ] && [ -f "VERSION" ]; then
+            SCAFFOLD_VERSION=$(cat .scaffolding/VERSION)
+            ROOT_VERSION=$(cat VERSION)
+            if [ "$SCAFFOLD_VERSION" == "$ROOT_VERSION" ]; then
+              echo "✓ Version files in sync: $SCAFFOLD_VERSION"
+            else
+              echo "✗ Version mismatch: .scaffolding/VERSION=$SCAFFOLD_VERSION, VERSION=$ROOT_VERSION"
+              VALIDATION_PASSED=false
+            fi
+          else
+            echo "✗ VERSION files missing"
+            VALIDATION_PASSED=false
+          fi
+          
+          echo ""
+          
+          # Final summary
+          echo "================================================"
+          echo "  Validation Summary"
+          echo "================================================"
+          echo ""
+          
+          if [ "$VALIDATION_PASSED" = true ]; then
+            echo "✅ All validations passed"
+            exit 0
+          else
+            echo "❌ Some validations failed"
+            echo ""
+            echo "Please review the errors above and fix them."
+            exit 1
+          fi
           
           MISSING_MODULES=0
           for module in "${CORE_MODULES[@]}"; do

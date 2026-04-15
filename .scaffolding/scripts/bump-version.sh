@@ -86,6 +86,11 @@ echo -e "${GREEN}✓ 已更新 VERSION 檔案${NC}"
 if [ "$MODE" = "scaffolding" ]; then
   echo "$NEW_VERSION" > .scaffolding/VERSION
   echo -e "${GREEN}✓ 已同步更新 .scaffolding/VERSION（scaffolding mode）${NC}"
+  
+  # 自動重新生成 README（更新 version badge）
+  echo -e "${YELLOW}正在重新生成 README（更新 version badge）...${NC}"
+  bash ./.scaffolding/scripts/generate-readme.sh
+  echo -e "${GREEN}✓ 已更新 README badges${NC}"
 fi
 
 # 提示更新 CHANGELOG.md

@@ -143,6 +143,9 @@ doc/
 # 工作日誌（不 commit）
 .worklog/
 
+# OpenCode Sisyphus 計畫目錄（不 commit）
+.sisyphus/
+
 
 # 模板版本追蹤（從模板建立專案時記錄）
 .template-version.opencode-data/

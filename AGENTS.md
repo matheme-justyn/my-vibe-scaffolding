@@ -110,6 +110,32 @@ YourProject is a [brief project description].
 
 **IMPORTANT: This section is for AI agents (OpenCode, Cursor, Claude). Human users see simplified instructions in README.**
 
+### Core Design Philosophy: Unified Command
+
+**This scaffolding's most important design principle: One command for everything.**
+
+```bash
+# Whether first-time installation or update, AI agents always use:
+./.scaffolding/scripts/init-project.sh
+```
+
+**The script automatically detects context:**
+- **First-time mode** (no `.template-version` file) → Initialize new project
+- **Update mode** (`.template-version` exists) → Update template configuration
+
+**When AI agents should run this command:**
+- User says: "setup project", "initialize", "configure"
+- User says: "update template", "upgrade", "sync template"
+- Missing required files detected (VERSION, git hooks, etc.)
+- User wants latest template features
+- Need to consolidate scattered agent configurations
+
+**Key benefit**: Users and AI agents don't need to remember different commands for different scenarios.
+
+**Design rationale**: This unified interface reduces cognitive load and prevents confusion between "install" vs "update" workflows. The script's auto-detection ensures the correct behavior based on project state.
+
+---
+
 ### Installation & Update (Project Mode)
 
 **Single command handles both first-time setup and updates:**

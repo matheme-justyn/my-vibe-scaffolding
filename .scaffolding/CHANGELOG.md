@@ -5,6 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2026-04-15
+
+### Changed
+
+- **README simplification**: Reduced README from 243 lines to 103 lines for better user experience
+- **Documentation reorganization**: Moved technical details from README to `.scaffolding/docs/FEATURES.md`
+- **AGENTS.md enhancement**: Added "Core Design Philosophy: Unified Command" section to emphasize the unified setup command design
+- **i18n simplification**: Simplified readme translation files (zh-TW and en-US) to focus on quick start
+
+### Added
+
+- `.scaffolding/docs/FEATURES.md` - Comprehensive feature documentation (640 lines, moved from README)
+- `[unified_command]` section in i18n readme translations (zh-TW and en-US)
+- Auto-regenerate README in bump-version.sh to keep version badges in sync
+
+### Fixed
+
+- **Version inconsistency**: README badges now correctly display 3.1.0 (was showing outdated 2.1.0)
+- `.sisyphus/` directory now properly gitignored (OpenCode plan directory)
+- `bump-version.sh` now automatically regenerates README to update version badges
+
+### Documentation
+
+- README now focuses on quick start and core features
+- Technical details preserved in dedicated FEATURES.md
+- Unified command design philosophy now prominently featured in AGENTS.md
+
 ## [3.0.0] - 2026-03-27
 
 ### Added - Superpowers × ECC Skills Integration (Phase 1A + 1B Complete)

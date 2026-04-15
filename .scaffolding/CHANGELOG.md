@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026-04-15
+
+### Added
+
+- **Unified AI Prompt for all scenarios**: README now provides a single prompt for both existing project and new project setup
+- **Automatic scenario detection**: Clear documentation of how `init-project.sh` intelligently detects and handles different situations
+- **Two scenario workflow**: Documented "Scenario A: Existing Project" and "Scenario B: New Project from Template"
+
+### Changed
+
+- **Installation section redesign**: Replaced step-by-step instructions with unified AI prompt approach
+- **Script explanation enhancement**: Added "How the Script Works" section explaining first-time vs update mode
+- **i18n translation updates**: Updated `readme.toml` files (en-US and zh-TW) with new installation and unified_command sections
+
+### Improved
+
+- **User experience**: One prompt works for all use cases - users don't need to know if they're in scenario A or B
+- **AI agent clarity**: AI agents can now understand and execute the unified prompt regardless of project state
+- **Documentation clarity**: Clear explanation of automatic detection logic and what happens in each mode
+
 ## [3.1.0] - 2026-04-15
 
 ### Changed

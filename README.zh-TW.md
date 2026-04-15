@@ -4,7 +4,7 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-3.1.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 [English](./README.md) | 繁體中文
@@ -35,33 +35,54 @@
 
 ## 🚀 安裝
 
-1. 在 GitHub 點擊 **"Use this template"** 建立你的 repository
-2. Clone 你的新 repository
-3. 開始使用 — 模板已經就緒
+**統一 AI Prompt（適用所有情境）：**
 
-**注意**：首次設定在需要時會由 AI agent 自動處理
+```
+請從 https://github.com/matheme-justyn/my-vibe-scaffolding 導入鷹架系統到目前專案
+```
+
+**AI 會自動偵測情境並處理：**
+
+### 情境 A：現有專案導入鷹架
+
+如果目前目錄已有專案檔案（`.git/`、`package.json` 等）：
+1. 從 GitHub 下載 `.scaffolding/` 目錄
+2. 下載 `AGENTS.md`、`config.toml.example`
+3. 執行 `./.scaffolding/scripts/init-project.sh`
+4. 腳本偵測無 `.template-version` → **首次安裝模式**
+
+### 情境 B：建立全新專案
+
+如果要建立全新專案：
+1. 在 GitHub 點擊 **"Use this template"**
+2. Clone 你的新 repository
+3. 執行 `./.scaffolding/scripts/init-project.sh`
+4. 腳本偵測無 `.template-version` → **首次安裝模式**
+
+**核心優勢**：一個 prompt 搞定所有情境 — AI 自動處理剩下的
 
 ---
 
-## ⚙️ 統一設定命令
+## ⚙️ 腳本運作方式
 
-**一個命令搞定所有事：**
+`init-project.sh` 腳本會智慧偵測你的情況：
 
-```bash
-./.scaffolding/scripts/init-project.sh
-```
+**首次模式**（無 `.template-version` 檔案）：
+- 詢問專案資訊
+- 建立 VERSION、README.md、LICENSE
+- 設定 Git hooks
+- 建立 `.template-version` 追蹤使用的模板版本
 
-**腳本會自動判斷你的情況：**
-- **首次模式**（無 `.template-version` 檔案）→ 初始化新專案
-- **更新模式**（`.template-version` 已存在）→ 更新模板配置
+**更新模式**（`.template-version` 已存在）：
+- 比對目前版本與模板版本
+- 整併 agent 配置（`.claude`、`.roo` → `.agents`）
+- 重新安裝 Git hooks（可能有新功能）
+- 更新 `.template-version`
 
-**何時執行此命令：**
-- 說「setup project」、「initialize」、「configure」
-- 說「update template」、「upgrade」、「sync template」
-- 偵測到缺少必要檔案（VERSION、git hooks 等）
-- 想要最新的模板功能
-
-**核心優勢**：你和 AI agent 不需要記住不同情境的不同命令。
+**何時手動執行：**
+- 從 template 建立新專案後
+- 想要更新模板功能時
+- 需要整併分散的 agent 配置時
 
 ---
 

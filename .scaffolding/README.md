@@ -4,7 +4,7 @@
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-3.1.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 English | [繁體中文](./README.zh-TW.md)
@@ -35,33 +35,54 @@ Based on psychologist Lev Vygotsky's scaffolding theory — provides structure w
 
 ## 🚀 Installation
 
-1. Click **"Use this template"** on GitHub to create your repository
-2. Clone your new repository
-3. Start using — the template is ready out of the box
+**Unified AI Prompt (Works for All Scenarios):**
 
-**Note**: First-time setup will be handled automatically by AI agent when needed
+```
+Apply scaffolding from https://github.com/matheme-justyn/my-vibe-scaffolding to current project
+```
+
+**AI will automatically detect and handle:**
+
+### Scenario A: Existing Project
+
+If current directory has project files (`.git/`, `package.json`, etc.):
+1. Download `.scaffolding/` directory from GitHub
+2. Download `AGENTS.md`, `config.toml.example`
+3. Run `./.scaffolding/scripts/init-project.sh`
+4. Script detects no `.template-version` → **First-time mode**
+
+### Scenario B: New Project from Template
+
+If creating a brand new project:
+1. Click **"Use this template"** on GitHub
+2. Clone your new repository
+3. Run `./.scaffolding/scripts/init-project.sh`
+4. Script detects no `.template-version` → **First-time mode**
+
+**Key benefit**: One prompt for all scenarios — AI handles the rest
 
 ---
 
-## ⚙️ Unified Setup Command
+## ⚙️ How the Script Works
 
-**One command for everything:**
+The `init-project.sh` script intelligently detects your situation:
 
-```bash
-./.scaffolding/scripts/init-project.sh
-```
+**First-time mode** (no `.template-version` file):
+- Asks for project information
+- Creates VERSION, README.md, LICENSE
+- Sets up Git hooks
+- Creates `.template-version` to track which template version you're using
 
-**The script automatically detects your situation:**
-- **First-time mode** (no `.template-version` file) → Initialize new project
-- **Update mode** (`.template-version` exists) → Update template configuration
+**Update mode** (`.template-version` exists):
+- Compares current version with template version
+- Consolidates agent configs (`.claude`, `.roo` → `.agents`)
+- Reinstalls Git hooks (may have new features)
+- Updates `.template-version`
 
-**When to run this command:**
-- User says: "setup project", "initialize", "configure"
-- User says: "update template", "upgrade", "sync template"
-- Missing required files detected (VERSION, git hooks, etc.)
-- User wants latest template features
-
-**Key benefit**: You and AI agents don't need to remember different commands for different scenarios.
+**When to run manually:**
+- After cloning new project from template
+- When you want to update template features
+- When consolidating scattered agent configurations
 
 ---
 

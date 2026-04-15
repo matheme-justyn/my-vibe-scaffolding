@@ -24,14 +24,14 @@ generate_readme_en() {
     local output_file="$PROJECT_ROOT/README.md"
     local toml_file="$PROJECT_ROOT/.scaffolding/i18n/locales/en-US/readme.toml"
     
-    cat > "$output_file" <<'EOF'
+    cat > "$output_file" <<EOF
 <div align="center">
 
 <img src="./.scaffolding/assets/images/20260225_vibe-scaffolding-logo.png" alt="Vibe Scaffolding Logo" width="400"/>
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-${TEMPLATE_VERSION}-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 English | [繁體中文](./README.zh-TW.md)
@@ -53,7 +53,7 @@ Based on psychologist Lev Vygotsky's scaffolding theory — provides structure w
 
 ### Core Features
 
-- 🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude
+- 🤖 **AI Agent Integration** - \`AGENTS.md\` + Skills system for OpenCode/Cursor/Claude
 - 📦 **Version Management** - Pre-push hooks enforce version updates
 - 🌐 **Multi-language** - BCP 47 i18n for documentation
 - 🛠️ **Smart Setup** - First-time setup handled automatically by AI agent
@@ -74,13 +74,13 @@ Based on psychologist Lev Vygotsky's scaffolding theory — provides structure w
 
 **One command for everything:**
 
-```bash
+\`\`\`bash
 ./.scaffolding/scripts/init-project.sh
-```
+\`\`\`
 
 **The script automatically detects your situation:**
-- **First-time mode** (no `.template-version` file) → Initialize new project
-- **Update mode** (`.template-version` exists) → Update template configuration
+- **First-time mode** (no \`.template-version\` file) → Initialize new project
+- **Update mode** (\`.template-version\` exists) → Update template configuration
 
 **When to run this command:**
 - User says: "setup project", "initialize", "configure"
@@ -137,14 +137,14 @@ generate_readme_zh() {
     local output_file="$PROJECT_ROOT/README.zh-TW.md"
     local toml_file="$PROJECT_ROOT/.scaffolding/i18n/locales/zh-TW/readme.toml"
     
-    cat > "$output_file" <<'EOF'
+    cat > "$output_file" <<EOF
 <div align="center">
 
 <img src="./.scaffolding/assets/images/20260225_vibe-scaffolding-logo.png" alt="Vibe Scaffolding Logo" width="400"/>
 
 # My Vibe Scaffolding
 
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](./.scaffolding/VERSION)
+[![Version](https://img.shields.io/badge/version-${TEMPLATE_VERSION}-blue.svg)](./.scaffolding/VERSION)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
 
 [English](./README.md) | 繁體中文
@@ -166,7 +166,7 @@ generate_readme_zh() {
 
 ### 核心特色
 
-- 🤖 **AI Agent 整合** - `AGENTS.md` + Skills 系統支援 OpenCode/Cursor/Claude
+- 🤖 **AI Agent 整合** - \`AGENTS.md\` + Skills 系統支援 OpenCode/Cursor/Claude
 - 📦 **版本管理** - Pre-push hooks 強制執行版本更新
 - 🌐 **多語言支援** - BCP 47 i18n 文件國際化
 - 🛠️ **智慧設定** - AI agent 自動處理首次設定
@@ -187,13 +187,13 @@ generate_readme_zh() {
 
 **一個命令搞定所有事：**
 
-```bash
+\`\`\`bash
 ./.scaffolding/scripts/init-project.sh
-```
+\`\`\`
 
 **腳本會自動判斷你的情況：**
-- **首次模式**（無 `.template-version` 檔案）→ 初始化新專案
-- **更新模式**（`.template-version` 已存在）→ 更新模板配置
+- **首次模式**（無 \`.template-version\` 檔案）→ 初始化新專案
+- **更新模式**（\`.template-version\` 已存在）→ 更新模板配置
 
 **何時執行此命令：**
 - 說「setup project」、「initialize」、「configure」

@@ -6,17 +6,23 @@ language_tag = "en-US"
 language_name = "English (United States)"
 language_native = "English (US)"
 
+[header]
+title = "My Vibe Scaffolding"
+tagline = "AI-driven project scaffolding template"
+version_badge = "Version"
+license_badge = "License"
+
 [concept]
-title = "Concept & Inspiration"
-vygotsky_title = "Vygotsky's Scaffolding Theory"
-vygotsky_desc = "**Scaffolding theory** by psychologist Lev Vygotsky: temporary support structures help learners progress from current capability to their Zone of Proximal Development (ZPD). Once learners grow, the scaffolding is gradually removed."
-vibe_coding_title = "Vibe Coding = Scaffolding for Development"
-vibe_coding_desc = "**Vibe Coding embodies this concept:**"
-vibe_ai = "🪧 **AI as Scaffolding** — Build foundations quickly, follow best practices"
-vibe_template = "🛠️ **Template as Structure** — Pre-designed files, conventions, workflows"
-vibe_growth = "📈 **Progressive Growth** — Customize, adjust, develop your own style"
-vibe_removable = "🔄 **Removability** — Remove or modify when no longer needed"
-framework_desc = "A **growth-oriented learning and development framework** that progressively improves your development skills with AI assistance."
+title = "What is This?"
+description = "**AI-driven project scaffolding template** for quick project setup with best practices."
+theory_desc = "Based on psychologist Lev Vygotsky's scaffolding theory — provides structure when you need it, remove it when you don't."
+
+[core_features]
+title = "Core Features"
+ai_integration = "🤖 **AI Agent Integration** - `AGENTS.md` + Skills system for OpenCode/Cursor/Claude"
+version_mgmt = "📦 **Version Management** - Pre-push hooks enforce version updates"
+i18n = "🌐 **Multi-language** - BCP 47 i18n for documentation"
+smart_setup = "🛠️ **Smart Setup** - First-time setup handled automatically by AI agent"
 
 [installation]
 title = "Installation"
@@ -25,177 +31,36 @@ step2 = "2. Clone your new repository"
 step3 = "3. Start using — the template is ready out of the box"
 note = "**Note**: First-time setup will be handled automatically by AI agent when needed"
 
-[whats_new_v2]
-title = "What's New in v2.0.0"
-intro = "Major upgrade with Module System, Academic Support, and enhanced AI workflows:"
+[unified_command]
+title = "Unified Setup Command"
+description = "Use the same command for both installation and updates:"
+command = "./.scaffolding/scripts/init-project.sh"
+auto_detect = "The script automatically detects your situation and runs the correct workflow:
+- **First-time mode** (no `.template-version` file) → Initialize new project
+- **Update mode** (`.template-version` exists) → Update template configuration"
+when_to_run = "**When AI agents should run this command:**
+- User says: \"setup project\", \"initialize\", \"configure\"
+- User says: \"update template\", \"upgrade\", \"sync template\"
+- Missing required files detected (VERSION, git hooks, etc.)
+- User wants latest template features"
 
-module_system_title = "### 📚 Module System"
-module_system_desc = "Config-driven conditional documentation loading:"
-module_system_item1 = "- **31 modules** organized by domain (frontend/backend/fullstack/academic)"
-module_system_item2 = "- **6 core modules** always loaded: STYLE_GUIDE, GIT_WORKFLOW, ACADEMIC_WRITING, CITATION_MANAGEMENT, CONTEXT_FILE, AGENTS"
-module_system_item3 = "- **25 conditional modules** loaded based on `config.toml` project type"
-module_system_item4 = "- **Terminology system**: 183 standardized terms across software/academic domains"
-module_system_item5 = "- **Hierarchical loading**: Universal → Domain-specific → Custom overrides"
+[documentation]
+title = "Documentation"
+features = "📖 **[Full Features](./.scaffolding/docs/FEATURES.md)** - v2.0.0 technical details"
+agents = "🤖 **[AGENTS.md](./AGENTS.md)** - AI agent instructions and conventions"
+changelog = "📝 **[CHANGELOG.md](./.scaffolding/CHANGELOG.md)** - Version history"
 
-academic_title = "### 🎓 Academic Project Support"
-academic_desc = "First-class support for research and academic writing:"
-academic_item1 = "- **Citation styles**: APA, MLA, Chicago, IEEE, ACM"
-academic_item2 = "- **Field-specific terminology**: Computer Science, Engineering, Social Science, Humanities"
-academic_item3 = "- **Academic writing standards**: Research methodology, literature review, thesis structure"
-academic_item4 = "- **ACADEMIC_WRITING.md** (777 lines): Complete academic writing guide"
-academic_item5 = "- **CITATION_MANAGEMENT.md** (741 lines): Citation and reference management"
+[tech_stack]
+title = "Tech Stack"
+description = "Why these technologies?"
+opencode = "**OpenCode** (Open-source AI) - 75+ models, CLI-first | Avoid vendor lock-in"
+agents_md = "**AGENTS.md Standard** - Cross-tool compatible | AI understands project conventions"
+skills = "**Skills System** - Reusable workflows | Encode best practices"
+bundles = "**Bundles & Workflows** - Role-based collections | Quick context loading"
+superpowers = "We use [superpowers](https://github.com/ohmyopencode/superpowers) - community-driven AI workflows."
 
-pr_templates_title = "### 🌐 Multi-Language PR Templates"
-pr_templates_desc = "Smart pull request templates with language detection:"
-pr_templates_item1 = "- **4 languages**: English, Traditional Chinese, Simplified Chinese, Japanese"
-pr_templates_item2 = "- **Auto-detection**: Uses `config.toml` primary language setting"
-pr_templates_item3 = "- **Custom instructions**: Language-specific contribution guidelines"
-pr_templates_item4 = "- **Script**: `.scaffolding/scripts/generate-pr-template.sh`"
-
-infrastructure_title = "### 🛠️ Enhanced Infrastructure"
-infrastructure_desc = "New tools for project setup and configuration:"
-infrastructure_item1 = "- **configure-project-type.sh** (377 lines): Interactive project type selector"
-infrastructure_item2 = "- **ADR 0012** (655 lines): Complete Module System architecture documentation"
-infrastructure_item3 = "- **MIGRATION_GUIDE.md** (245 lines): Upgrade guide from 1.x to 2.0.0"
-infrastructure_item4 = "- **Module Loading Protocol** in AGENTS.md: AI agent conditional loading guide"
-
-documentation_title = "### 📖 Core Module Documentation"
-documentation_desc = "4 high-priority modules complete (26 low-priority modules planned for 2.1.x):"
-documentation_item1 = "- **STYLE_GUIDE.md** (838 lines): Universal code style guide"
-documentation_item2 = "- **GIT_WORKFLOW.md** (855 lines): Git workflow, commits, PR standards"
-documentation_item3 = "- **ACADEMIC_WRITING.md** (777 lines): Academic writing guidelines"
-documentation_item4 = "- **CITATION_MANAGEMENT.md** (741 lines): Citation and reference management"
-
-quick_start_title = "### 🚀 Quick Start with v2.0.0"
-quick_start_code = """```bash
-# 1. Set up project type (interactive)
-./.scaffolding/scripts/configure-project-type.sh
-
-# 2. Configure your preferences in config.toml
-# For academic projects, set:
-#   [academic]
-#   citation_style = \"apa\"
-#   field = \"computer_science\"
-
-# 3. Generate PR template (auto-detects language)
-./.scaffolding/scripts/generate-pr-template.sh
-
-# 4. Start coding - AI agent will load relevant modules automatically
-```"""
-
-migration_note = "**Upgrading from 1.x?** See [MIGRATION_GUIDE.md](./MIGRATION_GUIDE.md) for detailed instructions."
-[files_included]
-title = "Included Files"
-description = "This template includes the following files and directory structure:"
-core_configs = "### Core Configuration Files"
-github_templates = "### GitHub Templates"
-documentation = "### Documentation"
-
-[file_descriptions]
-agents_md = "**`AGENTS.md`** - Primary instruction document for OpenCode AI agent, defining project conventions, coding practices, and workflows"
-opencode_json = "**`opencode.json`** - OpenCode project-level configuration file, where you can add project-specific MCP servers"
-gitignore = "**`.gitignore`** - Universal Git ignore rules, including common OS, editor, and language artifacts"
-editorconfig = "**`.editorconfig`** - Unified editor settings (indentation, encoding, line endings, etc.)"
-env_example = "**`.env.example`** - Environment variables example file, provides structure without real values"
-version = "**`VERSION`** - Current template version number (semantic versioning)"
-changelog = "**`CHANGELOG.md`** - Version change history"
-template_sync = "**`TEMPLATE_SYNC.md`** - Template update synchronization guide"
-bug_report = "**`.github/ISSUE_TEMPLATE/bug_report.md`** - Bug report issue template"
-feature_request = "**`.github/ISSUE_TEMPLATE/feature_request.md`** - Feature request issue template"
-pr_template = "**`.github/pull_request_template.md`** - Pull Request template"
-ci_placeholder = "**`.github/workflows/ci-placeholder.yml`** - GitHub Actions CI workflow placeholder file"
-adr_example = "**`docs/adr/0001-record-architecture-decisions.md`** - First ADR example, explaining why we use ADR"
-
-[language_support]
-title = "Language Support"
-programming_title = "💻 Programming Language Support"
-programming_location = "**Location:** `languages/` directory"
-programming_desc = "This template includes development environment configuration modules for multiple **programming languages**, each containing the language's toolchain, linters, formatters, and best practices."
-programming_supported = "**Supported Programming Languages:**"
-programming_go = "**Go** - golangci-lint, Makefile, go.mod"
-programming_python = "**Python** - pyproject.toml, .python-version"
-programming_typescript = "**TypeScript** - tsconfig.json, ESLint, package.json"
-programming_rust = "**Rust** - Cargo.toml, rust-toolchain.toml"
-programming_see_more = "For detailed usage, see the \"🌐 Language Support\" section below."
-natural_title = "🌐 Natural Language Support (i18n)"
-natural_location = "**Location:** `i18n/` directory"
-natural_standard = "**Standard:** **BCP 47 (RFC 5646)** - IETF Language Tags"
-natural_desc = "This template supports multiple **natural languages** (human languages) for documentation and templates, using BCP 47 language tags for precise language identification."
-natural_examples_title = "**BCP 47 Language Tag Examples:**"
-natural_zh_tw = "`zh-TW` - Traditional Chinese (Taiwan)"
-natural_zh_hk = "`zh-HK` - Traditional Chinese (Hong Kong)"
-natural_zh_cn = "`zh-CN` - Simplified Chinese (China)"
-natural_en_us = "`en-US` - English (United States)"
-natural_en_gb = "`en-GB` - English (United Kingdom)"
-natural_ja_jp = "`ja-JP` - Japanese (Japan)"
-natural_use_cases = "**Use Cases:**"
-natural_use_desc = "Each user can set their preferred natural language to switch AGENTS.md, README, GitHub templates, etc. to that language, while code remains in English to ensure seamless team collaboration."
-natural_available = "**Available Locales:**"
-natural_en_us_status = "✅ `en-US` - English (US) - Base language"
-natural_zh_tw_status = "✅ `zh-TW` - Traditional Chinese (Taiwan)"
-natural_zh_hk_status = "🔜 `zh-HK` - Traditional Chinese (Hong Kong) - Planned"
-natural_zh_cn_status = "🔜 `zh-CN` - Simplified Chinese (China) - Planned"
-natural_ja_jp_status = "🔜 `ja-JP` - Japanese (Japan) - Planned"
-natural_details = "For detailed setup, see [`i18n/README.md`](./i18n/README.md)."
-natural_reference = "**Reference Standard:**"
-natural_rfc = "[BCP 47 / RFC 5646 - Tags for Identifying Languages](https://www.rfc-editor.org/rfc/rfc5646.html)"
-natural_iana = "[IANA Language Subtag Registry](https://www.iana.org/assignments/language-subtag-registry)"
-natural_w3c = "[W3C Language Tags in HTML and XML](https://www.w3.org/International/articles/language-tags/)"
-
-[deep_language_config]
-title = "Deep Language Configuration Modules"
-outofbox_title = "### Out-of-the-box Support"
-outofbox_desc = "This template's core files (`.gitignore`, `.editorconfig`) include basic support for:"
-outofbox_go = "**Go** - Modern Go development"
-outofbox_python = "**Python** - Python 3.x projects"
-outofbox_typescript = "**TypeScript** - TypeScript/Node.js applications"
-outofbox_rust = "**Rust** - Rust systems programming"
-deep_title = "### Deep Language Configuration Modules"
-deep_desc = "The `languages/` directory provides **deep configuration modules** for each language, including language-specific linters, formatters, build tools, and examples:"
-usage_title = "**Usage:**"
-usage_step1 = "1. Choose your language directory"
-usage_step2 = "2. Refer to the `README.md` in that directory"
-usage_step3 = "3. Copy required config files to project root"
-usage_step4 = "4. Customize configs for your project needs"
-example_title = "**Example (TypeScript):**"
-details_desc = "For detailed language configuration instructions and best practices, refer to the `README.md` in each language directory."
-
-[coding_conventions]
-title = "Coding Conventions"
-test_first = "Always write tests first (TDD)"
-docstring = "All functions must have docstrings and type annotations"
-no_overengineering = "Avoid over-engineering"
-commit_chinese = "Commit messages in Traditional Chinese"
-see_agents = "For detailed conventions, see `AGENTS.md`."
-
-[version_management]
-title = "Version Management"
-description = "This template follows [Semantic Versioning 2.0.0](https://semver.org/) for version management."
-current_version = "**View current version**: `cat VERSION`"
-version_history = "**View version history**: See [CHANGELOG.md](./CHANGELOG.md)"
-sync_updates = "**Sync template updates**: See [TEMPLATE_SYNC.md](./TEMPLATE_SYNC.md)"
-how_to_sync_title = "### How to Sync Template Updates to Existing Projects?"
-how_to_sync_desc = "If you've created a project with an older version, when the template releases a new version, you can selectively introduce new features to your project."
-how_to_sync_details = "For detailed synchronization methods, see [TEMPLATE_SYNC.md](./TEMPLATE_SYNC.md), which supports:"
-sync_manual = "✅ Selective manual sync (recommended)"
-sync_git_remote = "✅ Track using Git Remote"
-sync_full_diff = "✅ Full difference comparison"
-
-[use_cases]
-title = "Use Cases"
-description = "This template is suitable for:"
-ai_assisted = "Projects requiring AI-assisted development"
-quality_focused = "Projects emphasizing code quality and documentation"
-tdd_adoption = "Projects adopting Test-Driven Development (TDD)"
-adr_needed = "Projects needing to record architecture decisions"
-
-[resources]
-title = "Resources"
-opencode_docs = "[OpenCode Official Documentation](https://github.com/OpenCodeProject/opencode)"
-adr_site = "[Architecture Decision Records (ADR)](https://adr.github.io/)"
-semver = "[Semantic Versioning](https://semver.org/)"
-keep_changelog = "[Keep a Changelog](https://keepachangelog.com/en/1.0.0/)"
-
-[license]
-title = "License"
-description = "This template is licensed under the MIT License. You are free to use, modify, and distribute."
+[footer]
+tagline = "Based on Vygotsky's Scaffolding Theory | Powered by AI | For Developers"
+links_docs = "Documentation"
+links_changelog = "Changelog"
+links_github = "GitHub"
